@@ -7,6 +7,10 @@ class ControllerKelas extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model(['Model','Kelas']);
+        $username = $this->session->username;
+        if($username == null){
+            redirect('');
+        }
 	} 
 
 	public function index()

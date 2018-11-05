@@ -53,6 +53,11 @@ $route['default_controller'] = 'controllerfrontend';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
+//login
+$route['login'] = 'ControllerLogin';
+$route['login/auth'] = 'ControllerLogin/auth'; 
+$route['login/logout'] = 'ControllerLogin/logout'; 
+
 //admin
 $route['dashboard'] = 'ControllerDashboard';
 

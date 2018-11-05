@@ -17,7 +17,7 @@ class Model extends CI_Model {
 	//untuk login
 	public function auth($username,$password)
 	{
-   		$query = "SELECT * FROM petugas WHERE UPPER(username)=".$this->db->escape(strtoupper(stripslashes(strip_tags(htmlspecialchars($username,ENT_QUOTES)))))." AND password=".$this->db->escape(stripslashes(strip_tags(htmlspecialchars($password,ENT_QUOTES))));
+   		$query = "SELECT * FROM admin WHERE UPPER(username)=".$this->db->escape(strtoupper(stripslashes(strip_tags(htmlspecialchars($username,ENT_QUOTES)))))." AND password=".$this->db->escape(stripslashes(strip_tags(htmlspecialchars($password,ENT_QUOTES))));
    		$result = $this->db->query($query);
    		return $result->row();
 	}

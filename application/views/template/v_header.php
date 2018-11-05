@@ -102,7 +102,7 @@ License: You must have a valid license purchased only from themeforest(the above
 						<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
 						<img alt="" class="img-circle" src="<?php echo base_url('assets/admin/layout2/img/avatar3_small.jpg')?>"/>
 						<span class="username username-hide-on-mobile">
-						Nick </span>
+						<?php echo $this->session->username; ?> </span>
 						<i class="fa fa-angle-down"></i>
 						</a>
 						<ul class="dropdown-menu dropdown-menu-default">
@@ -133,7 +133,7 @@ License: You must have a valid license purchased only from themeforest(the above
 								<i class="icon-lock"></i> Lock Screen </a>
 							</li>
 							<li>
-								<a href="login.html">
+								<a href="<?php echo site_url('login/logout') ?>">
 								<i class="icon-key"></i> Log Out </a>
 							</li>
 						</ul>
