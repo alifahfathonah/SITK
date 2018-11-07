@@ -1,32 +1,9 @@
 <!-- BEGIN CONTENT -->
 <div class="page-content-wrapper">
-	<div class="page-content">
-		<!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
-		<div class="modal fade" id="portlet-config" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-						<h4 class="modal-title">Modal title</h4>
-					</div>
-					<div class="modal-body">
-						 Widget settings form goes here
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn blue">Save changes</button>
-						<button type="button" class="btn default" data-dismiss="modal">Close</button>
-					</div>
-				</div>
-				<!-- /.modal-content -->
-			</div>
-			<!-- /.modal-dialog -->
-		</div>
-		<!-- /.modal -->
-		<!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
-			
+	<div class="page-content">			
 		<!-- BEGIN PAGE HEADER-->
 		<h3 class="page-title">
-		Kelas
+		Jenis Pembayaran
 		</h3>
 		<div class="page-bar">
 			<ul class="page-breadcrumb">
@@ -40,7 +17,7 @@
 					<i class="fa fa-angle-right"></i>
 				</li>
 				<li>
-					<a href="<?php echo site_url('kelas') ?>">Kelas</a>
+					<a href="<?php echo site_url('jenis_pembayaran') ?>">Jenis Pembayaran</a>
 				</li>
 			</ul>
 		</div>
@@ -52,18 +29,19 @@
 				<div class="portlet box green">
 					<div class="portlet-title">
 						<div class="caption">
-							<button class="btn btn-default" onclick="tambahKelas()"><i class="fa fa-plus"></i> Tambah Data Kelas</button>
+							<button class="btn btn-default" onclick="tambahJenis()"><i class="fa fa-plus"></i> Tambah Data Jenis Pembayaran</button>
+
 						</div>
 					</div>
 						
 					<div class="portlet-body flip-scroll">
 						<table id="table" class="table table-bordered table-striped table-condensed flip-content">
 							<thead class="flip-content">
-							<tr>
-								<th width="20%"><center>ID Kelas</center></th>
-								<th width="50%"><center>Nama</center></th>
-								<th width="30%"><center>Action</center></th>
-							</tr>
+								<tr>
+									<th width="20%"><center>ID Jenis Pembayaran</center></th>
+									<th width="50%"><center>Nama Jenis Pembayaran</center></th>
+									<th width="50%"><center>Action</center></th>
+								</tr>
 							</thead>
 							<tbody>
 							</tbody>
@@ -79,7 +57,7 @@
 <!-- END CONTENT -->
 
 <!-- Modal -->
-<div class="modal fade" id="ModaltambahKelas" tabindex="-1" role="basic" aria-hidden="true">
+<div class="modal fade" id="ModaltambahJenis" tabindex="-1" role="basic" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -87,45 +65,45 @@
 			</div>
 			<div class="modal-body">
 				
-
 				<div class="portlet-body form">
 					<form id="form" class="form-horizontal">
 						<div class="form-body">				
-						
 							<div class="form-group">
-								<label><b>ID Kelas</b></label>
-								<input type="text" name="id_kelas" class="form-control" readonly>
+								<label><b>ID Jenis Pembayaran</b></label>
+								<input type="text" name="id_jenis" class="form-control" readonly>
 							</div>
-						
+					
 							<div class="form-group">
-								<label><b>Nama Kelas</b></label>
-								<input type="text" name="nm_kelas" placeholder="Nama Kelas" class="form-control">
+								<label><b>Nama Jenis Pembayaran</b></label>
+								<input type="text" name="nm_jenis" placeholder="Nama Jenis Pembayaran" class="form-control">
+								<span class="help-block" style="color: red">&nbsp Wajib Diisi </span>
 							</div>
-						
 						</div>
 					</form>
 				</div>
-
 			</div>
+			
 			<div class="modal-footer">
 				<button type="button" class="btn default" data-dismiss="modal">Close</button>
 				<button type="button" id="btn_simpan" onclick="simpan()" class="btn blue">Save</button>
 			</div>
+		
 		</div>
 		<!-- /.modal-content -->
 	</div>
 	<!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
-
+	
 <script type="text/javascript">
 
 var save_method; //for save method string
 var table;
 var base_url = '<?php echo base_url();?>';
+$(".help-block").hide();
 
 $(document).ready(function(){
-		
+	
 	//datatables
 	table = $('#table').DataTable({ 
 	 
@@ -135,7 +113,7 @@ $(document).ready(function(){
 	 
 	    // Load data for the table's content from an Ajax source
 	    "ajax": {
-	        "url": "<?php echo site_url('kelas/kelas_list')?>",
+	        "url": "<?php echo site_url('jenis_pembayaran/jenis_list')?>",
 	        "type": "POST"
 	    },
 	 
@@ -156,19 +134,20 @@ $(document).ready(function(){
 
 });
 
-function tambahKelas()
+function tambahJenis()
 {
-    save_method = 'add';
+	save_method = 'add';
     $('#form')[0].reset(); // reset form on modals
     $.ajax({
         type : "GET",
-        url  : "<?php echo base_url('kelas/getKode')?>",
+        url  : "<?php echo base_url('jenis_pembayaran/getKode')?>",
         dataType : "JSON",
         success: function(data){
-            $.each(data,function(id_kelas){
-              $('#ModaltambahKelas').modal('show');
-              $('.modal-title').text('Tambah Data Kelas');
-              $('[name="id_kelas"]').val(data.id_kelas);
+            $.each(data,function(id_jenis){
+              $(".help-block").hide();
+              $('#ModaltambahJenis').modal('show');
+              $('.modal-title').text('Tambah Data Jenis Pembayaran');
+              $('[name="id_jenis"]').val(data.id_jenis);
             });
         }
 	});
@@ -181,14 +160,20 @@ function reload_table()
 
 function simpan()
 {
+	var nm_jenis = $('[name="nm_jenis"]').val();
+	if(nm_jenis == ""){
+		$(".help-block").show();
+		return false;		
+	}
+
     $('#btn_simpan').text('saving...'); //change button text
     $('#btn_simpan').attr('disabled',true); //set button disable 
     var url;
 
     if(save_method == 'add') {
-        url = "<?php echo site_url('kelas/simpan')?>";
+        url = "<?php echo site_url('jenis_pembayaran/simpan')?>";
     } else {
-        url = "<?php echo site_url('kelas/ubah')?>";
+        url = "<?php echo site_url('jenis_pembayaran/ubah')?>";
     }
 
     // ajax adding data to database
@@ -202,7 +187,7 @@ function simpan()
         dataType: "JSON",
         success: function(data)
         {
-            $('#ModaltambahKelas').modal('hide');
+            $('#ModaltambahJenis').modal('hide');
             reload_table();
             $('#btn_simpan').text('save'); //change button text
             $('#btn_simpan').attr('disabled',false); //set button enable 
@@ -216,19 +201,19 @@ function simpan()
     });
 }
 
-function hapus_kelas(id)
+function hapus_jenis(id)
 {
     if(confirm('Anda Yakin Ingin Menghapus Data Ini?'))
     {
         // ajax delete data to database
         $.ajax({
-            url : "<?php echo site_url('kelas/hapus')?>/"+id,
+            url : "<?php echo site_url('jenis_pembayaran/hapus')?>/"+id,
             type: "POST",
             dataType: "JSON",
             success: function(data)
             {
                 //if success reload ajax table
-                $('#ModaltambahKelas').modal('hide');
+                $('#ModaltambahJenis').modal('hide');
                 reload_table();
             },
             error: function (jqXHR, textStatus, errorThrown)
@@ -240,24 +225,22 @@ function hapus_kelas(id)
     }
 }
 
-function ubah_kelas(id)
+function ubah_jenis(id)
 {
-    save_method = 'update';
+	save_method = 'update';
     $('#form')[0].reset(); // reset form on modals
-   
     //Ajax Load data from ajax
     $.ajax({
-        url : "<?php echo site_url('kelas/edit')?>/" + id,
+        url : "<?php echo site_url('jenis_pembayaran/edit')?>/" + id,
         type: "GET",
         dataType: "JSON",
         success: function(data)
-        {
-
-            $('[name="id_kelas"]').val(data.id_kelas);
-            $('[name="nm_kelas"]').val(data.nm_kelas);
-            $('#ModaltambahKelas').modal('show'); // show bootstrap modal when complete loaded
-            $('.modal-title').text('Ubah Data Kelas'); // Set title to Bootstrap modal title
-
+        {	
+        	$(".help-block").hide();
+            $('[name="id_jenis"]').val(data.id_jenis);
+            $('[name="nm_jenis"]').val(data.nm_jenis);
+            $('#ModaltambahJenis').modal('show'); // show bootstrap modal when complete loaded
+            $('.modal-title').text('Ubah Data Jenis Pembayaran'); // Set title to Bootstrap modal title
         },
         error: function (jqXHR, textStatus, errorThrown)
         {

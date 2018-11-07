@@ -69,3 +69,25 @@ $route['kelas/kelas_list'] = 'ControllerKelas/kelas_list';
 $route['kelas/hapus/(:any)'] = 'ControllerKelas/hapus/$1';
 $route['kelas/edit/(:any)'] = 'ControllerKelas/edit/$1';
 $route['kelas/ubah'] = 'ControllerKelas/ubah';
+
+//guru
+$route['guru'] = 'ControllerGuru';
+$route['guru/getKode'] = 'ControllerGuru/getKode';
+$route['guru/simpan'] = 'ControllerGuru/simpan';
+$route['guru/guru_list'] = 'ControllerGuru/guru_list';
+$route['guru/hapus/(:any)'] = 'ControllerGuru/hapus/$1';
+$route['guru/edit/(:any)'] = 'ControllerGuru/edit/$1';
+$route['guru/ubah'] = 'ControllerGuru/ubah';
+
+//jenis
+$route['jenis_pembayaran'] = 'ControllerJenisPembayaran';
+$route['jenis_pembayaran/getKode'] = 'ControllerJenisPembayaran/getKode';
+$route['jenis_pembayaran/simpan'] = 'ControllerJenisPembayaran/simpan';
+$route['jenis_pembayaran/jenis_list'] = 'ControllerJenisPembayaran/jenis_list';
+$route['jenis_pembayaran/hapus/(:any)'] = 'ControllerJenisPembayaran/hapus/$1';
+$route['jenis_pembayaran/edit/(:any)'] = 'ControllerJenisPembayaran/edit/$1';
+$route['jenis_pembayaran/ubah'] = 'ControllerJenisPembayaran/ubah';
+
+//pengaturan
+$route['pengaturan'] = 'ControllerPengaturan';
+$route['pengaturan/ubah'] = 'ControllerPengaturan/ubah';

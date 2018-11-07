@@ -102,35 +102,13 @@ License: You must have a valid license purchased only from themeforest(the above
 						<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
 						<img alt="" class="img-circle" src="<?php echo base_url('assets/admin/layout2/img/avatar3_small.jpg')?>"/>
 						<span class="username username-hide-on-mobile">
-						<?php echo $this->session->username; ?> </span>
+						<?php echo ucwords($this->session->nm_admin); ?> </span>
 						<i class="fa fa-angle-down"></i>
 						</a>
 						<ul class="dropdown-menu dropdown-menu-default">
 							<li>
-								<a href="extra_profile.html">
-								<i class="icon-user"></i> My Profile </a>
-							</li>
-							<li>
-								<a href="page_calendar.html">
-								<i class="icon-calendar"></i> My Calendar </a>
-							</li>
-							<li>
-								<a href="inbox.html">
-								<i class="icon-envelope-open"></i> My Inbox <span class="badge badge-danger">
-								3 </span>
-								</a>
-							</li>
-							<li>
-								<a href="page_todo.html">
-								<i class="icon-rocket"></i> My Tasks <span class="badge badge-success">
-								7 </span>
-								</a>
-							</li>
-							<li class="divider">
-							</li>
-							<li>
-								<a href="extra_lock.html">
-								<i class="icon-lock"></i> Lock Screen </a>
+								<a href="<?php echo site_url('pengaturan') ?>">
+								<i class="icon-wrench"></i> Setting </a>
 							</li>
 							<li>
 								<a href="<?php echo site_url('login/logout') ?>">

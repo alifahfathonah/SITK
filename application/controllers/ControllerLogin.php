@@ -31,13 +31,15 @@ class ControllerLogin extends CI_Controller {
 
 		if($checkUsername==NULL){
 			$this->session->set_flashdata('pesanGagal','Kesalahan');
-			redirect('');
+			redirect('login');
 
 		}else{
 
 			$newdata = array(
+				'id' => $checkUsername->id,
 				'username' => $checkUsername->username,
 				'nm_admin' => $checkUsername->nm_admin,
+				'email' => $checkUsername->email,
 			  );
 			//set seassion
 			$this->session->set_userdata($newdata);
@@ -53,7 +55,7 @@ class ControllerLogin extends CI_Controller {
 	public function logout()
 	{
 		$this->session->sess_destroy();
-		redirect('');
+		redirect('login');
 	}
 
 }

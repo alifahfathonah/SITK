@@ -25,19 +25,19 @@
 					</a>
 					<ul class="sub-menu">
 						<li>
+							<a href="<?php echo site_url('guru') ?>">
+							<i class="fa fa-graduation-cap"></i>
+							Guru</a>
+						</li>
+						<li>
 							<a href="<?php echo site_url('kelas') ?>">
 							<i class="fa fa-institution"></i>
 							Kelas</a>
 						</li>
 						<li>
-							<a href="ecommerce_orders.html">
-							<i class="icon-basket"></i>
-							Orders</a>
-						</li>
-						<li>
-							<a href="ecommerce_orders_view.html">
-							<i class="icon-tag"></i>
-							Order View</a>
+							<a href="<?php echo site_url('jenis_pembayaran') ?>">
+							<i class="fa fa-tags"></i>
+							Jenis Pembayaran</a>
 						</li>
 						<li>
 							<a href="ecommerce_products.html">

@@ -78,7 +78,14 @@ License: You must have a valid license purchased only from themeforest(the above
 		</div>
 		<hr>
 		<div class="form-actions">
-			<button type="submit" class="btn btn-block btn-success uppercase">Login</button>
+			<div class="row">
+				<div class="col-md-6">
+					<a href="<?php echo site_url('') ?>" class="btn btn-block btn-danger uppercase">Back</a>
+				</div>
+				<div class="col-md-6">
+					<button type="submit" class="btn btn-block btn-success uppercase">Login</button>
+				</div>
+			</div>
 		</div>
 	</form>
 	<!-- END LOGIN FORM -->
@@ -87,6 +94,12 @@ License: You must have a valid license purchased only from themeforest(the above
 <div class="copyright">
 	 2014 © Metronic. Admin Dashboard Template.
 </div>
+
+<?php if ($this->session->flashdata('pesanGagal') == TRUE) { ?>
+    <script>
+        alert('Username Atau Password Salah')
+    </script>
+<?php } ?>
 <!-- END LOGIN -->
 <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
 <!-- BEGIN CORE PLUGINS -->
