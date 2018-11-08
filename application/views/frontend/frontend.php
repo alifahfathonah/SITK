@@ -10,6 +10,46 @@
     <link rel="stylesheet" href="<?php echo base_url('assets/frontend/css/styles-merged.css')?>">
     <link rel="stylesheet" href="<?php echo base_url('assets/frontend/css/style.min.css')?>">
     <link rel="stylesheet" href="<?php echo base_url('assets/frontend/fonts/icomoon/style.css')?>">
+    <link rel="stylesheet" href="<?php echo base_url('assets/global/plugins/font-awesome/css/font-awesome.min.css')?>">
+    <style type="text/css">
+
+      .scroll-top-wrapper {
+        position: fixed;
+        opacity: 0;
+        visibility: hidden;
+        overflow: hidden;
+        text-align: center;
+        z-index: 99999999;
+        background-color: #777777;
+        color: #eeeeee;
+        width: 50px;
+        height: 50px;
+        line-height: 48px;
+        right: 30px;
+        bottom: 30px;
+        padding-top: 2px;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+        border-bottom-left-radius: 10px;
+        -webkit-transition: all 0.5s ease-in-out;
+        -moz-transition: all 0.5s ease-in-out;
+        -ms-transition: all 0.5s ease-in-out;
+        -o-transition: all 0.5s ease-in-out;
+        transition: all 0.5s ease-in-out;
+      }
+      .scroll-top-wrapper:hover {
+        background-color: #888888;
+      }
+      .scroll-top-wrapper.show {
+        visibility:visible;
+        cursor:pointer;
+        opacity: 1.0;
+      }
+      .scroll-top-wrapper i.fa {
+        line-height: inherit;
+      }
+    </style>
 
     <!--[if lt IE 9]>
       <script src="js/vendor/html5shiv.min.js"></script>
@@ -78,7 +118,7 @@
         </div>
         <!-- END row -->
         <div class="row mb100">
-          <div class="col-md-8 col-md-pull-2 probootstrap-animate">
+          <div class="col-md-8 col-md-pull-1 probootstrap-animate">
             <p><img src="<?php echo base_url('assets/frontend/img/banner4.jpeg')?>" alt="Free Template by uicookies.com" class="img-responsive probootstrap-shadow"></p>
           </div>
           <div class="col-md-4 col-md-pull-1 probootstrap-section-heading">
@@ -101,7 +141,7 @@
         <!-- END row -->
 
         <div class="row mb100">
-          <div class="col-md-8 col-md-pull-2 probootstrap-animate">
+          <div class="col-md-8 col-md-pull-1 probootstrap-animate">
             <p><img src="<?php echo base_url('assets/frontend/img/banner3.jpeg')?>" alt="Free Template by uicookies.com" class="img-responsive probootstrap-shadow"></p>
           </div>
           <div class="col-md-4 col-md-pull-1 probootstrap-section-heading">
@@ -148,10 +188,45 @@
           </div>
         </div>
       </div>
-    </footer>    
+    </footer>
+
+    <div class="scroll-top-wrapper ">
+      <span class="scroll-top-inner">
+        <i class="fa fa-2x fa-arrow-circle-up"></i>
+      </span>
+    </div>
 
     <script src="<?php echo base_url('assets/frontend/js/scripts.min.js')?>"></script>
     <script src="<?php echo base_url('assets/frontend/js/custom.js')?>"></script>
+    <script type="text/javascript">
+      $(document).ready(function(){
+
+        $(function(){
+         
+            $(document).on( 'scroll', function(){
+         
+              if ($(window).scrollTop() > 100) {
+              $('.scroll-top-wrapper').addClass('show');
+            } else {
+              $('.scroll-top-wrapper').removeClass('show');
+            }
+          });
+         
+          $('.scroll-top-wrapper').on('click', scrollToTop);
+        });
+         
+        function scrollToTop() {
+          verticalOffset = typeof(verticalOffset) != 'undefined' ? verticalOffset : 0;
+          element = $('body');
+          offset = element.offset();
+          offsetTop = offset.top;
+          $('html, body').animate({scrollTop: offsetTop}, 1000, 'linear');
+        }
+
+        });
+
+
+    </script>
 
   </body>
 </html>

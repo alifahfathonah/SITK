@@ -88,6 +88,15 @@ $route['jenis_pembayaran/hapus/(:any)'] = 'ControllerJenisPembayaran/hapus/$1';
 $route['jenis_pembayaran/edit/(:any)'] = 'ControllerJenisPembayaran/edit/$1';
 $route['jenis_pembayaran/ubah'] = 'ControllerJenisPembayaran/ubah';
 
+//calon siswa
+$route['calon_siswa'] = 'ControllerCalon';
+$route['calon_siswa/getKode'] = 'ControllerCalon/getKode';
+$route['calon_siswa/simpan'] = 'ControllerCalon/simpan';
+$route['calon_siswa/calon_list'] = 'ControllerCalon/calon_list';
+$route['calon_siswa/hapus/(:any)'] = 'ControllerCalon/hapus/$1';
+$route['calon_siswa/edit/(:any)'] = 'ControllerCalon/edit/$1';
+$route['calon_siswa/ubah'] = 'ControllerCalon/ubah';
+
 //pengaturan
 $route['pengaturan'] = 'ControllerPengaturan';
 $route['pengaturan/ubah'] = 'ControllerPengaturan/ubah';
