@@ -50,7 +50,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 $route['default_controller'] = 'controllerfrontend';
-$route['404_override'] = '';
+$route['404_override'] = 'ControllerDashboard/not_found';
 $route['translate_uri_dashes'] = FALSE;
 
 //login
@@ -90,12 +90,14 @@ $route['jenis_pembayaran/ubah'] = 'ControllerJenisPembayaran/ubah';
 
 //calon siswa
 $route['calon_siswa'] = 'ControllerCalon';
+$route['calon_siswa/tambah_calon'] = 'ControllerCalon/tambah_calon';
 $route['calon_siswa/getKode'] = 'ControllerCalon/getKode';
 $route['calon_siswa/simpan'] = 'ControllerCalon/simpan';
 $route['calon_siswa/calon_list'] = 'ControllerCalon/calon_list';
 $route['calon_siswa/hapus/(:any)'] = 'ControllerCalon/hapus/$1';
 $route['calon_siswa/edit/(:any)'] = 'ControllerCalon/edit/$1';
 $route['calon_siswa/ubah'] = 'ControllerCalon/ubah';
+$route['calon_siswa/no_induk'] = 'ControllerCalon/no_induk';
 
 //pengaturan
 $route['pengaturan'] = 'ControllerPengaturan';

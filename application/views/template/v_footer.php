@@ -19,18 +19,31 @@
 <script src="<?php echo base_url('assets/global/plugins/jquery.cokie.min.js')?>" type="text/javascript"></script>
 <script src="<?php echo base_url('assets/global/plugins/uniform/jquery.uniform.min.js')?>" type="text/javascript"></script>
 <script src="<?php echo base_url('assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js')?>" type="text/javascript"></script>
+<script type="text/javascript" src="<?php echo base_url('assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js')?>"></script>
 <!-- END CORE PLUGINS -->
 <script src="<?php echo base_url('assets/global/scripts/metronic.js')?>" type="text/javascript"></script>
 <script src="<?php echo base_url('assets/admin/layout2/scripts/layout.js')?>" type="text/javascript"></script>
 <script src="<?php echo base_url('assets/admin/layout2/scripts/demo.js')?>" type="text/javascript"></script>
 <script>
-      jQuery(document).ready(function() {    
-         Metronic.init(); // init metronic core components
-Layout.init(); // init current layout
-Demo.init(); // init demo features
-      });
-   </script>
+    jQuery(document).ready(function() {    
+        Metronic.init(); // init metronic core components
+		Layout.init(); // init current layout
+		Demo.init(); // init demo features
+		});
+</script>
 <!-- END JAVASCRIPTS -->
+<script type="text/javascript">
+$("#datepicker1").datepicker({
+    format: "yyyy",
+    viewMode: "years", 
+    minViewMode: "years"
+});
+$("#datepicker2").datepicker({
+    format: "yyyy",
+    viewMode: "years", 
+    minViewMode: "years"
+});
+</script>
 </body>
 <!-- END BODY -->
 </html>

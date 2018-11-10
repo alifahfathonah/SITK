@@ -18,6 +18,10 @@
 				</li>
 				<li>
 					<a href="<?php echo site_url('calon_siswa') ?>">Calon Siswa</a>
+					<i class="fa fa-angle-right"></i>
+				</li>
+				<li>
+					<a href="<?php echo site_url('calon_siswa/tambah_calon') ?>">Tambah Calon Siswa</a>
 				</li>
 			</ul>
 		</div>
@@ -42,32 +46,50 @@
 										<div class="col-md-6">
 										
 											<div class="form-body">
+												
+
+												<div class="row">
+													<div class="col-md-5">
+														<div class="form-group form-md-line-input">
+															<input type="text" id="datepicker1" name="thn_ajar1" class="form-control" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Input Tahun Ajaran" required>
+															<label for="form_control_1">Tahun Ajaran</label>
+														</div>
+													</div>
+													<div class="col-md-2">
+														<div class="form-group form-md-line-input">
+															<label for="form_control_1"><b>s/d</b></label>
+														</div>
+													</div>
+													<div class="col-md-5">
+														<div class="form-group form-md-line-input">
+															<input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" id="datepicker2" required name="thn_ajar2" class="form-control" placeholder="Input Tahun Ajaran">
+														</div>
+													</div>
+												</div>
+
+												<div class="form-group form-md-line-input" id="div_induk">
+													<input oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" type="text" name="no_induk" class="form-control" placeholder="Input Nomor Induk">
+													<label for="form_control_1">Nomor Induk</label>
+													<span class="help-block" id="span_no_induk">Nomor Induk Sudah Ada</span>
+												</div>
 												<div class="form-group form-md-line-input">
-													<input type="text" class="form-control" placeholder="Input Nama Lengkap">
+													<input type="text" name="nm_lengkap" class="form-control" placeholder="Input Nama Lengkap">
 													<label for="form_control_1">Nama Lengkap</label>
 												</div>
 												<div class="form-group form-md-line-input">
-													<input type="text" class="form-control" placeholder="Input Nama Panggilan">
+													<input type="text" name="nm_panggilan" class="form-control" placeholder="Input Nama Panggilan">
 													<label for="form_control_1">Nama Panggilan</label>
 												</div>
-												<div class="form-group form-md-line-input has-info">
-													<select class="form-control" id="form_control_1">
-														<option>-pilih-</option>
-														<option value="Laki-Laki">Laki-Laki</option>
-														<option value="Perempuan">Perempuan</option>
-													</select>
-													<label for="form_control_1">Dropdown sample</label>
-												</div>
 												<div class="form-group form-md-line-input">
-													<input type="text" class="form-control" placeholder="Input Tempat Lahir">
+													<input type="text" name="tempat_lahir" class="form-control" placeholder="Input Tempat Lahir">
 													<label for="form_control_1">Tempat Lahir</label>
 												</div>
 												<div class="form-group form-md-line-input">
-													<input type="date" class="form-control" placeholder="Input Tanggal Lahir">
+													<input type="date" name="tgl_lahir" class="form-control" placeholder="Input Tanggal Lahir">
 													<label for="form_control_1">Tanggal Lahir</label>
 												</div>
 												<div class="form-group form-md-line-input">
-													<textarea class="form-control" rows="4" cols="5" placeholder="Input Alamat..."></textarea>
+													<textarea class="form-control" name="alamat" rows="4" cols="5" placeholder="Input Alamat..."></textarea>
 													<label for="form_control_1">Alamat</label>
 												</div>
 											</div>
@@ -77,20 +99,28 @@
 										<div class="col-md-6">
 											<div class="form-body">
 												<div class="form-group form-md-line-input">
-													<input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control" placeholder="Input Nomor Telepon">
+													<input type="text" name="no_telp" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control" placeholder="Input Nomor Telepon">
 													<label for="form_control_1">Nomor Telepon</label>
 												</div>
+												<div class="form-group form-md-line-input has-info">
+													<select name="jenis_kelamin" class="form-control" id="form_control_1">
+														<option value="">-pilih-</option>
+														<option value="Laki-Laki">Laki-Laki</option>
+														<option value="Perempuan">Perempuan</option>
+													</select>
+													<label for="form_control_1">Jenis Kelamin</label>
+												</div>
 												<div class="form-group form-md-line-input">
-													<input type="number" min="0" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control" placeholder="Input Anak Keberapa">
+													<input type="number" name="anak_ke" min="0" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control" placeholder="Input Anak Keberapa">
 													<label for="form_control_1">Anak Keberapa</label>
 												</div>
 												<div class="form-group form-md-line-input">
-													<input type="number" min="0" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control" placeholder="Input Jumlah Saudara">
+													<input type="number" name="jml_saudara" min="0" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control" placeholder="Input Jumlah Saudara">
 													<label for="form_control_1">Jumlah Saudara</label>
 												</div>
 												<div class="form-group form-md-line-input has-info">
-													<select class="form-control">
-														<option>-pilih-</option>
+													<select name="status_kandung" class="form-control">
+														<option value="">-pilih-</option>
 														<option value="Kandung">Kandung</option>
 														<option value="Yatim">Yatim</option>
 														<option value="Piatu">Piatu</option>
@@ -99,11 +129,11 @@
 													<label for="form_control_1">Status Anak</label>
 												</div>
 												<div class="form-group form-md-line-input">
-													<input type="password" class="form-control" placeholder="Input Warga Negara">
+													<input name="warga_negara" type="text" class="form-control" placeholder="Input Warga Negara">
 													<label for="form_control_1">Warga Negara</label>
 												</div>
 												<div class="form-group form-md-line-input">
-													<input type="text" class="form-control" placeholder="Input Agama">
+													<input type="text" name="agama" class="form-control" placeholder="Input Agama">
 													<label for="form_control_1">Agama</label>
 												</div>
 											</div>
@@ -132,118 +162,60 @@
 																	
 																	<div class="form-body">
 																		<div class="form-group form-md-line-input">
-																			<input type="text" class="form-control" placeholder="Input Nama Lengkap">
+																			<input name="nm_ayah" type="text" class="form-control" placeholder="Input Nama Lengkap">
 																			<label for="form_control_1">Nama Lengkap</label>
 																		</div>
 																		<div class="form-group form-md-line-input">
-																			<input type="text" class="form-control" placeholder="Input Tempat Lahir">
+																			<input name="tempat_lahir_ayah" type="text" class="form-control" placeholder="Input Tempat Lahir">
 																			<label for="form_control_1">Tempat Lahir</label>
 																		</div>
 																		<div class="form-group form-md-line-input">
-																			<input type="date" class="form-control" placeholder="Input Tanggal Lahir">
+																			<input name="tgl_lahir_ayah" type="date" class="form-control" placeholder="Input Tanggal Lahir">
 																			<label for="form_control_1">Tanggal Lahir</label>
 																		</div>
 																		<div class="form-group form-md-line-input">
-																			<input type="text" class="form-control" placeholder="Input Agama">
+																			<input name="agama_ayah" type="text" class="form-control" placeholder="Input Agama">
 																			<label for="form_control_1">Agama</label>
 																		</div>
 																		<div class="form-group form-md-line-input">
-																			<input type="text" class="form-control" placeholder="Input Tempat Lahir">
+																			<input name="pendidikan_ayah" type="text" class="form-control" placeholder="Input Tempat Lahir">
 																			<label for="form_control_1">Pendidikan Tertinggi</label>
 																		</div>
 
-																		<div class="form-group form-md-checkboxes">
-																			<label>Pekerjaan</label>
-																			<div class="md-checkbox-inline">
-																				<div class="md-checkbox">
-																					<input type="checkbox" id="checkbox1" class="md-check">
-																					<label for="checkbox6">
-																					<span></span>	
-																					<span class="check"></span>
-																					<span class="box"></span>
-																					Karyawan</label>
-																				</div>
-																				<div class="md-checkbox">
-																					<input type="checkbox" id="checkbox2" class="md-check">
-																					<label for="checkbox7">
-																					<span></span>
-																					<span class="check"></span>
-																					<span class="box"></span>
-																					Swasta </label>
-																				</div>
-																				<div class="md-checkbox">
-																					<input type="checkbox" id="checkbox3" class="md-check">
-																					<label for="checkbox8">
-																					<span></span>
-																					<span class="check"></span>
-																					<span class="box"></span>
-																					PNS </label>
-																				</div>
-																				<div class="md-checkbox">
-																					<input type="checkbox" id="checkbox4" class="md-check">
-																					<label for="checkbox8">
-																					<span></span>
-																					<span class="check"></span>
-																					<span class="box"></span>
-																					Wiraswasta </label>
-																				</div>
-																			</div>
+																		<div class="form-group form-md-line-input has-green">
+																			<select name="pekerjaan_ayah" class="form-control">
+																				<option value="">-pilih-</option>
+																				<option value="Karyawan">Karyawan</option>
+																				<option value="Swasta">Swasta</option>
+																				<option value="Wiraswasta">Wiraswasta</option>
+																				<option value="PNS">PNS</option>
+																			</select>
+																			<label for="form_control_1">Pekerjaan</label>
 																		</div>
 
-																		<br>
-
-																		<div class="form-group form-md-checkboxes">
-																			<label>Penghasilan</label>
-																			<div class="md-checkbox-inline">
-																				<div class="md-checkbox">
-																					<input type="checkbox" id="checkbox5" class="md-check">
-																					<label for="checkbox6">
-																					<span></span>	
-																					<span class="check"></span>
-																					<span class="box"></span>
-																					1 - 2 Juta</label>
-																				</div>
-																				<div class="md-checkbox">
-																					<input type="checkbox" id="checkbox6" class="md-check">
-																					<label for="checkbox7">
-																					<span></span>
-																					<span class="check"></span>
-																					<span class="box"></span>
-																					>2 - 3 Juta </label>
-																				</div>
-																				<div class="md-checkbox">
-																					<input type="checkbox" id="checkbox7" class="md-check">
-																					<label for="checkbox8">
-																					<span></span>
-																					<span class="check"></span>
-																					<span class="box"></span>
-																					>3 - 5 Juta </label>
-																				</div>
-																				<div class="md-checkbox">
-																					<input type="checkbox" id="checkbox8" class="md-check">
-																					<label for="checkbox8">
-																					<span></span>
-																					<span class="check"></span>
-																					<span class="box"></span>
-																					>5 Juta </label>
-																				</div>
-																			</div>
-																		</div>
-
-																		<br>
+																		<div class="form-group form-md-line-input has-green">
+																			<select name="penghasilan_ayah" class="form-control">
+																				<option value="">-pilih-</option>
+																				<option value="1.000.000 - 2.000.000">1.000.000 - 2.000.000</option>
+																				<option value="> 2.000.000 - 3.000.000">> 2.000.000 - 3.000.000</option>
+																				<option value="> 3.000.000 - 5.000.000">> 3.000.000 - 5.000.000</option>
+																				<option value="> 5.000.000">> 5.000.000</option>
+																			</select>
+																			<label for="form_control_1">Penghasilan</label>
+																		</div>																		
 
 																		<div class="form-group form-md-line-input">
-																			<input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control" placeholder="Input Nomor Telepon">
+																			<input type="text" name="no_telp_ayah" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control" placeholder="Input Nomor Telepon">
 																			<label for="form_control_1">Nomor Telepon</label>
 																		</div>
 
 																		<div class="form-group form-md-line-input">
-																			<textarea class="form-control" rows="4" cols="5" placeholder="Input Alamat..."></textarea>
+																			<textarea name="alamat_ayah" class="form-control" rows="4" cols="5" placeholder="Input Alamat..."></textarea>
 																			<label for="form_control_1">Alamat</label>
 																		</div>
 
 																		<div class="form-group form-md-line-input">
-																			<textarea class="form-control" rows="4" cols="5" placeholder="Input Alamat Kantor..."></textarea>
+																			<textarea name="kantor_ayah" class="form-control" rows="4" cols="5" placeholder="Input Alamat Kantor..."></textarea>
 																			<label for="form_control_1">Kantor</label>
 																		</div>
 																	</div>
@@ -274,118 +246,60 @@
 																	
 																	<div class="form-body">
 																		<div class="form-group form-md-line-input">
-																			<input type="text" class="form-control" placeholder="Input Nama Lengkap">
+																			<input type="text" name="nm_ibu" class="form-control" placeholder="Input Nama Lengkap">
 																			<label for="form_control_1">Nama Lengkap</label>
 																		</div>
 																		<div class="form-group form-md-line-input">
-																			<input type="text" class="form-control" placeholder="Input Tempat Lahir">
+																			<input type="text" name="tempat_lahir_ibu" class="form-control" placeholder="Input Tempat Lahir">
 																			<label for="form_control_1">Tempat Lahir</label>
 																		</div>
 																		<div class="form-group form-md-line-input">
-																			<input type="date" class="form-control" placeholder="Input Tanggal Lahir">
+																			<input type="date" name="tgl_lahir_ibu" class="form-control" placeholder="Input Tanggal Lahir">
 																			<label for="form_control_1">Tanggal Lahir</label>
 																		</div>
 																		<div class="form-group form-md-line-input">
-																			<input type="text" class="form-control" placeholder="Input Agama">
+																			<input type="text" name="agama_ibu" class="form-control" placeholder="Input Agama">
 																			<label for="form_control_1">Agama</label>
 																		</div>
 																		<div class="form-group form-md-line-input">
-																			<input type="text" class="form-control" placeholder="Input Tempat Lahir">
+																			<input type="text" name="pendidikan_ibu" class="form-control" placeholder="Input Tempat Lahir">
 																			<label for="form_control_1">Pendidikan Tertinggi</label>
 																		</div>
 
-																		<div class="form-group form-md-checkboxes">
-																			<label>Pekerjaan</label>
-																			<div class="md-checkbox-inline">
-																				<div class="md-checkbox">
-																					<input type="checkbox" id="checkbox1" class="md-check">
-																					<label for="checkbox6">
-																					<span></span>	
-																					<span class="check"></span>
-																					<span class="box"></span>
-																					Ibu rumah tangga</label>
-																				</div>
-																				<div class="md-checkbox">
-																					<input type="checkbox" id="checkbox2" class="md-check">
-																					<label for="checkbox7">
-																					<span></span>
-																					<span class="check"></span>
-																					<span class="box"></span>
-																					Swasta </label>
-																				</div>
-																				<div class="md-checkbox">
-																					<input type="checkbox" id="checkbox3" class="md-check">
-																					<label for="checkbox8">
-																					<span></span>
-																					<span class="check"></span>
-																					<span class="box"></span>
-																					PNS </label>
-																				</div>
-																				<div class="md-checkbox">
-																					<input type="checkbox" id="checkbox4" class="md-check">
-																					<label for="checkbox8">
-																					<span></span>
-																					<span class="check"></span>
-																					<span class="box"></span>
-																					Wiraswasta </label>
-																				</div>
-																			</div>
+																		<div class="form-group form-md-line-input has-green">
+																			<select name="pekerjaan_ibu" class="form-control">
+																				<option value="">-pilih-</option>
+																				<option value="Ibu Rumah Tangga">Ibu Rumah Tangga</option>
+																				<option value="Swasta">Swasta</option>
+																				<option value="Wiraswasta">Wiraswasta</option>
+																				<option value="PNS">PNS</option>
+																			</select>
+																			<label for="form_control_1">Pekerjaan</label>
 																		</div>
 
-																		<br>
-
-																		<div class="form-group form-md-checkboxes">
-																			<label>Penghasilan</label>
-																			<div class="md-checkbox-inline">
-																				<div class="md-checkbox">
-																					<input type="checkbox" id="checkbox5" class="md-check">
-																					<label for="checkbox6">
-																					<span></span>	
-																					<span class="check"></span>
-																					<span class="box"></span>
-																					1 - 2 Juta</label>
-																				</div>
-																				<div class="md-checkbox">
-																					<input type="checkbox" id="checkbox6" class="md-check">
-																					<label for="checkbox7">
-																					<span></span>
-																					<span class="check"></span>
-																					<span class="box"></span>
-																					>2 - 3 Juta </label>
-																				</div>
-																				<div class="md-checkbox">
-																					<input type="checkbox" id="checkbox7" class="md-check">
-																					<label for="checkbox8">
-																					<span></span>
-																					<span class="check"></span>
-																					<span class="box"></span>
-																					>3 - 5 Juta </label>
-																				</div>
-																				<div class="md-checkbox">
-																					<input type="checkbox" id="checkbox8" class="md-check">
-																					<label for="checkbox8">
-																					<span></span>
-																					<span class="check"></span>
-																					<span class="box"></span>
-																					>5 Juta </label>
-																				</div>
-																			</div>
+																		<div class="form-group form-md-line-input has-green">
+																			<select name="penghasilan_ibu" class="form-control">
+																				<option value="">-pilih-</option>
+																				<option value="1.000.000 - 2.000.000">1.000.000 - 2.000.000</option>
+																				<option value="> 2.000.000 - 3.000.000">> 2.000.000 - 3.000.000</option>
+																				<option value="> 3.000.000 - 5.000.000">> 3.000.000 - 5.000.000</option>
+																				<option value="> 5.000.000">> 5.000.000</option>
+																			</select>
+																			<label for="form_control_1">Penghasilan</label>
 																		</div>
-
-																		<br>
 
 																		<div class="form-group form-md-line-input">
-																			<input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control" placeholder="Input Nomor Telepon">
+																			<input type="text" name="no_telp_ibu" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control" placeholder="Input Nomor Telepon">
 																			<label for="form_control_1">Nomor Telepon</label>
 																		</div>
 
 																		<div class="form-group form-md-line-input">
-																			<textarea class="form-control" rows="4" cols="5" placeholder="Input Alamat..."></textarea>
+																			<textarea name="alamat_ibu" class="form-control" rows="4" cols="5" placeholder="Input Alamat..."></textarea>
 																			<label for="form_control_1">Alamat</label>
 																		</div>
 
 																		<div class="form-group form-md-line-input">
-																			<textarea class="form-control" rows="4" cols="5" placeholder="Input Alamat Kantor..."></textarea>
+																			<textarea name="kantor_ibu" class="form-control" rows="4" cols="5" placeholder="Input Alamat Kantor..."></textarea>
 																			<label for="form_control_1">Kantor</label>
 																		</div>
 																	</div>
@@ -407,7 +321,7 @@
 											<button type="button" class="btn default btn-block">Kembali</button>
 										</div>
 										<div class="col-md-6">
-											<button type="button" id="btn_simpan" onclick="simpan()" class="btn blue btn-block">Save</button>
+											<button type="button" onclick="simpan()" id="btn_simpan" class="btn blue btn-block">Save</button>
 										</div>
 									</div>
 								
@@ -423,47 +337,71 @@
 	</div>
 </div>
 <!-- END CONTENT -->
-	
+<!-- 
 <script type="text/javascript">
-
-var save_method; //for save method string
-var base_url = '<?php echo base_url();?>';
-	
 function simpan()
 {
-    $('#btn_simpan').text('saving...'); //change button text
+	$('#btn_simpan').text('saving...'); //change button text
+    $('#btn_simpan').attr('disabled',true); //set button disable 
+}
+</script> -->
+
+<script type="text/javascript">
+
+$('#span_no_induk').hide();
+
+var currentTime = new Date();
+var current_year = currentTime.getFullYear();
+var next_year = currentTime.getFullYear()+1;
+
+$('[name="thn_ajar1"]').val(current_year);
+$('[name="thn_ajar2"]').val(next_year);
+
+function simpan()
+{
+	$('#btn_simpan').text('saving...'); //change button text
     $('#btn_simpan').attr('disabled',true); //set button disable 
 
-    var password = $('#password').val();
-    var repassword = $('#repassword').val();
-
-    if(password != repassword){
-    	alert('Password Tidak Sama');
-    	$('#password').val("");
-    	$('#repassword').val("");
-    	$('#btn_simpan').text('save'); //change button text
-        $('#btn_simpan').attr('disabled',false); //set button enable    
-    	return false;
-    }
-
-    // ajax adding data to database
-
-    var username = $('#username').val();
-    var nm_admin = $('#nm_admin').val();
-    var email = $('#email').val();
-    var id_admin = $('#id').val();
+    var no_induk = $('[name="no_induk"]').val();
 
     $.ajax({
-        url : "<?php echo site_url('pengaturan/ubah')?>",
+        url : "<?php echo site_url('calon_siswa/no_induk') ?>",
         type: "POST",
-        data: {username:username, nm_admin:nm_admin, email:email, password:password, id_admin:id_admin},
+        data: {no_induk:no_induk},
         dataType: "JSON",
         success: function(data)
         {
-            $('#btn_simpan').text('save'); //change button text
-            $('#btn_simpan').attr('disabled',false); //set button enable 
-            alert("Data Berhasi Diubah");
-            window.location.href = "<?php echo site_url('login/logout') ?>";
+        	if(data.status == true){
+				// ajax adding data to database
+			    var formData = new FormData($('#form')[0]);
+			    $.ajax({
+			        url : "<?php echo site_url('calon_siswa/simpan') ?>",
+			        type: "POST",
+			        data: formData,
+			        contentType: false,
+			        processData: false,
+			        dataType: "JSON",
+			        success: function(data)
+			        {
+			        	window.location = "<?php  echo site_url('calon_siswa'); ?>";
+			            $('#btn_simpan').text('save'); //change button text
+			            $('#btn_simpan').attr('disabled',false); //set button enable 
+			        },
+			        error: function (jqXHR, textStatus, errorThrown)
+			        {
+			            alert('Error Adding / Update Data');
+			            $('#btn_simpan').text('save'); //change button text
+			            $('#btn_simpan').attr('disabled',false); //set button enable 
+			        }
+			    });        		
+        	} else {
+        	  //set the error in span
+        	  $('#span_no_induk').show();
+        	  $("#div_induk").last().addClass("has-error");
+        	  $('[name="no_induk"]').focus();
+        	  $('#btn_simpan').text('save'); //change button text
+              $('#btn_simpan').attr('disabled',false); //set button enable 
+        	}
         },
         error: function (jqXHR, textStatus, errorThrown)
         {
@@ -472,6 +410,6 @@ function simpan()
             $('#btn_simpan').attr('disabled',false); //set button enable 
         }
     });
-}
 
+}
 </script>

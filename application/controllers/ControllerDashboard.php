@@ -23,4 +23,9 @@ class ControllerDashboard extends CI_Controller {
 		$this->load->view('template/index');
 		$this->load->view('template/v_footer');
 	}
+
+	public function not_found()
+	{
+		$this->load->view('template/not_found');
+	}
 }

@@ -29,6 +29,27 @@ class Model extends CI_Model {
 		return $result->result();
 	}
 
+	//join 2 table
+	public function get2Join($table1,$table2,$fk)
+	{
+		$this->db->select('*');
+		$this->db->from($table1);
+		$this->db->join($table2, $fk);
+		$query = $this->db->get();
+		return $query->result();
+	}
+
+	//get 2 join berdasarkan id
+	public function get2Join_cari($table1,$table2,$fk,$pk,$id)
+	{
+		$this->db->select('*');
+		$this->db->from($table1);
+		$this->db->join($table2, $fk);
+		$this->db->where($pk,$id);
+		$query = $this->db->get();
+		return $query->row();
+	}
+
 	//get berdasarkan id
 	public function get_by_id($pk,$id,$table)
 	{
@@ -39,7 +60,7 @@ class Model extends CI_Model {
 		return $query->row();
 	}
 
-		//simpan
+	//simpan
 	public function simpan($table,$data)
 	{
 		$checkinsert = false;
@@ -79,5 +100,36 @@ class Model extends CI_Model {
 		}
 		return $checkdelete;
 	}
+
+	//kode Calon
+	public function getKodeCalon()
+    {
+       	$q  = $this->db->query("SELECT MAX(RIGHT(id_calon_siswa,7)) as kd_max from calon_siswa");
+       	$kd = "";
+    	if($q->num_rows() > 0) {
+        	foreach ($q->result() as $k) {
+          		$tmp = ((int)$k->kd_max)+1;
+           		$kd = sprintf("%07s",$tmp);
+        	}
+    	} else {
+         $kd = "0000001";
+    	}
+       	return "CLS".$kd;
+    }
+
+    public function getKodePendaftar()
+    {
+       	$q  = $this->db->query("SELECT MAX(RIGHT(id_daftar,7)) as kd_max from pendaftaran");
+       	$kd = "";
+    	if($q->num_rows() > 0) {
+        	foreach ($q->result() as $k) {
+          		$tmp = ((int)$k->kd_max)+1;
+           		$kd = sprintf("%07s",$tmp);
+        	}
+    	} else {
+         $kd = "0000001";
+    	}
+       	return "PTR".$kd;
+    }
 
 }
