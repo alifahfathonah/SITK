@@ -110,4 +110,5 @@ $route['pembayaran/simpan'] = 'ControllerPembayaran/simpan';
 $route['pembayaran/pembayaran_list'] = 'ControllerPembayaran/pembayaran_list';
 $route['pembayaran/hapus/(:any)'] = 'ControllerPembayaran/hapus/$1';
 $route['pembayaran/edit/(:any)'] = 'ControllerPembayaran/edit/$1';
+$route['pembayaran/id_daftar'] = 'ControllerPembayaran/id_daftar';
 $route['pembayaran/ubah'] = 'ControllerPembayaran/ubah';

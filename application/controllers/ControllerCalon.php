@@ -260,7 +260,7 @@ class ControllerCalon extends CI_Controller {
 
         $pdf->Cell(25,6,'ID Calon Siswa',0,0,'L');
         $pdf->Cell(5,6,':',0,0,'C');
-        $pdf->Cell(40,6,''.$id_calon_siswa,0,0,'L');
+        $pdf->Cell(40,6,''.$calon_siswa->id_daftar,0,0,'L');
         
         $pdf->Cell(55,6,'',0,0,'C');
         $pdf->Cell(40,6,'',0,0,'L');

@@ -30,7 +30,6 @@
 					<div class="portlet-title">
 						<div class="caption">
 							<button class="btn btn-default" onclick="tambahPembayaran()"><i class="fa fa-plus"></i> Tambah Data Pembayaran</button>
-
 						</div>
 					</div>
 						
@@ -58,8 +57,8 @@
 <!-- END CONTENT -->
 
 <!-- Modal -->
-<div class="modal fade" id="ModaltambahBayar" tabindex="-1" role="basic" aria-hidden="true">
-	<div class="modal-dialog">
+<div class="modal fade" id="ModaltambahPembayaran" tabindex="-1" role="basic" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h4 class="modal-title"></h4>
@@ -69,23 +68,63 @@
 				<div class="portlet-body form">
 					<form id="form" class="form-horizontal">
 						<div class="form-body">				
-							<div class="form-group">
+							<!-- <div class="form-group">
 								<label><b>ID Bayar</b></label>
 								<input type="text" name="id_bayar" class="form-control" readonly>
+							</div> -->
+
+							<div class="form-group">
+								<label><b>ID Daftar</b></label>
+									<div class="input-group">
+										<input type="text" name="id_daftar" placeholder="Input ID Daftar" class="form-control">
+										<span class="input-group-btn">
+											<button class="btn blue" onclick="Cari()" type="button"><i class="fa fa-search"></i> Search</button>
+										</span>
+									</div>
+							</div>
+
+							<div class="row">
+								<div class="form-group">
+									<div class="col-md-6">
+										<label><b>Nama Siswa</b></label>
+										<input type="text" name="nm_lengkap" placeholder="Nama Siswa" class="form-control" readonly>
+									</div>
+
+									<div class="col-md-6">
+										<label><b>Tahun Ajaran</b></label>
+										<input type="text" name="thn_ajar" placeholder="Tahun Ajaran" class="form-control" readonly>
+									</div>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="form-group">
+									<div class="col-md-6">
+										<label><b>Ayah Kandung/Tiri/Angkat atau Wali</b></label>
+										<input type="text" name="nm_ayah" placeholder="Ayah Kandung/Tiri/Angkat atau Wali" class="form-control" readonly>
+									</div>
+
+									<div class="col-md-6">
+										<label><b>Ibu Kandung/Tiri/Angkat atau Wali</b></label>
+										<input type="text" name="nm_ibu" placeholder="Ayah Kandung/Tiri/Angkat atau Wali" class="form-control" readonly>
+									</div>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label><b>Jenis Pembayaran</b></label>
+								<div>
+									<select class="form-control" name="id_daftar">
+										<?php foreach($jenis_pembayaran as $jenis) { ?>
+											<option value="<?php echo $jenis->id_jenis?>"><?php echo $jenis->nm_jenis ?></option>
+										<?php } ?>
+									</select>
+								</div>
 							</div>
 
 							<div class="form-group">
 								<label><b>Jumlah Bayar</b></label>
-								<input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" name="nominal_bayar" placeholder="Nomor Telepon" class="form-control">
-							</div>
-
-							<div class="form-group">
-								<label><b>ID Daftar</b></label>
-								<div>
-									<select class="form-control" name="id_daftar">
-										<option value="Laki-Laki">Laki-Laki</option>
-									</select>
-								</div>
+								<input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" name="nominal_bayar" placeholder="Jumlah Bayar" class="form-control">
 							</div>
 
 						</div>
@@ -104,66 +143,6 @@
 	<!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
-
-<!-- Modal Detail-->
-<div class="modal fade" id="ModalDetailGuru" tabindex="-1" role="basic" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class="modal-title"></h4>
-			</div>
-			<div class="modal-body">
-				
-				<div class="portlet-body form">
-					<form id="form" class="form-horizontal">
-						<table class="table table-responsive table-bordered" border="0">
-			            	<tbody>
-			            		<tr>
-			                 		<td width="120px">ID Guru</td>
-			                  		<td width="20px">:</td>
-			                  		<td><b><span id="id_guru_detail"></span></b></td>
-			                	</tr>
-			                	<tr>
-			                  		<td>Nama Guru</td>
-			                  		<td>:</td>
-			                  		<td><span id="nm_guru_detail"></span></td>
-			                	</tr>
-			                	<tr>
-			                  		<td>Tanggal Lahir</td>
-			                  		<td>:</td>
-			                  		<td><span id="tgl_lahir_detail"></span></td>
-			                	</tr>
-			                	<tr>
-			                  		<td>Jenis Kelamin</td>
-			                  		<td>:</td>
-			                  		<td><span id="jenis_kelamin_detail"></span></td>
-			                	</tr>
-			                 	<tr>
-			                  		<td>Nomor Telepon</td>
-			                  		<td>:</td>
-			                  		<td><span id="no_telp_detail"></span></td>
-			                	</tr>
-			                 	<tr>
-			                  		<td>Alamat</td>
-			                  		<td>:</td>
-			                  		<td><span id="alamat_detail"></span></td>
-			                	</tr> 
-			              </tbody>
-			            </table>
-					</form>
-				</div>
-			</div>
-			
-			<div class="modal-footer">
-				<button type="button" class="btn default" data-dismiss="modal">Close</button>
-			</div>
-		
-		</div>
-		<!-- /.modal-content -->
-	</div>
-	<!-- /.modal-dialog -->
-</div>
-<!-- /.modal detail -->
 	
 <script type="text/javascript">
 
@@ -182,7 +161,7 @@ $(document).ready(function(){
 	 
 	    // Load data for the table's content from an Ajax source
 	    "ajax": {
-	        "url": "<?php echo site_url('guru/guru_list')?>",
+	        "url": "<?php echo site_url('pembayaran/pembayaran_list')?>",
 	        "type": "POST"
 	    },
 	 
@@ -203,19 +182,57 @@ $(document).ready(function(){
 
 });
 
-function tambahGuru()
+function Cari()
+{
+	var id_daftar = $('[name="id_daftar"]').val();
+	if(id_daftar == ""){
+		alert('ID Daftar Tidak Boleh Kosong');
+		return false;
+	}
+
+	$.ajax({
+        url : "<?php echo site_url('pembayaran/id_daftar')?>",
+        type: "POST",
+        dataType: "JSON",
+        data: {id_daftar: id_daftar},
+        success: function(data)
+        {	
+
+        	if(data == null){
+        		alert('Data Tidak Ditemukan');
+        		$('[name="nm_lengkap"]').val("");
+	        	$('[name="thn_ajar"]').val("");
+	        	$('[name="nm_ayah"]').val("");
+	        	$('[name="nm_ibu"]').val("");
+        		return false;
+        	} else {
+           		$('[name="nm_lengkap"]').val(data.nm_lengkap);
+	        	$('[name="thn_ajar"]').val(data.thn_ajar);
+	        	$('[name="nm_ayah"]').val(data.nm_ayah);
+	        	$('[name="nm_ibu"]').val(data.nm_ibu);
+        	}
+
+        },
+        error: function (jqXHR, textStatus, errorThrown)
+        {
+            alert('Error Get Data From Ajax');
+        }
+    });
+}
+
+function tambahPembayaran()
 {
 	save_method = 'add';
     $('#form')[0].reset(); // reset form on modals
     $.ajax({
         type : "GET",
-        url  : "<?php echo base_url('guru/getKode')?>",
+        url  : "<?php echo base_url('pembayaran/getKode')?>",
         dataType : "JSON",
         success: function(data){
-            $.each(data,function(id_guru){
-              $('#ModaltambahGuru').modal('show');
-              $('.modal-title').text('Tambah Data Guru');
-              $('[name="id_guru"]').val(data.id_guru);
+            $.each(data,function(id_bayar){
+              $('#ModaltambahPembayaran').modal('show');
+              $('.modal-title').text('Tambah Data Pembayaran');
+              $('[name="id_bayar"]').val(data.id_bayar);
             });
         }
 	});
@@ -233,9 +250,9 @@ function simpan()
     var url;
 
     if(save_method == 'add') {
-        url = "<?php echo site_url('guru/simpan')?>";
+        url = "<?php echo site_url('pembayaran/simpan')?>";
     } else {
-        url = "<?php echo site_url('guru/ubah')?>";
+        url = "<?php echo site_url('pembayaran/ubah')?>";
     }
 
     // ajax adding data to database
@@ -249,7 +266,7 @@ function simpan()
         dataType: "JSON",
         success: function(data)
         {
-            $('#ModaltambahGuru').modal('hide');
+            $('#ModaltambahPembayaran').modal('hide');
             reload_table();
             $('#btn_simpan').text('save'); //change button text
             $('#btn_simpan').attr('disabled',false); //set button enable 
@@ -263,19 +280,19 @@ function simpan()
     });
 }
 
-function hapus_guru(id)
+function hapus_pembayaran(id)
 {
     if(confirm('Anda Yakin Ingin Menghapus Data Ini?'))
     {
         // ajax delete data to database
         $.ajax({
-            url : "<?php echo site_url('guru/hapus')?>/"+id,
+            url : "<?php echo site_url('pembayaran/hapus')?>/"+id,
             type: "POST",
             dataType: "JSON",
             success: function(data)
             {
                 //if success reload ajax table
-                $('#ModaltambahGuru').modal('hide');
+                $('#ModaltambahPembayaran').modal('hide');
                 reload_table();
             },
             error: function (jqXHR, textStatus, errorThrown)
@@ -287,26 +304,23 @@ function hapus_guru(id)
     }
 }
 
-function ubah_guru(id)
+function ubah_pembayaran(id)
 {
 	save_method = 'update';
     $('#form')[0].reset(); // reset form on modals
     //Ajax Load data from ajax
     $.ajax({
-        url : "<?php echo site_url('guru/edit')?>/" + id,
+        url : "<?php echo site_url('pembayaran/edit')?>/" + id,
         type: "GET",
         dataType: "JSON",
         success: function(data)
         {	
 
-            $('[name="id_guru"]').val(data.id_guru);
-            $('[name="nm_guru"]').val(data.nm_guru);
-            $('[name="tgl_lahir"]').val(data.tgl_lahir); 
-            $('[name="jenis_kelamin"]').val(data.jenis_kelamin);
-            $('[name="no_telp"]').val(data.no_telp);
-            $('[name="alamat"]').val(data.alamat);
+            $('[name="id_bayar"]').val(data.id_guru);
+            $('[name="jml_bayar"]').val(data.nm_guru);
+            $('[name="id_daftar"]').val(data.alamat);
             $('#ModaltambahGuru').modal('show'); // show bootstrap modal when complete loaded
-            $('.modal-title').text('Ubah Data Guru'); // Set title to Bootstrap modal title
+            $('.modal-title').text('Ubah Data Pembayaran'); // Set title to Bootstrap modal title
 
         },
         error: function (jqXHR, textStatus, errorThrown)
@@ -316,25 +330,18 @@ function ubah_guru(id)
     });
 }
 
-function detail_guru(id)
+function detail_pembayaran(id)
 {
     save_method = 'update';
     $('#form')[0].reset(); // reset form on modals
     //Ajax Load data from ajax
     $.ajax({
-        url : "<?php echo site_url('guru/edit')?>/" + id,
+        url : "<?php echo site_url('pembayaran/edit')?>/" + id,
         type: "GET",
         dataType: "JSON",
         success: function(data)
         {
-            $('#id_guru_detail').text(data.id_guru);
-            $('#nm_guru_detail').text(data.nm_guru);
-            $('#tgl_lahir_detail').text(data.tgl_lahir);
-            $('#jenis_kelamin_detail').text(data.jenis_kelamin);
-            $('#no_telp_detail').text(data.no_telp);
-            $('#alamat_detail').text(data.alamat);
-            $('#ModalDetailGuru').modal('show'); // show bootstrap modal when complete loaded
-            $('.modal-title').text('Detail Data Guru'); // Set title to Bootstrap modal title
+        	// 
         },
         error: function (jqXHR, textStatus, errorThrown)
         {

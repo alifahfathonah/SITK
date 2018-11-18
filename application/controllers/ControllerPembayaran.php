@@ -17,6 +17,7 @@ class ControllerPembayaran extends CI_Controller {
 	public function index()
 	{
 		$data = [
+            'jenis_pembayaran' => $this->Model->getAll('jenis_pembayaran'),
 			'title' => 'Pembayaran'
 		];
 		$this->load->view('template/v_header',$data);
@@ -29,7 +30,7 @@ class ControllerPembayaran extends CI_Controller {
 	{
 		$kode = $this->Pembayaran->getKodePembayaran();
 		$data = [
-			'id_pembayaran' => $kode
+			'id_bayar' => $kode
 		];
 		echo json_encode($data);
 	}
@@ -87,6 +88,13 @@ class ControllerPembayaran extends CI_Controller {
 		$data = $this->Model->get_by_id('id_bayar',$id,'pembayaran');
 		echo json_encode($data);
 	}
+
+    public function id_daftar()
+    {
+        $id = $this->input->post('id_daftar');
+        $data = $this->db->query("SELECT nm_lengkap,thn_ajar,nm_ayah,nm_ibu FROM calon_siswa JOIN pendaftaran ON calon_siswa.id_calon_siswa = pendaftaran.id_calon_siswa WHERE id_daftar = '$id'")->row();
+        echo json_encode($data);
+    }
 
 	public function ubah()
     {	
