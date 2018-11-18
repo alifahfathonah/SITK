@@ -21,7 +21,7 @@
 						<li>
 							<a href="<?php echo site_url('calon_siswa') ?>">
 							<i class="fa fa-users"></i>
-							Data Calon Siswa</a>
+							Penerimaan Murid Baru</a>
 						</li>
 						<li>
 							<a href="<?php echo site_url('guru') ?>">
@@ -38,15 +38,20 @@
 							<i class="fa fa-tags"></i>
 							Jenis Pembayaran</a>
 						</li>
+					</ul>
+				</li>
+
+				<li>
+					<a href="javascript:;">
+						<i class="fa fa-money"></i>
+						<span class="title">Data Transaksi</span>
+						<span class="arrow "></span>
+					</a>
+					<ul class="sub-menu">
 						<li>
-							<a href="ecommerce_products.html">
-							<i class="icon-handbag"></i>
-							Products</a>
-						</li>
-						<li>
-							<a href="ecommerce_products_edit.html">
-							<i class="icon-pencil"></i>
-							Product Edit</a>
+							<a href="<?php echo site_url('pembayaran') ?>">
+							<i class="fa fa-dollar"></i>
+							Data Pembayaran</a>
 						</li>
 					</ul>
 				</li>

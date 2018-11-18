@@ -57,7 +57,7 @@
 													</div>
 													<div class="col-md-2">
 														<div class="form-group form-md-line-input">
-															<label for="form_control_1"><b>s/d</b></label>
+															<label for="form_control_1"><b>/</b></label>
 														</div>
 													</div>
 													<div class="col-md-5">
@@ -66,12 +66,7 @@
 														</div>
 													</div>
 												</div>
-
-												<div class="form-group form-md-line-input" id="div_induk">
-													<input oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" type="text" name="no_induk" class="form-control" placeholder="Input Nomor Induk">
-													<label for="form_control_1">Nomor Induk</label>
-													<span class="help-block" id="span_no_induk">Nomor Induk Sudah Ada</span>
-												</div>
+												
 												<div class="form-group form-md-line-input">
 													<input type="text" name="nm_lengkap" class="form-control" placeholder="Input Nama Lengkap">
 													<label for="form_control_1">Nama Lengkap</label>
@@ -348,8 +343,6 @@ function simpan()
 
 <script type="text/javascript">
 
-$('#span_no_induk').hide();
-
 var currentTime = new Date();
 var current_year = currentTime.getFullYear();
 var next_year = currentTime.getFullYear()+1;
@@ -362,54 +355,27 @@ function simpan()
 	$('#btn_simpan').text('saving...'); //change button text
     $('#btn_simpan').attr('disabled',true); //set button disable 
 
-    var no_induk = $('[name="no_induk"]').val();
-
-    $.ajax({
-        url : "<?php echo site_url('calon_siswa/no_induk') ?>",
-        type: "POST",
-        data: {no_induk:no_induk},
-        dataType: "JSON",
-        success: function(data)
-        {
-        	if(data.status == true){
-				// ajax adding data to database
-			    var formData = new FormData($('#form')[0]);
-			    $.ajax({
-			        url : "<?php echo site_url('calon_siswa/simpan') ?>",
-			        type: "POST",
-			        data: formData,
-			        contentType: false,
-			        processData: false,
-			        dataType: "JSON",
-			        success: function(data)
-			        {
-			        	window.location = "<?php  echo site_url('calon_siswa'); ?>";
-			            $('#btn_simpan').text('save'); //change button text
-			            $('#btn_simpan').attr('disabled',false); //set button enable 
-			        },
-			        error: function (jqXHR, textStatus, errorThrown)
-			        {
-			            alert('Error Adding / Update Data');
-			            $('#btn_simpan').text('save'); //change button text
-			            $('#btn_simpan').attr('disabled',false); //set button enable 
-			        }
-			    });        		
-        	} else {
-        	  //set the error in span
-        	  $('#span_no_induk').show();
-        	  $("#div_induk").last().addClass("has-error");
-        	  $('[name="no_induk"]').focus();
-        	  $('#btn_simpan').text('save'); //change button text
-              $('#btn_simpan').attr('disabled',false); //set button enable 
-        	}
-        },
-        error: function (jqXHR, textStatus, errorThrown)
-        {
-            alert('Error Adding / Update Data');
-            $('#btn_simpan').text('save'); //change button text
-            $('#btn_simpan').attr('disabled',false); //set button enable 
-        }
-    });
+    var formData = new FormData($('#form')[0]);
+	$.ajax({
+		url : "<?php echo site_url('calon_siswa/simpan') ?>",
+		type: "POST",
+		data: formData,
+		contentType: false,
+		processData: false,
+		dataType: "JSON",
+		success: function(data)
+		{
+			window.location = "<?php  echo site_url('calon_siswa'); ?>";
+			$('#btn_simpan').text('save'); //change button text
+			$('#btn_simpan').attr('disabled',false); //set button enable 
+		},
+		error: function (jqXHR, textStatus, errorThrown)
+		{
+			alert('Error Adding / Update Data');
+			$('#btn_simpan').text('save'); //change button text
+			$('#btn_simpan').attr('disabled',false); //set button enable 
+		}
+	});    
 
 }
 </script>

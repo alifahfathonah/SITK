@@ -70,10 +70,10 @@
 								<tr>
 									<td><center><?php echo $no++."." ?></center></td>
 									<td><center><?php echo $siswa->id_calon_siswa ?></center></td>
-									<td><center><?php echo $siswa->nm_lengkap ?></center></td>
+									<td><center><a href="#Detail<?php echo $siswa->id_calon_siswa ?>" data-toggle="modal"><?php echo $siswa->nm_lengkap ?></a></center></td>
 									<td> 
 										<center>
-											<button class="btn btn-sm btn-info" data-toggle="modal" data-target="#Detail<?php echo $siswa->id_calon_siswa ?>" title="Detail"><i class="glyphicon glyphicon glyphicon-folder-open"></i> Detail</button>
+											<a href="<?php echo site_url('calon_siswa/cetak/').$siswa->id_calon_siswa ?>" class="btn btn-sm btn-info" title="Cetak"><i class="glyphicon glyphicon glyphicon-print"></i> Cetak</a>
 											<a href="<?php echo site_url('calon_siswa/edit/').$siswa->id_calon_siswa ?>" class="btn btn-sm btn-warning" title="Ubah"><i class="glyphicon glyphicon-pencil"></i> Ubah</a>
 											<button type="button" onclick="hapus('<?php echo $siswa->id_calon_siswa ?>')" class="btn btn-sm btn-danger" title="Hapus"><i class="glyphicon glyphicon-pencil"></i> Hapus</button>
 										</center>

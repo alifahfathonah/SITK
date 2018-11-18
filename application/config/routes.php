@@ -97,8 +97,17 @@ $route['calon_siswa/calon_list'] = 'ControllerCalon/calon_list';
 $route['calon_siswa/hapus/(:any)'] = 'ControllerCalon/hapus/$1';
 $route['calon_siswa/edit/(:any)'] = 'ControllerCalon/edit/$1';
 $route['calon_siswa/ubah'] = 'ControllerCalon/ubah';
-$route['calon_siswa/no_induk'] = 'ControllerCalon/no_induk';
+$route['calon_siswa/cetak/(:any)'] = 'ControllerCalon/cetak/$1';
 
 //pengaturan
 $route['pengaturan'] = 'ControllerPengaturan';
 $route['pengaturan/ubah'] = 'ControllerPengaturan/ubah';
+
+//pembayaran
+$route['pembayaran'] = 'ControllerPembayaran';
+$route['pembayaran/getKode'] = 'ControllerPembayaran/getKode';
+$route['pembayaran/simpan'] = 'ControllerPembayaran/simpan';
+$route['pembayaran/pembayaran_list'] = 'ControllerPembayaran/pembayaran_list';
+$route['pembayaran/hapus/(:any)'] = 'ControllerPembayaran/hapus/$1';
+$route['pembayaran/edit/(:any)'] = 'ControllerPembayaran/edit/$1';
+$route['pembayaran/ubah'] = 'ControllerPembayaran/ubah';

@@ -45,7 +45,7 @@
 
 										<div class="col-md-6">
 											<input type="hidden" name="id_calon_siswa" value="<?php echo $this->uri->segment(3) ?>">
-											<input type="hidden" name="id_calon_siswa" value="<?php echo $siswa->id_daftar ?>">
+											<input type="hidden" name="id_daftar" value="<?php echo $siswa->id_daftar ?>">
 											<div class="form-body">
 
 												<div class="row">
@@ -360,7 +360,7 @@ function simpan()
         success: function(data)
         {
 
-        	if(no_induk_tes == data[0].no_induk){
+        	if(no_induk_tes == no_induk){
         		//update ajax
         		var formData = new FormData($('#form')[0]);
 			    $.ajax({
@@ -391,7 +391,29 @@ function simpan()
 	        	    $('[name="no_induk"]').focus();
 	        	    $('#btn_simpan').text('save'); //change button text
 	                $('#btn_simpan').attr('disabled',false); //set button enable
-        		} 
+        		} else {
+        			var formData = new FormData($('#form')[0]);
+				    $.ajax({
+				        url : "<?php echo site_url('calon_siswa/ubah') ?>",
+				        type: "POST",
+				        data: formData,
+				        contentType: false,
+				        processData: false,
+				        dataType: "JSON",
+				        success: function(data)
+				        {
+				        	window.location = "<?php  echo site_url('calon_siswa'); ?>";
+				            $('#btn_simpan').text('save'); //change button text
+				            $('#btn_simpan').attr('disabled',false); //set button enable 
+				        },
+				        error: function (jqXHR, textStatus, errorThrown)
+				        {
+				            alert('Error Adding / Update Data');
+				            $('#btn_simpan').text('save'); //change button text
+				            $('#btn_simpan').attr('disabled',false); //set button enable 
+				        }
+				    });
+        		}
         	}
         },
         error: function (jqXHR, textStatus, errorThrown)

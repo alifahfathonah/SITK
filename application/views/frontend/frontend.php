@@ -72,10 +72,10 @@
 
         <div id="navbar-collapse" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li class="active"><a href="#" data-nav-section="home">Home</a></li>
-            <li><a href="#" data-nav-section="profil">Profil</a></li>
-            <li><a href="#" data-nav-section="features">Visi & Misi</a></li>
-            <li><a href="#" data-nav-section="map">Lokasi</a></li>
+            <li class="active"><a href="#" data-nav-section="home"><h4>Home</h4></a></li>
+            <li><a href="#" data-nav-section="profil"><h4>Profil</h4></a></li>
+            <li><a href="#" data-nav-section="features"><h4>Visi & Misi</h4></a></li>
+            <li><a href="#" data-nav-section="map"><h4>Lokasi</h4></a></li>
           </ul>
         </div>
       </div>
@@ -99,8 +99,8 @@
         <div class="row">
           <div class="col-md-12">
             <div class="probootstrap-service-item probootstrap-animate" data-animate-effect="fadeIn">
-              <h2>Profil</h2>
-              <p>TK Islam Tunas Harapan yang bertempat di jalan Masjid Darul Fallah, RT.8/RW.2, Petukangan Utara, 
+              <h1>Profil</h1>
+              <p style="font-size: 25px">TK Islam Tunas Harapan yang bertempat di jalan Masjid Darul Fallah, RT.8/RW.2, Petukangan Utara, 
                 Pesanggrahan, Kota Jakarta Selatan, merupakan tempat belajar dan bermain anak-anak yang dikelola oleh Yayasan TK Islam Tunas Harapan. Lembaga ini berusaha
                 mengelola pendidikan islamiyah yang sistematis dan merupakan TK yang mulai berkembang yang berkedudukan di Jakarta.</p>
             </div>
@@ -123,7 +123,7 @@
           </div>
           <div class="col-md-4 col-md-pull-1 probootstrap-section-heading">
             <h3 class="text-primary probootstrap-heading-2">Visi</h3>
-            <p><p style="text-align: left; font-size: 20px">Membentuk kepribadian muslim sedini mungkin dan mempersiapkan anak ke jenjang pendidikan yang lebih tinggi.</p></p>
+            <p><p style="text-align: left; font-size: 25px">Membentuk kepribadian muslim sedini mungkin dan mempersiapkan anak ke jenjang pendidikan yang lebih tinggi.</p></p>
           </div>
         </div>
         <!-- END row -->
@@ -135,7 +135,7 @@
           <!-- <div class="col-md-4 col-md-pull-1"> -->
           <div class="col-md-4 col-md-pull-8 probootstrap-section-heading">
             <h3 class="text-primary probootstrap-heading-2">Misi</h3>
-            <p><p style="text-align: left; font-size: 20px">Menghasilkan kelulusan yang berkepribadian muslim, berakhlaq, beriman dan terampil serta dapat berinteraksi sosial secara baik dengan lingkungan</p></p>
+            <p><p style="text-align: left; font-size: 25px">Menghasilkan kelulusan yang berkepribadian muslim, berakhlaq, beriman dan terampil serta dapat berinteraksi sosial secara baik dengan lingkungan</p></p>
           </div>
         </div>
         <!-- END row -->
@@ -147,11 +147,11 @@
           <div class="col-md-4 col-md-pull-1 probootstrap-section-heading">
             <h3 class="text-primary probootstrap-heading-2">Tujuan</h3>
             <ul class="probootstrap-list">
-              <li class="probootstrap-check"><p style="text-align: left; font-size: 19px">Mewujudkan anak Indonesia yang cerdas, berkarakter, cinta tanah air dan berwawasan global.</p></li>
-              <li class="probootstrap-check"><p style="text-align: left; font-size: 19px">Mewujudkan anak usia dini yang berkarakter dan berjiwa sosial.</p></li>
-              <li class="probootstrap-check"><p style="text-align: left; font-size: 19px">Mewujudkan pengelolaan lembaga PAUD yang sesuai dengan standar manajemen mutu.</p></li>
-              <li class="probootstrap-check"><p style="text-align: left; font-size: 19px">Mewujudkan lembaga PAUD berkualitas sebagai pusat rujukan dan pusat informasi.</p></li>
-              <li class="probootstrap-check"><p style="text-align: left; font-size: 19px">Menghasilkan guru dan tenaga kependidikan yang berkompeten di bidang PAUD.</p></li>
+              <li class="probootstrap-check"><p style="text-align: left; font-size: 25px">Mewujudkan anak Indonesia yang cerdas, berkarakter, cinta tanah air dan berwawasan global.</p></li>
+              <li class="probootstrap-check"><p style="text-align: left; font-size: 25px">Mewujudkan anak usia dini yang berkarakter dan berjiwa sosial.</p></li>
+              <li class="probootstrap-check"><p style="text-align: left; font-size: 25px">Mewujudkan pengelolaan lembaga PAUD yang sesuai dengan standar manajemen mutu.</p></li>
+              <li class="probootstrap-check"><p style="text-align: left; font-size: 25px">Mewujudkan lembaga PAUD berkualitas sebagai pusat rujukan dan pusat informasi.</p></li>
+              <li class="probootstrap-check"><p style="text-align: left; font-size: 25px">Menghasilkan guru dan tenaga kependidikan yang berkompeten di bidang PAUD.</p></li>
             </ul>
           </div>
         </div>
@@ -164,7 +164,7 @@
       <div class="container-fluid" style="margin-top : -50px">
         <div class="row">
           <div class="col-md-8 col-md-offset-2 text-center">
-            <h2 class="probootstrap-heading">Lokasi</h2>
+            <h1 class="probootstrap-heading">Lokasi</h1>
           </div>
 
           <div class="col-md-12">
