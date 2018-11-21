@@ -329,7 +329,7 @@ class ControllerCalon extends CI_Controller {
         $pdf->Cell(110,6,"Total",1,0,'C');
         $pdf->Cell(80,6,"-",1,1,'C');
         
-        $fileName = 'LAPORAN_JASA_.pdf';
+        $fileName = 'Detail_Pembayaran_'.$calon_siswa->id_daftar.'_.pdf';
         $pdf->Output('D',$fileName); 
     }
 }

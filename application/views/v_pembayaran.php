@@ -60,7 +60,7 @@
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title"></h4>
+				<h4 class="modal-title">Tambah Data Pembayaran</h4>
 			</div>
 			<div class="modal-body">
 				
@@ -152,6 +152,78 @@
 	<!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
+
+<!-- Modal Detail-->
+<div class="modal fade" id="ModalDetailPembayaran" tabindex="-1" role="basic" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="modal_title_detail"></h4>
+			</div>
+			<div class="modal-body">
+				
+				<div class="portlet-body form">
+					<form class="form-horizontal">
+						
+						<div class="row">
+							<div class="col-md-12">
+								<table class="table table-responsive table-bordered" border="0">
+					            	<tbody>
+					            		<tr>
+					                 		<td width="120px">ID Pendaftaran</td>
+					                  		<td width="20px">:</td>
+					                  		<td><b id="id_calon"></b></td>
+					                	</tr>
+					                	<tr>
+					                  		<td>Nama Siswa</td>
+					                  		<td>:</td>
+					                  		<td id="nm_siswa"></td>
+					                	</tr>
+					                	<tr>
+					                  		<td>Tahun Ajaran</td>
+					                  		<td>:</td>
+					                  		<td id="thn_ajar"></td>
+					                	</tr>
+					                	<tr>
+					                  		<td>Status</td>
+					                  		<td>:</td>
+					                  		<td id="status"></td>
+					                	</tr>
+					              </tbody>
+					            </table>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-12">
+								<table class="table table-responsive table-bordered" border="0">
+					            	<thead>
+					            		<th><center>Tanggal Bayar</center></th>
+					            		<th><center>Jumlah Bayar</center></th>
+					            	</thead>
+					            	<tbody id="show_data">
+					            	</tbody>
+					            	<tfoot>
+					            		<td><center><b>Total</b></center></td>
+					            		<td><center><b id="tfoot"></b></center></td>
+					            	</tfoot>
+					            </table>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+			
+			<div class="modal-footer">
+				<button type="button" class="btn default" data-dismiss="modal">Close</button>
+			</div>
+		
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<!-- /.modal detail -->
 	
 <script type="text/javascript">
 
@@ -217,12 +289,14 @@ function Cari()
 	        	$('[name="thn_ajar"]').val("");
 	        	$('[name="nm_ayah"]').val("");
 	        	$('[name="nm_ibu"]').val("");
+	        	$('#btn_simpan').attr('disabled',true); //set button enable
         		return false;
         	} else {
            		$('[name="nm_lengkap"]').val(data.nm_lengkap);
 	        	$('[name="thn_ajar"]').val(data.thn_ajar);
 	        	$('[name="nm_ayah"]').val(data.nm_ayah);
 	        	$('[name="nm_ibu"]').val(data.nm_ibu);
+	        	$('#btn_simpan').attr('disabled',false); //set button enable
         	}
 
         },
@@ -235,6 +309,7 @@ function Cari()
 
 function tambahPembayaran()
 {
+	$('#btn_simpan').attr('disabled',true); //set button enable
 	save_method = 'add';
     $('#form')[0].reset(); // reset form on modals
     $.ajax({
@@ -353,18 +428,71 @@ function ubah_pembayaran(id)
     });
 }
 
+function cetak_pembayaran(id)
+{
+	if(confirm('Anda Yakin Ingin Mencetak Pembayaran '+id+' ?'))
+    {
+    	$.ajax({
+	        url : "<?php echo site_url('pembayaran/cetak')?>",
+	        type: "POST",
+	        data: {id_bayar:id},
+	        dataType: "JSON",
+	        success: function(data)
+	        {
+				 // window.location = "<?php  echo site_url('calon_siswa'); ?>";
+	        },
+	        error: function (jqXHR, textStatus, errorThrown)
+	        {
+	            alert('Error Adding / Update Data');
+	        }
+	    });
+    }
+}
+
 function detail_pembayaran(id)
 {
     save_method = 'update';
     $('#form')[0].reset(); // reset form on modals
     //Ajax Load data from ajax
     $.ajax({
-        url : "<?php echo site_url('pembayaran/edit')?>/" + id,
+        url : "<?php echo site_url('pembayaran/detail')?>/" + id,
         type: "GET",
         dataType: "JSON",
         success: function(data)
         {
-        	// 
+        	$('#ModalDetailPembayaran').modal('show'); 
+        		var html = '';
+                var i;
+                no = 1;
+                for(i=0; i<data.length; i++){
+
+                    var har = data[i].jml_bayar;
+                    var reverse = har.toString().split('').reverse().join(''),
+                        ribuan  = reverse.match(/\d{1,3}/g);
+                        ribuan  = ribuan.join('.').split('').reverse().join('');
+
+                    html += 
+                    '<tr>'+
+                        '<td align="center">'+data[i].tgl_bayar+'</td>'+
+                        '<td align="center">'+ribuan+'</td>'+
+                    '</tr>';
+
+                }
+   
+                $('#show_data').html(html);
+
+                var angka = data[0].total;
+                var reverse = angka.toString().split('').reverse().join(''),
+                    total  = reverse.match(/\d{1,3}/g);
+                    total  = total.join('.').split('').reverse().join('');
+
+                $('#tfoot').html(total);
+                $('#id_calon').html(data[0].id_daftar);
+                $('#nm_siswa').html(data[0].nm_lengkap);
+                $('#status').html(data[0].status);
+                $('#thn_ajar').html(data[0].thn_ajar);
+                $('#modal_title_detail').text('Detail Pembayaran'+' / '+id);
+
         },
         error: function (jqXHR, textStatus, errorThrown)
         {

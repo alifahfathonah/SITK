@@ -13,6 +13,7 @@
 
 <script src="<?php echo base_url('assets/global/plugins/jquery-migrate.min.js')?>" type="text/javascript"></script>
 <!-- IMPORTANT! Load jquery-ui.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+<script type="text/javascript" src="<?php echo base_url('assets//global/plugins/select2/select2.min.js')?>"></script>
 <script src="<?php echo base_url('assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js')?>" type="text/javascript"></script>
 <script src="<?php echo base_url('assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js')?>" type="text/javascript"></script>
 <script src="<?php echo base_url('assets/global/plugins/jquery.blockui.min.js')?>" type="text/javascript"></script>

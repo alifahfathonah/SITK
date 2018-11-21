@@ -55,6 +55,21 @@
 						</li>
 					</ul>
 				</li>
+
+				<li>
+					<a href="javascript:;">
+						<i class="fa fa-university"></i>
+						<span class="title">Data Kelas</span>
+						<span class="arrow "></span>
+					</a>
+					<ul class="sub-menu">
+						<li>
+							<a href="<?php echo site_url('pembentukan_kelas') ?>">
+							<i class="fa fa-asterisk"></i>
+							Pembentukan Kelas</a>
+						</li>
+					</ul>
+				</li>
 					
 			</ul>
 			<!-- END SIDEBAR MENU -->

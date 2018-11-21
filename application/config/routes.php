@@ -110,5 +110,11 @@ $route['pembayaran/simpan'] = 'ControllerPembayaran/simpan';
 $route['pembayaran/pembayaran_list'] = 'ControllerPembayaran/pembayaran_list';
 $route['pembayaran/hapus/(:any)'] = 'ControllerPembayaran/hapus/$1';
 $route['pembayaran/edit/(:any)'] = 'ControllerPembayaran/edit/$1';
+$route['pembayaran/detail/(:any)'] = 'ControllerPembayaran/detail/$1';
 $route['pembayaran/id_daftar'] = 'ControllerPembayaran/id_daftar';
+$route['pembayaran/cetak'] = 'ControllerPembayaran/cetak';
 $route['pembayaran/ubah'] = 'ControllerPembayaran/ubah';
+
+//pembentukan kelas
+$route['pembentukan_kelas'] = 'ControllerPembentukanKelas';
+$route['pembentukan_kelas/tambah_kelas'] = 'ControllerPembentukanKelas/tambah_kelas';

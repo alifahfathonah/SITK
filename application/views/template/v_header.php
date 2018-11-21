@@ -34,6 +34,9 @@ License: You must have a valid license purchased only from themeforest(the above
 <!-- END GLOBAL MANDATORY STYLES -->
 <!-- BEGIN THEME STYLES -->
 <link href="<?php echo base_url('assets/global/css/components.css')?>" id="style_components" rel="stylesheet" type="text/css"/>
+
+<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/global/plugins/select2/select2.css')?>"/>
+
 <link href="<?php echo base_url('assets/global/css/plugins.css')?>" rel="stylesheet" type="text/css"/>
 <link href="<?php echo base_url('assets/admin/layout2/css/layout.css')?>" rel="stylesheet" type="text/css"/>
 <link id="style_color" href="<?php echo base_url('assets/admin/layout2/css/themes/grey.css')?>" rel="stylesheet" type="text/css"/>
