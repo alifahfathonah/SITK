@@ -37,10 +37,9 @@
 						<table id="table" class="table table-bordered table-striped table-condensed flip-content">
 							<thead class="flip-content">
 								<tr>
-									<th width="20%"><center>ID Bayar</center></th>
-									<th width="50%"><center>Tanggal Bayar</center></th>
-									<th width="50%"><center>Status</center></th>
-									<th width="50%"><center>Action</center></th>
+									<th width="15%"><center>ID Bayar</center></th>
+									<th width="30%"><center>Status</center></th>
+									<th width="100%"><center>Action</center></th>
 								</tr>
 							</thead>
 							<tbody>
@@ -68,19 +67,24 @@
 				<div class="portlet-body form">
 					<form id="form" class="form-horizontal">
 						<div class="form-body">				
-							<!-- <div class="form-group">
-								<label><b>ID Bayar</b></label>
-								<input type="text" name="id_bayar" class="form-control" readonly>
-							</div> -->
+							<!-- <div class="form-group"> -->
+								<!-- <label><b>ID Bayar</b></label> -->
+								<input type="hidden" name="id_bayar" class="form-control" readonly>
+							<!-- </div> -->
 
-							<div class="form-group">
+							<div class="form-group" id="search">
 								<label><b>ID Daftar</b></label>
 									<div class="input-group">
 										<input type="text" name="id_daftar" placeholder="Input ID Daftar" class="form-control">
 										<span class="input-group-btn">
-											<button class="btn blue" onclick="Cari()" type="button"><i class="fa fa-search"></i> Search</button>
+											<button class="btn blue" id="search" onclick="Cari()" type="button"><i class="fa fa-search"></i> Search</button>
 										</span>
 									</div>
+							</div>
+
+							<div class="form-group" id="id_daftar_edit">
+								<label><b>ID Daftar</b></label>
+								<input type="text" name="id_daftar_edit" placeholder="ID Daftar" class="form-control" readonly>
 							</div>
 
 							<div class="row">
@@ -111,10 +115,15 @@
 								</div>
 							</div>
 
+							<div class="form-group" id="jml_bayar">
+								<label><b>Jumlah Sudah Bayar</b></label>
+								<input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" readonly name="jml_bayar" placeholder="Jumlah Bayar" class="form-control">
+							</div>
+
 							<div class="form-group">
 								<label><b>Jenis Pembayaran</b></label>
 								<div>
-									<select class="form-control" name="id_daftar">
+									<select class="form-control" name="jenis_pembayaran">
 										<?php foreach($jenis_pembayaran as $jenis) { ?>
 											<option value="<?php echo $jenis->id_jenis?>"><?php echo $jenis->nm_jenis ?></option>
 										<?php } ?>
@@ -149,6 +158,10 @@
 var save_method; //for save method string
 var table;
 var base_url = '<?php echo base_url();?>';
+
+$('#search').show();
+$('#id_daftar_edit').hide();
+$('#jml_bayar').hide();
 
 $(document).ready(function(){
 	
@@ -230,9 +243,12 @@ function tambahPembayaran()
         dataType : "JSON",
         success: function(data){
             $.each(data,function(id_bayar){
-              $('#ModaltambahPembayaran').modal('show');
-              $('.modal-title').text('Tambah Data Pembayaran');
-              $('[name="id_bayar"]').val(data.id_bayar);
+              	$('#search').show();
+              	$('#jml_bayar').hide();
+              	$('#id_daftar_edit').hide();
+              	$('#ModaltambahPembayaran').modal('show');
+              	$('.modal-title').text('Tambah Data Pembayaran');
+              	$('[name="id_bayar"]').val(data.id_bayar);
             });
         }
 	});
@@ -315,12 +331,19 @@ function ubah_pembayaran(id)
         dataType: "JSON",
         success: function(data)
         {	
-
-            $('[name="id_bayar"]').val(data.id_guru);
-            $('[name="jml_bayar"]').val(data.nm_guru);
-            $('[name="id_daftar"]').val(data.alamat);
-            $('#ModaltambahGuru').modal('show'); // show bootstrap modal when complete loaded
-            $('.modal-title').text('Ubah Data Pembayaran'); // Set title to Bootstrap modal title
+        	$('[name="id_bayar"]').val(id);
+        	$('#search').hide();
+        	$('#id_daftar_edit').show();
+        	$('[name="id_daftar_edit"]').val(data.id_daftar);
+        	$('[name="nm_lengkap"]').val(data.nm_lengkap);
+	        $('[name="thn_ajar"]').val(data.thn_ajar);
+	       	$('[name="nm_ayah"]').val(data.nm_ayah);
+	       	$('[name="nm_ibu"]').val(data.nm_ibu);
+	       	$('[name="jenis_pembayaran"]').val(data.id_jenis);
+	       	$('#jml_bayar').show();
+	       	$('[name="jml_bayar"]').val(data.jml_bayar);
+            $('#ModaltambahPembayaran').modal('show'); // show bootstrap modal when complete loaded
+            $('.modal-title').text('Ubah Data Pembayaran'+' / '+id); // Set title to Bootstrap modal title
 
         },
         error: function (jqXHR, textStatus, errorThrown)

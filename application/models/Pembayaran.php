@@ -84,4 +84,15 @@ class Pembayaran extends CI_Model {
        	return "BYR".$kd;
     }
 
+    //validasi
+    public function validasi($id_bayar)
+    {
+        $jenis = $this->db->query("
+                SELECT * FROM pembayaran 
+                    JOIN detail_bayar ON pembayaran.id_bayar = detail_bayar.id_bayar 
+                    JOIN jenis_pembayaran ON jenis_pembayaran.id_jenis = detail_bayar.id_jenis
+                WHERE nm_jenis = 'Lunas' AND pembayaran.id_bayar = '$id_bayar'");
+        return $jenis->result();
+    }
+
 }
