@@ -36,19 +36,58 @@
 					<div class="portlet-body flip-scroll">
 						<div class="portlet light">
 							<div class="portlet-body form">
-								<form>
-									<div class="form-group">
-										<label class="control-label col-md-2">Nama Siswa
-										</label>
-											<div class="col-md-4">
-												<select class="form-control select2me" name="options2">
-													<option value="">Select...</option>
-													<option value="Option 1">Option 1</option>
-													<option value="Option 2">Option 2</option>
-													<option value="Option 3">Option 3</option>
-													<option value="Option 4">Option 4</option>
-												</select>
+								<form id="form">
+									<div class="row">
+										<div class="col-md-2">
+											<div class="form-group form-md-line-input">
+												<input type="text" id="datepicker1" name="thn_ajar1" class="form-control" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Tahun Ajaran" required>
 											</div>
+										</div>
+										<div class="col-md-1">
+											<div class="form-group form-md-line-input">
+												<center><label for="form_control_1"><b>/</b></label></center>
+											</div>
+										</div>
+										<div class="col-md-2">
+											<div class="form-group form-md-line-input">
+												<input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" id="datepicker2" required name="thn_ajar2" class="form-control" placeholder="Tahun Ajaran">
+											</div>
+										</div>
+									</div>
+
+									<div class="form-group form-md-line-input has-info" id="umur">
+										<select class="form-control" name="umur">
+											<option value="">-Pilih-</option>
+											<option value="6">Umur 6 Tahun</option>
+											<option value="5">Umur 5 Tahun</option>
+											<option value="4">Umur 4 Tahun</option>
+											<option value="3">Umur 3 Tahun</option>
+										</select>
+										<label for="form_control_1">Umur Murid</label>
+									</div>
+
+									<div class="form-group form-md-line-input has-info">
+										<select class="form-control" name="kelas">
+											<?php foreach($kelas as $kls){ ?>
+												<option value="<?php echo $kls->id_kelas ?>"><?php echo ucwords($kls->nm_kelas) ?></option>
+											<?php } ?>
+										</select>
+										<label for="form_control_1">Guru</label>
+									</div>
+
+									<div class="form-group form-md-line-input has-info">
+										<select class="form-control" name="guru">
+											<?php foreach($guru as $gr){ ?>
+												<option value="<?php echo $gr->id_guru ?>"><?php echo ucwords($gr->nm_guru) ?></option>
+											<?php } ?>
+										</select>
+										<label for="form_control_1">Guru</label>
+									</div>
+
+									<div class="row">
+										<div class="col-md-4">
+											<button type="button" data-toggle="modal" onclick="tambahKelas()" class="btn btn-block btn-primary"><i class="fa fa-gears"></i> Proses</button>	
+										</div>
 									</div>
 								</form>
 							</div>
@@ -63,41 +102,138 @@
 </div>
 <!-- END CONTENT -->
 
+<!-- Modal -->
+<div class="modal fade" id="tambahKelas" tabindex="-1" role="basic" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Pembentukan Kelas Baru</h4>
+			</div>
+			<div class="modal-body">
+				
+				<div class="portlet-body form">
+					<form id="form" class="form-horizontal">
+						<div class="form-body">				
+							<table class="table table-bordered">
+								<thead>
+									<th width="15%"><center>No.</center></th>
+									<th width="75%"><center>Nama</center></th>
+								</thead>
+								<tbody id="isi"></tbody>
+							</table>
+
+							<hr>
+
+							<table>
+								<thead>
+									<th width="15%">Nama Guru</th>
+									<th width="5%"><center>:</center></th>
+									<th width="75%" id="guru_pilih"></th>
+								</thead>
+								<thead>
+									<th width="15%">Kelas</th>
+									<th width="5%"><center>:</center></th>
+									<th width="75%" id="kelas_pilih"></th>
+								</thead>
+							</table>
+							
+						</div>
+					</form>
+				</div>
+			</div>
+			
+			<div class="modal-footer">
+				<button type="button" class="btn default" data-dismiss="modal">Close</button>
+				<button type="button" id="btn_simpan" onclick="simpan()" class="btn blue">Save</button>
+			</div>
+		
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
 <script type="text/javascript">
 
 var save_method; //for save method string
 var table;
 var base_url = '<?php echo base_url();?>';
 
-$(document).ready(function(){
-		
-	//datatables
-	table = $('#table').DataTable({ 
-	 
-	    "processing": true, //Feature control the processing indicator.
-	    "serverSide": true, //Feature control DataTables' server-side processing mode.
-	    "order": [], //Initial no order.
-	 
-	    // Load data for the table's content from an Ajax source
-	    "ajax": {
-	        "url": "<?php echo site_url('kelas/kelas_list')?>",
-	        "type": "POST"
-	    },
-	 
-	    //Set column definition initialisation properties.
-	    "columnDefs": [
-	        { 
-	            "targets": [ 0 ], //first column
-	            "orderable": false, //set not orderable
-	        },
-	        { 
-	            "targets": [ -1 ], //last column
-	            "orderable": false, //set not orderable
-	        },
-	 
-       ],
-	 
-    });
+var currentTime = new Date();
+var current_year = currentTime.getFullYear();
+var next_year = currentTime.getFullYear()+1;
 
-});
+$('[name="thn_ajar1"]').val(current_year);
+$('[name="thn_ajar2"]').val(next_year);
+
+function tambahKelas()
+{
+
+	if($('[name="umur"]').val() == ""){
+		$("#umur").removeClass("has-info");
+		$("#umur").addClass('has-error');
+		$('[name="umur"]').focus();	
+		alert('Umur Wajib Diisi');
+		return false;
+	}
+
+	var guru = $('[name="guru"]').val();
+	var kelas = $('[name="kelas"]').val();
+	// ajax adding data to database
+    var formData = new FormData($('#form')[0]);
+    $.ajax({
+        url : "<?php echo site_url('pembentukan_kelas/get_murid') ?>",
+        type: "POST",
+        data: formData,
+        contentType: false,
+        processData: false,
+        dataType: "JSON",
+        success: function(data)
+        {
+    		$('#tambahKelas').modal('show');
+    		var html = '';
+            var i;
+            no = 1;
+            for(i=0; i<data.length; i++){
+                html += 
+                '<tr>'+
+                	'<td align="center">'+no++ +'.</td>'+
+                    '<td>'+data[i].nm_lengkap+'</td>'+
+                '</tr>';
+            }
+
+            //get guru
+            $.ajax({
+		        url : "<?php echo site_url('pembentukan_kelas/get_guru') ?>",
+		        type: "POST",
+		        data: {guru:guru},
+		        dataType: "JSON",
+		        success: function(data)
+		        {
+		        	$('#guru_pilih').text(data.nm_guru);
+		        }
+		    });
+
+            //get kelas
+            $.ajax({
+		        url : "<?php echo site_url('pembentukan_kelas/get_kelas') ?>",
+		        type: "POST",
+		        data: {kelas:kelas},
+		        dataType: "JSON",
+		        success: function(data)
+		        {
+		        	$('#kelas_pilih').text(data.nm_kelas);
+		        }
+		    });
+   			
+            $('#isi').html(html);
+        },
+        error: function (jqXHR, textStatus, errorThrown)
+        {
+            alert('Error Adding / Update Data');
+        }
+    });
+	
+}
 </script>

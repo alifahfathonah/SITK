@@ -70,6 +70,21 @@
 						</li>
 					</ul>
 				</li>
+
+				<li>
+					<a href="javascript:;">
+						<i class="fa fa-file"></i>
+						<span class="title">Data Laporan</span>
+						<span class="arrow "></span>
+					</a>
+					<ul class="sub-menu">
+						<li>
+							<a href="<?php echo site_url('laporan_pmb') ?>">
+							<i class="fa fa-file-pdf-o"></i>
+							Laporan PMB</a>
+						</li>
+					</ul>
+				</li>
 					
 			</ul>
 			<!-- END SIDEBAR MENU -->

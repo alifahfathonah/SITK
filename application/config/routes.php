@@ -118,3 +118,10 @@ $route['pembayaran/ubah'] = 'ControllerPembayaran/ubah';
 //pembentukan kelas
 $route['pembentukan_kelas'] = 'ControllerPembentukanKelas';
 $route['pembentukan_kelas/tambah_kelas'] = 'ControllerPembentukanKelas/tambah_kelas';
+$route['pembentukan_kelas/get_murid'] = 'ControllerPembentukanKelas/get_murid';
+$route['pembentukan_kelas/get_guru'] = 'ControllerPembentukanKelas/get_guru';
+$route['pembentukan_kelas/get_kelas'] = 'ControllerPembentukanKelas/get_kelas';
+
+//laporan penerimaan murid baru
+$route['laporan_pmb'] = 'ControllerLapPMB';
+$route['laporan_pmb/cetak'] = 'ControllerLapPMB/cetak';
