@@ -13,15 +13,18 @@
 					<i class="fa fa-angle-right"></i>
 				</li>
 				<li>
+					<i class="fa fa-database"></i>
 					<a href="#">Data Master</a>
 					<i class="fa fa-angle-right"></i>
 				</li>
 				<li>
-					<a href="<?php echo site_url('calon_siswa') ?>">Calon Siswa</a>
+					<i class="fa fa-users"></i>
+					<a href="<?php echo site_url('calon_siswa') ?>">Penerimaan Murid Baru</a>
 					<i class="fa fa-angle-right"></i>
 				</li>
 				<li>
-					<a href="<?php echo site_url('calon_siswa/tambah_calon') ?>">Tambah Calon Siswa</a>
+					<i class="fa fa-pencil"></i>
+					<a href="<?php echo site_url('calon_siswa/edit/'.$this->uri->segment(3)) ?>">Ubah Calon Siswa</a>
 				</li>
 			</ul>
 		</div>
@@ -67,12 +70,6 @@
 													</div>
 												</div>
 
-												<div class="form-group form-md-line-input" id="div_induk">
-													<input value="<?php echo $siswa->no_induk ?>" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" type="text" name="no_induk" class="form-control" placeholder="Input Nomor Induk">
-													<label for="form_control_1">Nomor Induk</label>
-													<span class="help-block" id="span_no_induk">Nomor Induk Sudah Ada</span>
-												</div>
-
 												<div class="form-group form-md-line-input">
 													<input type="text" value="<?php echo $siswa->nm_lengkap ?>" name="nm_lengkap" class="form-control" placeholder="Input Nama Lengkap">
 													<label for="form_control_1">Nama Lengkap</label>
@@ -112,7 +109,7 @@
 													<label for="form_control_1">Nomor Telepon</label>
 												</div>
 												<div class="form-group form-md-line-input">
-													<input type="number" value="<?php echo $siswa->anak_ke ?>" name="anak_ke" min="0" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control" placeholder="Input Anak Keberapa">
+													<input type="number" value="<?php echo $siswa->anak_ke ?>" name="anak_ke" min="" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control" placeholder="Input Anak Keberapa">
 													<label for="form_control_1">Anak Keberapa</label>
 												</div>
 												<div class="form-group form-md-line-input">
@@ -341,88 +338,34 @@
 
 <script type="text/javascript">
 
-$('#span_no_induk').hide();
-
 function simpan()
 {
 	$('#btn_simpan').text('saving...'); //change button text
     $('#btn_simpan').attr('disabled',true); //set button disable 
 
-    var no_induk = $('[name="no_induk"]').val();
     var id_calon_siswa = $('[name="id_calon_siswa"]').val();
-    var no_induk_tes = "<?php echo $siswa->no_induk ?>";
 
-    $.ajax({
-        url : "<?php echo site_url('calon_siswa/no_induk') ?>",
-        type: "POST",
-        data: {no_induk:no_induk, id_calon_siswa:id_calon_siswa},
-        dataType: "JSON",
-        success: function(data)
-        {
-
-        	if(no_induk_tes == no_induk){
-        		//update ajax
-        		var formData = new FormData($('#form')[0]);
-			    $.ajax({
-			        url : "<?php echo site_url('calon_siswa/ubah') ?>",
-			        type: "POST",
-			        data: formData,
-			        contentType: false,
-			        processData: false,
-			        dataType: "JSON",
-			        success: function(data)
-			        {
-			        	window.location = "<?php  echo site_url('calon_siswa'); ?>";
-			            $('#btn_simpan').text('save'); //change button text
-			            $('#btn_simpan').attr('disabled',false); //set button enable 
-			        },
-			        error: function (jqXHR, textStatus, errorThrown)
-			        {
-			            alert('Error Adding / Update Data');
-			            $('#btn_simpan').text('save'); //change button text
-			            $('#btn_simpan').attr('disabled',false); //set button enable 
-			        }
-			    });  
-        	} else {
-        		if(data.status == false){
-        			//set the error in span
-	        		$('#span_no_induk').show();
-	        	    $("#div_induk").last().addClass("has-error");
-	        	    $('[name="no_induk"]').focus();
-	        	    $('#btn_simpan').text('save'); //change button text
-	                $('#btn_simpan').attr('disabled',false); //set button enable
-        		} else {
-        			var formData = new FormData($('#form')[0]);
-				    $.ajax({
-				        url : "<?php echo site_url('calon_siswa/ubah') ?>",
-				        type: "POST",
-				        data: formData,
-				        contentType: false,
-				        processData: false,
-				        dataType: "JSON",
-				        success: function(data)
-				        {
-				        	window.location = "<?php  echo site_url('calon_siswa'); ?>";
-				            $('#btn_simpan').text('save'); //change button text
-				            $('#btn_simpan').attr('disabled',false); //set button enable 
-				        },
-				        error: function (jqXHR, textStatus, errorThrown)
-				        {
-				            alert('Error Adding / Update Data');
-				            $('#btn_simpan').text('save'); //change button text
-				            $('#btn_simpan').attr('disabled',false); //set button enable 
-				        }
-				    });
-        		}
-        	}
-        },
-        error: function (jqXHR, textStatus, errorThrown)
-        {
-            alert('Error Adding / Update Data');
-            $('#btn_simpan').text('save'); //change button text
-            $('#btn_simpan').attr('disabled',false); //set button enable 
-        }
-    });
+    var formData = new FormData($('#form')[0]);
+	$.ajax({
+		url : "<?php echo site_url('calon_siswa/ubah') ?>",
+		type: "POST",
+		data: formData,
+		contentType: false,
+		processData: false,
+		dataType: "JSON",
+		success: function(data)
+		{
+			window.location = "<?php  echo site_url('calon_siswa'); ?>";
+			$('#btn_simpan').text('save'); //change button text
+			$('#btn_simpan').attr('disabled',false); //set button enable 
+		},
+		error: function (jqXHR, textStatus, errorThrown)
+		{
+			alert('Error Adding / Update Data');
+			$('#btn_simpan').text('save'); //change button text
+			$('#btn_simpan').attr('disabled',false); //set button enable 
+		}
+	});
 
 }
 </script>

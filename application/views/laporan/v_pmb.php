@@ -13,10 +13,12 @@
 					<i class="fa fa-angle-right"></i>
 				</li>
 				<li>
+					<i class="fa fa-file"></i>
 					<a href="#">Data Laporan</a>
 					<i class="fa fa-angle-right"></i>
 				</li>
 				<li>
+					<i class="fa fa-file-pdf-o"></i>
 					<a href="<?php echo site_url('laporan_pmb') ?>">Laporan Penerimaan Murid Baru</a>
 				</li>
 			</ul>

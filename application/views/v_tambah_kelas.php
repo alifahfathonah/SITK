@@ -13,11 +13,18 @@
 					<i class="fa fa-angle-right"></i>
 				</li>
 				<li>
+					<i class="fa fa-institution"></i>
 					<a href="#">Data Kelas</a>
 					<i class="fa fa-angle-right"></i>
 				</li>
 				<li>
+					<i class="fa fa-asterisk"></i>
 					<a href="<?php echo site_url('pembentukan_kelas') ?>">Pembentukan Kelas</a>
+					<i class="fa fa-angle-right"></i>
+				</li>
+				<li>
+					<i class="fa fa-plus"></i>
+					<a href="<?php echo site_url('pembentukan_kelas/tambah_kelas') ?>">Tambah Kelas Baru</a>
 				</li>
 			</ul>
 		</div>
@@ -72,7 +79,7 @@
 												<option value="<?php echo $kls->id_kelas ?>"><?php echo ucwords($kls->nm_kelas) ?></option>
 											<?php } ?>
 										</select>
-										<label for="form_control_1">Guru</label>
+										<label for="form_control_1">Kelas</label>
 									</div>
 
 									<div class="form-group form-md-line-input has-info">
@@ -144,7 +151,7 @@
 			
 			<div class="modal-footer">
 				<button type="button" class="btn default" data-dismiss="modal">Close</button>
-				<button type="button" id="btn_simpan" onclick="simpan()" class="btn blue">Save</button>
+				<button type="button" id="btn_simpan" onclick="simpan()" class="btn blue">Buat Kelas</button>
 			</div>
 		
 		</div>
@@ -173,8 +180,7 @@ function tambahKelas()
 	if($('[name="umur"]').val() == ""){
 		$("#umur").removeClass("has-info");
 		$("#umur").addClass('has-error');
-		$('[name="umur"]').focus();	
-		alert('Umur Wajib Diisi');
+		$('[name="umur"]').focus()
 		return false;
 	}
 
@@ -236,4 +242,34 @@ function tambahKelas()
     });
 	
 }
+
+function simpan()
+{
+	if(confirm('Anda Yakin Ingin Memproses Data Ini?'))
+	{
+		// ajax adding data to database
+	    var formData = new FormData($('#form')[0]);
+	    $.ajax({
+	        url : "<?php echo site_url('pembentukan_kelas/simpan')?>",
+	        type: "POST",
+	        data: formData,
+	        contentType: false,
+	        processData: false,
+	        dataType: "JSON",
+	        success: function(data)
+	        {
+	            $('#tambahKelas').modal('hide');
+	            $('#btn_simpan').text('save'); //change button text
+	            $('#btn_simpan').attr('disabled',false); //set button enable 
+	        },
+	        error: function (jqXHR, textStatus, errorThrown)
+	        {
+	            alert('Error Adding / Update Data');
+	            $('#btn_simpan').text('save'); //change button text
+	            $('#btn_simpan').attr('disabled',false); //set button enable 
+	        }
+	    });
+	}
+}
+
 </script>

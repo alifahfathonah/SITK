@@ -88,6 +88,7 @@ class ControllerPembayaran extends CI_Controller {
     	$data = [
             'id_bayar' => $this->input->post('id_bayar'),
             'status' => $jenis->nm_jenis,
+            'nominal_bayar' => 2100000,
             'id_daftar' => $this->input->post('id_daftar'),
         ];
 
@@ -159,7 +160,7 @@ class ControllerPembayaran extends CI_Controller {
     public function detail($id)
     {
         $query = $this->db->query("
-            SELECT calon_siswa.id_calon_siswa,nm_lengkap,status,thn_ajar,pembayaran.id_bayar,status,pendaftaran.id_daftar,id_jenis,tgl_bayar,jml_bayar,
+            SELECT calon_siswa.id_calon_siswa,nominal_bayar,nm_lengkap,status,thn_ajar,pembayaran.id_bayar,status,pendaftaran.id_daftar,id_jenis,tgl_bayar,jml_bayar,
                 (SELECT SUM(jml_bayar) as total FROM pembayaran JOIN detail_bayar ON pembayaran.id_bayar = detail_bayar.id_bayar WHERE pembayaran.id_bayar = '$id') as total
             FROM pembayaran 
                 JOIN detail_bayar ON pembayaran.id_bayar = detail_bayar.id_bayar 
@@ -177,6 +178,26 @@ class ControllerPembayaran extends CI_Controller {
         // setting jenis font yang akan digunakan
         $pdf->SetFont('Arial','B',16);
         
+        $id_bayar = $this->input->post('id_bayar');
+
+        $query = $this->db->query("
+            SELECT calon_siswa.id_calon_siswa,nominal_bayar,nm_lengkap,thn_ajar,status,pembayaran.id_bayar,status,pendaftaran.id_daftar as id_dftr,id_jenis,tgl_bayar,jml_bayar,
+                (SELECT SUM(jml_bayar) as total FROM pembayaran JOIN detail_bayar ON pembayaran.id_bayar = detail_bayar.id_bayar WHERE pembayaran.id_bayar = '$id_bayar') as total
+            FROM pembayaran 
+                JOIN detail_bayar ON pembayaran.id_bayar = detail_bayar.id_bayar 
+                JOIN pendaftaran ON pendaftaran.id_daftar = pembayaran.id_daftar
+                JOIN calon_siswa ON calon_siswa.id_calon_siswa = pendaftaran.id_calon_siswa
+            WHERE pembayaran.id_bayar = '$id_bayar'")->row();
+
+        $kwitansi = $this->db->query("
+            SELECT calon_siswa.id_calon_siswa,nm_lengkap,thn_ajar,status,pembayaran.id_bayar,status,pendaftaran.id_daftar as id_dftr,id_jenis,tgl_bayar,jml_bayar,
+                (SELECT SUM(jml_bayar) as total FROM pembayaran JOIN detail_bayar ON pembayaran.id_bayar = detail_bayar.id_bayar WHERE pembayaran.id_bayar = '$id_bayar') as total
+            FROM pembayaran 
+                JOIN detail_bayar ON pembayaran.id_bayar = detail_bayar.id_bayar 
+                JOIN pendaftaran ON pendaftaran.id_daftar = pembayaran.id_daftar
+                JOIN calon_siswa ON calon_siswa.id_calon_siswa = pendaftaran.id_calon_siswa
+            WHERE pembayaran.id_bayar = '$id_bayar'")->result();
+
         // mencetak string
         $pdf->Cell(186,10,'TK ISLAM TUNAS HARAPAN',0,1,'C');
         $pdf->Cell(9,1,'',0,1);
@@ -193,7 +214,7 @@ class ControllerPembayaran extends CI_Controller {
         $pdf->ln(6);        
         $pdf->SetFont('Arial','B',10);
         $pdf->Cell(10,1,'',0,1);
-        $pdf->Cell(190,10,'Kwitansi Pembayaran',0,1,'C');
+        $pdf->Cell(190,10,'Kwitansi Pembayaran / '.$query->id_bayar,0,1,'C');
         
         $pdf->Cell(10,-1,'',0,1);
 
@@ -203,26 +224,6 @@ class ControllerPembayaran extends CI_Controller {
         //     $this->session->set_flashdata('pesanGagal','Data Tidak Ditemukan');
         //     redirect('laporan_jasa');
         // }
-
-        $id_bayar = $this->input->post('id_bayar');
-
-        $query = $this->db->query("
-            SELECT calon_siswa.id_calon_siswa,nm_lengkap,thn_ajar,status,pembayaran.id_bayar,status,pendaftaran.id_daftar as id_dftr,id_jenis,tgl_bayar,jml_bayar,
-                (SELECT SUM(jml_bayar) as total FROM pembayaran JOIN detail_bayar ON pembayaran.id_bayar = detail_bayar.id_bayar WHERE pembayaran.id_bayar = '$id_bayar') as total
-            FROM pembayaran 
-                JOIN detail_bayar ON pembayaran.id_bayar = detail_bayar.id_bayar 
-                JOIN pendaftaran ON pendaftaran.id_daftar = pembayaran.id_daftar
-                JOIN calon_siswa ON calon_siswa.id_calon_siswa = pendaftaran.id_calon_siswa
-            WHERE pembayaran.id_bayar = '$id_bayar'")->row();
-
-        $kwitansi = $this->db->query("
-            SELECT calon_siswa.id_calon_siswa,nm_lengkap,thn_ajar,status,pembayaran.id_bayar,status,pendaftaran.id_daftar as id_dftr,id_jenis,tgl_bayar,jml_bayar,
-                (SELECT SUM(jml_bayar) as total FROM pembayaran JOIN detail_bayar ON pembayaran.id_bayar = detail_bayar.id_bayar WHERE pembayaran.id_bayar = '$id_bayar') as total
-            FROM pembayaran 
-                JOIN detail_bayar ON pembayaran.id_bayar = detail_bayar.id_bayar 
-                JOIN pendaftaran ON pendaftaran.id_daftar = pembayaran.id_daftar
-                JOIN calon_siswa ON calon_siswa.id_calon_siswa = pendaftaran.id_calon_siswa
-            WHERE pembayaran.id_bayar = '$id_bayar'")->result();
 
         $pdf->SetFont('Arial','',9);
 
@@ -277,6 +278,14 @@ class ControllerPembayaran extends CI_Controller {
         $pdf->Cell(95,6,'Total',1,0,'C');
         $pdf->Cell(95,6,''.number_format(array_sum($tampung),0,',','.'),1,1,'C');
         $pdf->SetFont('Arial','',8);
+
+        $sisa_bayar = $query->nominal_bayar-$query->total;
+
+        $pdf->Cell(1,8,'',0,1);
+        $pdf->SetFont('Arial','B',8);
+        $pdf->Cell(27,0,'Sisa Pembayaran : ',0,0);
+        $pdf->SetFont('Arial','',8);
+        $pdf->Cell(1,0,''.number_format($sisa_bayar,0,',','.'),0,1);
 
         $pdf->Cell(10,20,'',0,1);
         $pdf->SetFont('Arial','B',8);

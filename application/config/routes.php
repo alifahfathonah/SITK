@@ -121,6 +121,7 @@ $route['pembentukan_kelas/tambah_kelas'] = 'ControllerPembentukanKelas/tambah_ke
 $route['pembentukan_kelas/get_murid'] = 'ControllerPembentukanKelas/get_murid';
 $route['pembentukan_kelas/get_guru'] = 'ControllerPembentukanKelas/get_guru';
 $route['pembentukan_kelas/get_kelas'] = 'ControllerPembentukanKelas/get_kelas';
+$route['pembentukan_kelas/simpan'] = 'ControllerPembentukanKelas/simpan';
 
 //laporan penerimaan murid baru
 $route['laporan_pmb'] = 'ControllerLapPMB';

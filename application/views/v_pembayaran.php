@@ -13,10 +13,12 @@
 					<i class="fa fa-angle-right"></i>
 				</li>
 				<li>
+					<i class="fa fa-money"></i>
 					<a href="#">Data Transaksi</a>
 					<i class="fa fa-angle-right"></i>
 				</li>
 				<li>
+					<i class="fa fa-dollar"></i>
 					<a href="<?php echo site_url('pembayaran') ?>">Pembayaran</a>
 				</li>
 			</ul>
@@ -208,6 +210,15 @@
 					            		<td><center><b id="tfoot"></b></center></td>
 					            	</tfoot>
 					            </table>
+
+					            <table border="0">
+					            	<thead>
+					            		<th width="120px">Sisa Pembayaran</th>
+					            		<th width="20px">:</th>
+					            		<th id="sisa_bayar" style="color: red"></th>
+					            	</thead>
+					            </table>
+
 							</div>
 						</div>
 					</form>
@@ -486,6 +497,16 @@ function detail_pembayaran(id)
                     total  = reverse.match(/\d{1,3}/g);
                     total  = total.join('.').split('').reverse().join('');
 
+                var sisa_bayar = data[0].nominal_bayar-data[0].total;
+                var reverse = sisa_bayar.toString().split('').reverse().join(''),
+                    total_sisa  = reverse.match(/\d{1,3}/g);
+                    total_sisa  = total_sisa.join('.').split('').reverse().join('');
+
+                if(total_sisa < 0){
+					$('#sisa_bayar').html("Data Invalid");                	
+                }
+                
+                $('#sisa_bayar').html(total_sisa);
                 $('#tfoot').html(total);
                 $('#id_calon').html(data[0].id_daftar);
                 $('#nm_siswa').html(data[0].nm_lengkap);

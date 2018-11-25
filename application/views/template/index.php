@@ -26,52 +26,70 @@
 			
 		<!-- BEGIN PAGE HEADER-->
 		<h3 class="page-title">
-		Fluid Page <small>responsive boxed layout</small>
+		Halaman Dashboard
 		</h3>
 		<div class="page-bar">
 			<ul class="page-breadcrumb">
 				<li>
 					<i class="fa fa-home"></i>
-					<a href="index.html">Home</a>
+					<a href="<?php echo site_url('dashboard') ?>">Dashboard</a>
 					<i class="fa fa-angle-right"></i>
-				</li>
-				<li>
-					<a href="#">Page Layouts</a>
-					<i class="fa fa-angle-right"></i>
-				</li>
-				<li>
-					<a href="#">Fluid Page</a>
 				</li>
 			</ul>
-			<div class="page-toolbar">
-				<div class="btn-group pull-right">
-					<button type="button" class="btn btn-fit-height grey-salt dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
-						Actions <i class="fa fa-angle-down"></i>
-					</button>
-					<ul class="dropdown-menu pull-right" role="menu">
-						<li>
-							<a href="#">Action</a>
-						</li>
-						<li>
-							<a href="#">Another action</a>
-						</li>
-						<li>
-							<a href="#">Something else here</a>
-						</li>
-						<li class="divider">
-						</li>
-						<li>
-							<a href="#">Separated link</a>
-						</li>
-					</ul>
-				</div>
-			</div>
 		</div>
 		<!-- END PAGE HEADER-->
 		<!-- BEGIN PAGE CONTENT-->
 		<div class="row">
 			<div class="col-md-12">
-				 Page content goes here
+				<!-- BEGIN DASHBOARD STATS -->
+				<div class="row">
+					<div class="col-md-4">
+						<a class="dashboard-stat dashboard-stat-light blue-soft" href="javascript:;">
+						<div class="visual">
+							<i class="fa fa-graduation-cap"></i>
+						</div>
+						<div class="details">
+							<div class="number">
+								 <?php echo $this->Model->jumlah('guru') ?>
+							</div>
+							<div class="desc">
+								 Data Guru
+							</div>
+						</div>
+						</a>
+					</div>
+					<div class="col-md-4">
+						<a class="dashboard-stat dashboard-stat-light red-soft" href="javascript:;">
+						<div class="visual">
+							<i class="fa fa-institution"></i>
+						</div>
+						<div class="details">
+							<div class="number">
+								 <?php echo $this->Model->jumlah('kelas') ?>
+							</div>
+							<div class="desc">
+								 Data Kelas
+							</div>
+						</div>
+						</a>
+					</div>
+					<div class="col-md-4">
+						<a class="dashboard-stat dashboard-stat-light green-soft" href="javascript:;">
+						<div class="visual">
+							<i class="fa fa-tags"></i>
+						</div>
+						<div class="details">
+							<div class="number">
+								<?php echo $this->Model->jumlah('jenis_pembayaran') ?>
+							</div>
+							<div class="desc">
+								 Data Jenis Pembayaran
+							</div>
+						</div>
+						</a>
+					</div>
+				</div>
+				<!-- END DASHBOARD STATS -->
 			</div>
 		</div>
 		<!-- END PAGE CONTENT-->

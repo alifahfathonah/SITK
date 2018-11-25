@@ -36,10 +36,12 @@
 					<i class="fa fa-angle-right"></i>
 				</li>
 				<li>
+					<i class="fa fa-database"></i>
 					<a href="#">Data Master</a>
 					<i class="fa fa-angle-right"></i>
 				</li>
 				<li>
+					<i class="fa fa-institution"></i>
 					<a href="<?php echo site_url('kelas') ?>">Kelas</a>
 				</li>
 			</ul>
@@ -100,6 +102,7 @@
 							<div class="form-group">
 								<label><b>Nama Kelas</b></label>
 								<input type="text" name="nm_kelas" placeholder="Nama Kelas" class="form-control">
+								<span class="help-block" style="color: red" id="val_kls">* Harus Diisi</span>
 							</div>
 						
 						</div>
@@ -158,6 +161,7 @@ $(document).ready(function(){
 
 function tambahKelas()
 {
+	$('#val_kls').hide();
     save_method = 'add';
     $('#form')[0].reset(); // reset form on modals
     $.ajax({
@@ -181,6 +185,12 @@ function reload_table()
 
 function simpan()
 {
+	$('#val_kls').hide();
+	if($('[name="nm_kelas"]').val() == ""){
+    	$('#val_kls').show();
+    	return false;
+    }
+
     $('#btn_simpan').text('saving...'); //change button text
     $('#btn_simpan').attr('disabled',true); //set button disable 
     var url;

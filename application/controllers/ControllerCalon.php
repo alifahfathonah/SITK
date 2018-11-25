@@ -16,9 +16,12 @@ class ControllerCalon extends CI_Controller {
 
 	public function index()
 	{
+
+        $query = $this->db->query("SELECT * FROM pendaftaran JOIN calon_siswa ON pendaftaran.id_calon_siswa = calon_siswa.id_calon_siswa ORDER BY pendaftaran.id_calon_siswa DESC")->result();
+
 		$data = [
 			'title' => 'Calon Siswa',
-            'calon' => $this->Model->get2Join('pendaftaran','calon_siswa','pendaftaran.id_calon_siswa = calon_siswa.id_calon_siswa'),
+            'calon' => $query,
 		];
 		$this->load->view('template/v_header',$data);
 		$this->load->view('template/v_sidebar');
@@ -94,10 +97,8 @@ class ControllerCalon extends CI_Controller {
         $result1 = $this->Model->simpan('calon_siswa',$data_calon_siswa);
         $result2 = $this->Model->simpan('pendaftaran',$data_pendaftaran);
         if ($result1 && $result2){
-            $this->session->set_flashdata('pesan','<strong>Success!</strong> Data Berhasil Disimpan.');
             echo json_encode(array("status" => TRUE));
         }else{
-            $this->session->set_flashdata('pesanGagal','<strong>Fail!</strong> Data Tidak Berhasil Disimpan.');
             echo json_encode(array("status" => FALSE));
         }
     }
@@ -198,10 +199,8 @@ class ControllerCalon extends CI_Controller {
         $result1 = $this->Model->update('id_calon_siswa',$id,$data_calon_siswa,'calon_siswa');
         $result2 = $this->Model->update('id_daftar',$id_daftar,$data_pendaftaran,'pendaftaran');
         if ($result1 && $result2){
-            $this->session->set_flashdata('pesan','<strong>Success!</strong> Data Berhasil Disimpan.');
             echo json_encode(array("status" => TRUE));
         }else{
-            $this->session->set_flashdata('pesanGagal','<strong>Fail!</strong> Data Tidak Berhasil Disimpan.');
             echo json_encode(array("status" => FALSE));
         }
     }
@@ -211,10 +210,8 @@ class ControllerCalon extends CI_Controller {
         $result1 = $this->Model->hapus('id_calon_siswa',$id,'pendaftaran');
         $result2 = $this->Model->hapus('id_calon_siswa',$id,'calon_siswa');
         if ($result1 && $result2){
-            $this->session->set_flashdata('pesan','<strong>Success!</strong> Data Berhasil Dihapus.');
             redirect('calon_siswa');
         }else{
-            $this->session->set_flashdata('pesanGagal','<strong>Fail!</strong> Data Tidak Berhasil Dihapus.');
             redirect('calon_siswa');
         }
     }
@@ -243,25 +240,20 @@ class ControllerCalon extends CI_Controller {
         $pdf->ln(6);        
         $pdf->SetFont('Arial','B',10);
         $pdf->Cell(10,1,'',0,1);
-        $pdf->Cell(190,10,'Detail Uang Pendaftaran ',0,1,'C');
+        $pdf->Cell(190,10,'Kwitansi Pendaftaran ',0,1,'C');
         
         $pdf->Cell(10,-1,'',0,1);
-
-        // $jasa = $this->Model->lapJasa($awal,$akhir);
-
-        // if($jasa == null) {
-        //     $this->session->set_flashdata('pesanGagal','Data Tidak Ditemukan');
-        //     redirect('laporan_jasa');
-        // }
 
         $calon_siswa = $this->db->query("SELECT * FROM calon_siswa JOIN pendaftaran ON calon_siswa.id_calon_siswa = pendaftaran. id_calon_siswa WHERE calon_siswa.id_calon_siswa = '$id_calon_siswa' ")->row();
 
         $pdf->SetFont('Arial','',9);
 
-        $pdf->Cell(25,6,'ID Calon Siswa',0,0,'L');
+        $pdf->Cell(25,6,'ID Pendaftaran',0,0,'L');
         $pdf->Cell(5,6,':',0,0,'C');
+        $pdf->SetFont('Arial','B',9);
         $pdf->Cell(40,6,''.$calon_siswa->id_daftar,0,0,'L');
         
+        $pdf->SetFont('Arial','',9);
         $pdf->Cell(55,6,'',0,0,'C');
         $pdf->Cell(40,6,'',0,0,'L');
         $pdf->Cell(5,6,'',0,0,'C');
@@ -285,51 +277,61 @@ class ControllerCalon extends CI_Controller {
         $pdf->Cell(10,1,'',0,1);
         $pdf->SetFont('Arial','B',8);
         $pdf->Cell(15,6,'No.',1,0,'C');
-        $pdf->Cell(95,6,'Pembayaran',1,0,'C');
-        $pdf->Cell(80,6,'Biaya',1,1,'C');
+        $pdf->Cell(175,6,'Pembayaran',1,1,'C');
         $pdf->SetFont('Arial','',8);
 
         $pdf->Cell(15,6,"1.",1,0,'C');
-        $pdf->Cell(95,6,"Uang gedung",1,0);
-        $pdf->Cell(80,6,"-",1,1,'C');
+        $pdf->Cell(175,6,"Uang gedung",1,1);
 
         $pdf->Cell(15,6,"2.",1,0,'C');
-        $pdf->Cell(95,6,"Seragam 5 stel",1,0);
-        $pdf->Cell(80,6,"-",1,1,'C');
+        $pdf->Cell(175,6,"Seragam 5 stel",1,1);
 
         $pdf->Cell(15,6,"3.",1,0,'C');
-        $pdf->Cell(95,6,"Buku dan alat-alat pendidikan",1,0);
-        $pdf->Cell(80,6,"-",1,1,'C');
+        $pdf->Cell(175,6,"Buku dan alat-alat pendidikan",1,1);
 
         $pdf->Cell(15,6,"4.",1,0,'C');
-        $pdf->Cell(95,6,"Administrasi",1,0);
-        $pdf->Cell(80,6,"-",1,1,'C');
+        $pdf->Cell(175,6,"Administrasi",1,1);
 
         $pdf->Cell(15,6,"5.",1,0,'C');
-        $pdf->Cell(95,6,"Buku raport",1,0);
-        $pdf->Cell(80,6,"-",1,1,'C');
+        $pdf->Cell(175,6,"Buku raport",1,1);
 
         $pdf->Cell(15,6,"6.",1,0,'C');
-        $pdf->Cell(95,6,"Pas foto",1,0);
-        $pdf->Cell(80,6,"-",1,1,'C');
+        $pdf->Cell(175,6,"Pas foto",1,1);
 
         $pdf->Cell(15,6,"7.",1,0,'C');
-        $pdf->Cell(95,6,"SPP bulan juli",1,0);
-        $pdf->Cell(80,6,"-",1,1,'C');
+        $pdf->Cell(175,6,"SPP bulan juli",1,1);
 
         $pdf->Cell(15,6,"8.",1,0,'C');
-        $pdf->Cell(95,6,"Manasik haji",1,0);
-        $pdf->Cell(80,6,"-",1,1,'C');
+        $pdf->Cell(175,6,"Manasik haji",1,1);
 
         $pdf->Cell(15,6,"9.",1,0,'C');
-        $pdf->Cell(95,6,"Tes IQ (kecerdasan)",1,0);
-        $pdf->Cell(80,6,"-",1,1,'C');
+        $pdf->Cell(175,6,"Tes IQ (kecerdasan)",1,1);
 
         $pdf->SetFont('Arial','B',8);
         $pdf->Cell(110,6,"Total",1,0,'C');
-        $pdf->Cell(80,6,"-",1,1,'C');
-        
-        $fileName = 'Detail_Pembayaran_'.$calon_siswa->id_daftar.'_.pdf';
+        $pdf->Cell(80,6,"Rp. 2.100.000",1,0,'C');
+
+        $terbilang = "Dua Juta Seratus Ribu Rupiah";
+
+        $pdf->Cell(1,20,'',0,1);
+        $pdf->SetFont('Arial','B',8);
+        $pdf->Cell(18,0,'Terbilang : ',0,0);
+        $pdf->SetFont('Arial','I',8);
+        $pdf->Cell(1,0,''.$terbilang,0,1);
+
+        $pdf->Cell(10,20,'',0,1);
+        $pdf->SetFont('Arial','B',8);
+        $pdf->Cell(63,6,'',0,0,'C');
+        $pdf->Cell(63,6,'',0,0,'C');
+        $pdf->Cell(63,6,'Hormat Kami',0,1,'C');
+
+        $pdf->Cell(10,20,'',0,1);
+
+        $pdf->Cell(63,6,'',0,0,'C');
+        $pdf->Cell(63,6,'',0,0,'C');
+        $pdf->Cell(63,6,'( '.ucwords($this->session->nm_admin).' )',0,0,'C');
+
+        $fileName = 'Kwitansi_Pembayaran_'.$calon_siswa->id_daftar.'_.pdf';
         $pdf->Output('D',$fileName); 
     }
 }

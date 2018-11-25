@@ -3,7 +3,7 @@
 	<div class="page-content">			
 		<!-- BEGIN PAGE HEADER-->
 		<h3 class="page-title">
-		Siswa
+		Penerimaan Murid Baru
 		</h3>
 		<div class="page-bar">
 			<ul class="page-breadcrumb">
@@ -13,36 +13,17 @@
 					<i class="fa fa-angle-right"></i>
 				</li>
 				<li>
+					<i class="fa fa-database"></i>
 					<a href="#">Data Master</a>
 					<i class="fa fa-angle-right"></i>
 				</li>
 				<li>
-					<a href="<?php echo site_url('calon_siswa') ?>">Siswa</a>
+					<i class="fa fa-users"></i>
+					<a href="<?php echo site_url('calon_siswa') ?>">Penerimaan Murid Baru</a>
 				</li>
 			</ul>
 		</div>
 		<!-- END PAGE HEADER-->
-
-		<?php if($this->session->flashdata('pesan') == TRUE ) { ?>
-		  <div class="row">
-		    <div class="col-md-12">
-		    	<div class="alert alert-success">
-		    		<?php echo $this->session->flashdata('pesan') ?>
-				</div>
-		    </div>
-		  </div>
-		<?php } ?>
-
-		<?php if($this->session->flashdata('pesanGagal') == TRUE ) { ?>
-		  <div class="row">
-		    <div class="col-md-12">
-		    	<div class="alert alert-danger">
-					<?php echo $this->session->flashdata('pesanGagal') ?>
-				</div>
-		    </div>
-		  </div>
-		<?php } ?>
-
 		<!-- BEGIN PAGE CONTENT-->
 		<div class="row">
 			<div class="col-md-12">

@@ -13,10 +13,12 @@
 					<i class="fa fa-angle-right"></i>
 				</li>
 				<li>
+					<i class="fa fa-database"></i>
 					<a href="#">Data Master</a>
 					<i class="fa fa-angle-right"></i>
 				</li>
 				<li>
+					<i class="fa fa-tags"></i>
 					<a href="<?php echo site_url('jenis_pembayaran') ?>">Jenis Pembayaran</a>
 				</li>
 			</ul>
@@ -76,7 +78,7 @@
 							<div class="form-group">
 								<label><b>Nama Jenis Pembayaran</b></label>
 								<input type="text" name="nm_jenis" placeholder="Nama Jenis Pembayaran" class="form-control">
-								<span class="help-block" style="color: red">&nbsp Wajib Diisi </span>
+								<span class="help-block" style="color: red">&nbsp *Harus Diisi </span>
 							</div>
 						</div>
 					</form>

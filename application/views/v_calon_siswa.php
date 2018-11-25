@@ -13,14 +13,17 @@
 					<i class="fa fa-angle-right"></i>
 				</li>
 				<li>
+					<i class="fa fa-database"></i>
 					<a href="#">Data Master</a>
 					<i class="fa fa-angle-right"></i>
 				</li>
 				<li>
-					<a href="<?php echo site_url('calon_siswa') ?>">Calon Siswa</a>
+					<i class="fa fa-users"></i>
+					<a href="<?php echo site_url('calon_siswa') ?>">Penerimaan Murid Baru</a>
 					<i class="fa fa-angle-right"></i>
 				</li>
 				<li>
+					<i class="fa fa-plus"></i>
 					<a href="<?php echo site_url('calon_siswa/tambah_calon') ?>">Tambah Calon Siswa</a>
 				</li>
 			</ul>
@@ -106,7 +109,7 @@
 													<label for="form_control_1">Jenis Kelamin</label>
 												</div>
 												<div class="form-group form-md-line-input">
-													<input type="number" name="anak_ke" min="0" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control" placeholder="Input Anak Keberapa">
+													<input type="number" name="anak_ke" min="1" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control" placeholder="Input Anak Keberapa">
 													<label for="form_control_1">Anak Keberapa</label>
 												</div>
 												<div class="form-group form-md-line-input">

@@ -76,6 +76,7 @@ class ControllerGuru extends CI_Controller {
             'jenis_kelamin' => $this->input->post('jenis_kelamin'),
             'no_telp' => $this->input->post('no_telp'),
             'alamat' => $this->input->post('alamat'),
+            'id' => $this->session->id,
     	];
 
     	$this->Model->simpan('guru',$data);
@@ -97,6 +98,7 @@ class ControllerGuru extends CI_Controller {
             'jenis_kelamin' => $this->input->post('jenis_kelamin'),
             'no_telp' => $this->input->post('no_telp'),
             'alamat' => $this->input->post('alamat'),
+            'id' => $this->session->id,
     	];
 
     	$this->Model->update('id_guru',$id_guru,$data,'guru');

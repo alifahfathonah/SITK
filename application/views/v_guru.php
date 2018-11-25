@@ -13,10 +13,12 @@
 					<i class="fa fa-angle-right"></i>
 				</li>
 				<li>
+					<i class="fa fa-database"></i>
 					<a href="#">Data Master</a>
 					<i class="fa fa-angle-right"></i>
 				</li>
 				<li>
+					<i class="fa fa-graduation-cap"></i>
 					<a href="<?php echo site_url('guru') ?>">Guru</a>
 				</li>
 			</ul>
@@ -76,11 +78,13 @@
 							<div class="form-group">
 								<label><b>Nama Guru</b></label>
 								<input type="text" name="nm_guru" placeholder="Nama Guru" class="form-control">
-							</div>
+								<span class="help-block" style="color: red" id="val_nm">* Harus Diisi</span>
+							</div>	
 
 							<div class="form-group">
 								<label><b>Tanggal Lahir</b></label>
 								<input type="date" name="tgl_lahir" placeholder="Tanggal Lahir" class="form-control">
+								<span class="help-block" style="color: red" id="val_lahir">* Harus Diisi</span>
 							</div>	
 
 							<div class="form-group">
@@ -96,11 +100,13 @@
 							<div class="form-group">
 								<label><b>Nomor Telepon</b></label>
 								<input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" name="no_telp" placeholder="Nomor Telepon" class="form-control">
+								<span class="help-block" style="color: red" id="val_telp">* Harus Diisi</span>
 							</div>
 
 							<div class="form-group">
 								<label><b>Alamat</b></label>
 								<textarea class="form-control" rows="4" cols="5" name="alamat" width="800px" placeholder="Alamat..."></textarea>
+								<span class="help-block" style="color: red" id="val_alamat">* Harus Diisi</span>
 							</div>
 						</div>
 					</form>
@@ -184,6 +190,7 @@
 var save_method; //for save method string
 var table;
 var base_url = '<?php echo base_url();?>';
+$('.help-block').hide();
 
 $(document).ready(function(){
 	
@@ -242,6 +249,22 @@ function reload_table()
 
 function simpan()
 {
+
+	if($('[name="nm_guru"]').val() == ""){
+    	$('#val_nm').show();
+    	return false;
+    }
+
+    if($('[name="tgl_lahir"]').val() == ""){
+    	$('#val_lahir').show();
+    	return false;
+    }
+
+    if($('[name="no_telp"]').val() == ""){
+    	$('#val_telp').show();
+    	return false;
+    }
+
     $('#btn_simpan').text('saving...'); //change button text
     $('#btn_simpan').attr('disabled',true); //set button disable 
     var url;
@@ -251,7 +274,6 @@ function simpan()
     } else {
         url = "<?php echo site_url('guru/ubah')?>";
     }
-
     // ajax adding data to database
     var formData = new FormData($('#form')[0]);
     $.ajax({
@@ -265,12 +287,18 @@ function simpan()
         {
             $('#ModaltambahGuru').modal('hide');
             reload_table();
+            $('#val_nm').hide();
+            $('#val_lahir').hide();
+            $('#val_telp').hide();
             $('#btn_simpan').text('save'); //change button text
             $('#btn_simpan').attr('disabled',false); //set button enable 
         },
         error: function (jqXHR, textStatus, errorThrown)
         {
             alert('Error Adding / Update Data');
+            $('#val_nm').hide();
+            $('#val_lahir').hide();
+            $('#val_telp').hide();
             $('#btn_simpan').text('save'); //change button text
             $('#btn_simpan').attr('disabled',false); //set button enable 
         }

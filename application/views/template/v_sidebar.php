@@ -6,7 +6,7 @@
 			<!-- BEGIN SIDEBAR MENU -->
 			<ul class="page-sidebar-menu " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
 				<li class="start ">
-					<a href="index.html">
+					<a href="<?php echo site_url('dashboard') ?>">
 						<i class="icon-home"></i>
 						<span class="title">Dashboard</span>
 					</a>
@@ -51,7 +51,7 @@
 						<li>
 							<a href="<?php echo site_url('pembayaran') ?>">
 							<i class="fa fa-dollar"></i>
-							Data Pembayaran</a>
+							Pembayaran</a>
 						</li>
 					</ul>
 				</li>

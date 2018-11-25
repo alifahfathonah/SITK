@@ -13,10 +13,12 @@
 					<i class="fa fa-angle-right"></i>
 				</li>
 				<li>
+					<i class="fa fa-institution"></i>
 					<a href="#">Data Kelas</a>
 					<i class="fa fa-angle-right"></i>
 				</li>
 				<li>
+					<i class="fa fa-asterisk"></i>
 					<a href="<?php echo site_url('pembentukan_kelas') ?>">Pembentukan Kelas</a>
 				</li>
 			</ul>

@@ -3,8 +3,8 @@
 class Pembayaran extends CI_Model {
 
 	var $table = 'pembayaran';
-	var $column_search = array('id_bayar','tgl_bayar','status');
-	var $column_order = array('id_bayar','tgl_bayar','status',null); //set column field database for datatable orderable
+	var $column_search = array('id_bayar','status');
+	var $column_order = array('id_bayar','status',null); //set column field database for datatable orderable
 	var $order = array('id_bayar' => 'desc');
 
 	public function __construct()
