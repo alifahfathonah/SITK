@@ -40,9 +40,10 @@
 						<table id="table" class="table table-bordered table-striped table-condensed flip-content">
 							<thead class="flip-content">
 								<tr>
-									<th width="20%"><center>ID Guru</center></th>
+									<th width="5%"><center>No.</center></th>
+									<th width="15%"><center>ID Guru</center></th>
 									<th width="50%"><center>Nama Guru</center></th>
-									<th width="50%"><center>Action</center></th>
+									<th width="40%"><center>Action</center></th>
 								</tr>
 							</thead>
 							<tbody>
@@ -108,6 +109,16 @@
 								<textarea class="form-control" rows="4" cols="5" name="alamat" width="800px" placeholder="Alamat..."></textarea>
 								<span class="help-block" style="color: red" id="val_alamat">* Harus Diisi</span>
 							</div>
+
+							<div class="form-group" id="id_status_guru">
+								<label><b>Status Mengajar</b></label>
+								<div>
+									<select class="form-control" name="status_guru">
+										<option value="1">Aktif</option>
+										<option value="0">Tidak Aktif</option>
+									</select>
+								</div>
+							</div>
 						</div>
 					</form>
 				</div>
@@ -168,6 +179,11 @@
 			                  		<td>:</td>
 			                  		<td><span id="alamat_detail"></span></td>
 			                	</tr> 
+			                	<tr>
+			                  		<td>Status</td>
+			                  		<td>:</td>
+			                  		<td><span id="status_guru"></span></td>
+			                	</tr> 
 			              </tbody>
 			            </table>
 					</form>
@@ -191,7 +207,6 @@ var save_method; //for save method string
 var table;
 var base_url = '<?php echo base_url();?>';
 $('.help-block').hide();
-
 $(document).ready(function(){
 	
 	//datatables
@@ -227,6 +242,7 @@ $(document).ready(function(){
 function tambahGuru()
 {
 	save_method = 'add';
+	$('#id_status_guru').hide();
     $('#form')[0].reset(); // reset form on modals
     $.ajax({
         type : "GET",
@@ -249,7 +265,6 @@ function reload_table()
 
 function simpan()
 {
-
 	if($('[name="nm_guru"]').val() == ""){
     	$('#val_nm').show();
     	return false;
@@ -285,6 +300,7 @@ function simpan()
         dataType: "JSON",
         success: function(data)
         {
+        	$('#id_status_guru').hide();
             $('#ModaltambahGuru').modal('hide');
             reload_table();
             $('#val_nm').hide();
@@ -340,13 +356,14 @@ function ubah_guru(id)
         dataType: "JSON",
         success: function(data)
         {	
-
+        	$('#id_status_guru').show();
             $('[name="id_guru"]').val(data.id_guru);
             $('[name="nm_guru"]').val(data.nm_guru);
             $('[name="tgl_lahir"]').val(data.tgl_lahir); 
             $('[name="jenis_kelamin"]').val(data.jenis_kelamin);
             $('[name="no_telp"]').val(data.no_telp);
             $('[name="alamat"]').val(data.alamat);
+            $('[name="status_guru"]').val(data.status_guru);
             $('#ModaltambahGuru').modal('show'); // show bootstrap modal when complete loaded
             $('.modal-title').text('Ubah Data Guru'); // Set title to Bootstrap modal title
 
@@ -354,6 +371,7 @@ function ubah_guru(id)
         error: function (jqXHR, textStatus, errorThrown)
         {
             alert('Error Get Data From Ajax');
+            $('#id_status_guru').hide();
         }
     });
 }
@@ -375,6 +393,13 @@ function detail_guru(id)
             $('#jenis_kelamin_detail').text(data.jenis_kelamin);
             $('#no_telp_detail').text(data.no_telp);
             $('#alamat_detail').text(data.alamat);
+
+            if(data.status_guru == '1'){
+            	$('#status_guru').text("Aktif"); 
+            } else {
+            	$('#status_guru').text("Tidak Aktif");
+            }
+
             $('#ModalDetailGuru').modal('show'); // show bootstrap modal when complete loaded
             $('.modal-title').text('Detail Data Guru'); // Set title to Bootstrap modal title
         },

@@ -47,6 +47,8 @@ License: You must have a valid license purchased only from themeforest(the above
 <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css')?>"/>
 <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/global/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css')?>"/>
 
+<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/global/plugins/bootstrap-toastr/toastr.min.css')?>"/>
+
 <script src="<?php echo base_url('assets/global/plugins/jquery.min.js')?>" type="text/javascript"></script>
 <script src="<?php echo base_url('assets/global/plugins/jquery-ui/jquery-ui.min.js')?>" type="text/javascript"></script>
 
@@ -77,7 +79,7 @@ License: You must have a valid license purchased only from themeforest(the above
 		<!-- BEGIN LOGO -->
 		<div class="page-logo">
 			<a href="index.html">
-			<img src="<?php echo base_url('assets/admin/layout2/img/logo-default.png')?>" alt="logo" class="logo-default"/>
+			<img src="<?php echo base_url('assets/admin/layout2/img/logo-administrator.png')?>" alt="logo" class="logo-default"/>
 			</a>
 			<div class="menu-toggler sidebar-toggler">
 				<!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
@@ -105,7 +107,6 @@ License: You must have a valid license purchased only from themeforest(the above
 					<!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
 					<li class="dropdown dropdown-user">
 						<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-						<img alt="" class="img-circle" src="<?php echo base_url('assets/admin/layout2/img/avatar3_small.jpg')?>"/>
 						<span class="username username-hide-on-mobile">
 						<?php echo ucwords($this->session->nm_admin); ?> </span>
 						<i class="fa fa-angle-down"></i>
@@ -113,11 +114,11 @@ License: You must have a valid license purchased only from themeforest(the above
 						<ul class="dropdown-menu dropdown-menu-default">
 							<li>
 								<a href="<?php echo site_url('pengaturan') ?>">
-								<i class="icon-wrench"></i> Setting </a>
+								<i class="icon-wrench"></i> Pengaturan </a>
 							</li>
 							<li>
 								<a href="<?php echo site_url('login/logout') ?>">
-								<i class="icon-key"></i> Log Out </a>
+								<i class="fa fa-sign-out"></i> Keluar </a>
 							</li>
 						</ul>
 					</li>

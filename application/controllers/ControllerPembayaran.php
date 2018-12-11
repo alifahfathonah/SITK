@@ -42,9 +42,11 @@ class ControllerPembayaran extends CI_Controller {
         $list = $this->Pembayaran->get_datatables();
         $data = array();
         $no = $_POST['start'];
+        $nomor = 1;
         foreach ($list as $pembayaran) {
             $no++;
             $row = array();
+            $row[] = '<center>'.$nomor++ .'.'.'</center>';
             $row[] = '<center>'.$pembayaran->id_bayar.'</center>';
             $row[] = '<center>'.$pembayaran->status.'</center>';
 

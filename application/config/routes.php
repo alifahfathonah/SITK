@@ -88,10 +88,23 @@ $route['jenis_pembayaran/hapus/(:any)'] = 'ControllerJenisPembayaran/hapus/$1';
 $route['jenis_pembayaran/edit/(:any)'] = 'ControllerJenisPembayaran/edit/$1';
 $route['jenis_pembayaran/ubah'] = 'ControllerJenisPembayaran/ubah';
 
+//user
+$route['user'] = 'ControllerUser';
+$route['user/getKode'] = 'ControllerUser/getKode';
+$route['user/simpan'] = 'ControllerUser/simpan';
+$route['user/cari'] = 'ControllerUser/cari';
+$route['user/cari_email'] = 'ControllerUser/cari_email';
+$route['user/user_list'] = 'ControllerUser/user_list';
+$route['user/hapus/(:any)'] = 'ControllerUser/hapus/$1';
+$route['user/edit/(:any)'] = 'ControllerUser/edit/$1';
+$route['user/ubah'] = 'ControllerUser/ubah';
+
 //calon siswa
 $route['calon_siswa'] = 'ControllerCalon';
 $route['calon_siswa/tambah_calon'] = 'ControllerCalon/tambah_calon';
 $route['calon_siswa/getKode'] = 'ControllerCalon/getKode';
+$route['calon_siswa/simpan_formulir'] = 'ControllerCalon/simpan_formulir';
+$route['calon_siswa/cetak_formulir'] = 'ControllerCalon/cetak_formulir';
 $route['calon_siswa/simpan'] = 'ControllerCalon/simpan';
 $route['calon_siswa/calon_list'] = 'ControllerCalon/calon_list';
 $route['calon_siswa/hapus/(:any)'] = 'ControllerCalon/hapus/$1';
@@ -116,13 +129,34 @@ $route['pembayaran/cetak'] = 'ControllerPembayaran/cetak';
 $route['pembayaran/ubah'] = 'ControllerPembayaran/ubah';
 
 //pembentukan kelas
-$route['pembentukan_kelas'] = 'ControllerPembentukanKelas';
-$route['pembentukan_kelas/tambah_kelas'] = 'ControllerPembentukanKelas/tambah_kelas';
-$route['pembentukan_kelas/get_murid'] = 'ControllerPembentukanKelas/get_murid';
-$route['pembentukan_kelas/get_guru'] = 'ControllerPembentukanKelas/get_guru';
-$route['pembentukan_kelas/get_kelas'] = 'ControllerPembentukanKelas/get_kelas';
-$route['pembentukan_kelas/simpan'] = 'ControllerPembentukanKelas/simpan';
+$route['pembagian_kelas'] = 'ControllerPembentukanKelas';
+$route['pembagian_kelas/tambah_kelas'] = 'ControllerPembentukanKelas/tambah_kelas';
+$route['pembagian_kelas/get_murid'] = 'ControllerPembentukanKelas/get_murid';
+$route['pembagian_kelas/get_guru'] = 'ControllerPembentukanKelas/get_guru';
+$route['pembagian_kelas/get_kelas'] = 'ControllerPembentukanKelas/get_kelas';
+$route['pembagian_kelas/simpan'] = 'ControllerPembentukanKelas/simpan';
+
+//pengunduran diri
+$route['pengunduran_diri'] = 'ControllerPengunduranDiri';
+$route['pengunduran_diri/undur_list'] = 'ControllerPengunduranDiri/undur_list';
+$route['pengunduran_diri/getKode'] = 'ControllerPengunduranDiri/getKode';
+$route['pengunduran_diri/simpan'] = 'ControllerPengunduranDiri/simpan';
+$route['pengunduran_diri/no_induk'] = 'ControllerPengunduranDiri/no_induk';
+$route['pengunduran_diri/detail/(:any)'] = 'ControllerPengunduranDiri/detail/$1';
+$route['pengunduran_diri/ubah'] = 'ControllerPengunduranDiri/ubah';
 
 //laporan penerimaan murid baru
 $route['laporan_pmb'] = 'ControllerLapPMB';
 $route['laporan_pmb/cetak'] = 'ControllerLapPMB/cetak';
+
+//laporan pembayaran
+$route['laporan_pembayaran'] = 'ControllerLapPembayaran';
+$route['laporan_pembayaran/cetak'] = 'ControllerLapPembayaran/cetak';
+
+//laporan siswa
+$route['laporan_siswa'] = 'ControllerLapSiswa';
+$route['laporan_siswa/cetak'] = 'ControllerLapSiswa/cetak';
+
+//laporan kelas
+$route['laporan_kelas'] = 'ControllerLapKelas';
+$route['laporan_kelas/cetak'] = 'ControllerLapKelas/cetak';

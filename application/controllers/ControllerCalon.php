@@ -17,7 +17,7 @@ class ControllerCalon extends CI_Controller {
 	public function index()
 	{
 
-        $query = $this->db->query("SELECT * FROM pendaftaran JOIN calon_siswa ON pendaftaran.id_calon_siswa = calon_siswa.id_calon_siswa ORDER BY pendaftaran.id_calon_siswa DESC")->result();
+        $query = $this->db->query("SELECT * FROM pendaftaran JOIN calon_siswa ON pendaftaran.id_calon_siswa = calon_siswa.id_calon_siswa ORDER BY pendaftaran.id_daftar DESC")->result();
 
 		$data = [
 			'title' => 'Calon Siswa',
@@ -28,6 +28,111 @@ class ControllerCalon extends CI_Controller {
 		$this->load->view('v_siswa');
 		$this->load->view('template/v_footer');
 	}
+
+    public function simpan_formulir()
+    {
+        $nm_penerima = $this->input->post('nm_penerima');
+        $biaya = $this->input->post('biaya');
+        $tgl_cetak = date('Y-m-d');
+
+        $data = [
+            'nm_penerima' => $nm_penerima,
+            'biaya' => $biaya,
+            'tgl_cetak' => $tgl_cetak,
+        ];
+
+        $result = $this->Model->simpan('formulir',$data);
+    }
+
+    public function cetak_formulir()
+    {
+        $pdf = new FPDF('P','mm','A4');
+        // membuat halaman baru
+        $pdf->AddPage();
+        // setting jenis font yang akan digunakan
+        $pdf->SetFont('Arial','B',16);
+        
+        // mencetak string
+        $pdf->Cell(186,10,'TK ISLAM TUNAS HARAPAN',0,1,'C');
+        $pdf->Cell(9,1,'',0,1);
+        $pdf->SetFont('Arial','',9);
+        $pdf->Cell(186,7,'Jl. Masjid Darul Fallah, RT.8/RW.2, Petukangan Utara, Pesanggrahan, Kota Jakarta Selatan, ',0,1,'C');
+        $pdf->Cell(186,3,'Daerah Khusus Ibukota Jakarta 12260',0,1,'C');
+        $pdf->Cell(186,5,'',0,1,'C');
+
+        $pdf->Line(10, 42, 210-11, 42); 
+        $pdf->SetLineWidth(0.5); 
+        $pdf->Line(10, 42, 210-11, 42);
+        $pdf->SetLineWidth(0);     
+            
+        $pdf->ln(6);        
+        $pdf->SetFont('Arial','B',10);
+        $pdf->Cell(190,10,'Kwitansi Formulir',0,1,'C');
+        
+        $pdf->Cell(10,-1,'',0,1);
+
+        $pdf->SetFont('Arial','',9);
+        $pdf->Cell(10,5,'',0,1);
+
+        $nm_penerima = $this->input->post('nm_penerima');
+        $biaya = $this->input->post('biaya');
+
+        $query = $this->db->query("SELECT id_formulir,nm_penerima,biaya FROM formulir ORDER BY id_formulir DESC")->row();
+
+        $pdf->Cell(25,6,'Nomor Formulir',0,0,'L');
+        $pdf->Cell(5,6,':',0,0,'C');
+        $pdf->SetFont('Arial','B',9);
+        $pdf->Cell(40,6,''.$query->id_formulir,0,1,'L');
+        
+        $pdf->SetFont('Arial','',9);
+        $pdf->Cell(25,21,'Penerima',0,0,'L');
+        $pdf->Cell(5,21,':',0,0,'C');
+        $pdf->Cell(40,21,' '.$query->nm_penerima,0,1,'L');
+
+        $pdf->Cell(25,15,'Biaya',0,0,'L');
+        $pdf->Cell(5,15,':',0,0,'C');
+        $pdf->Cell(40,15,'Rp. '.number_format($query->biaya,0,',','.'),0,1,'L');
+
+        $pdf->Cell(10,9,'',0,1); 
+        $pdf->Line(40,61,155,61);
+        $pdf->Rect(40,68,150,10);
+        $pdf->Rect(40,85,150,10);
+
+        $tahun = date('Y'); 
+        $ajaran = date('Y')+1; 
+        $tahun_ajaran = $tahun.'/'.$ajaran;
+
+        $pdf->SetFont('Arial','',9);
+        $pdf->Cell(25,2,'Deskripsi',0,0,'L');
+        $pdf->Cell(5,2,':',0,0,'C');
+        $pdf->SetFont('Arial','B',9);
+        $pdf->Cell(40,1,'Uang pendaftaran murid baru TK Islam / TPA Tunas Harapan Petukangan Utara Pesanggrahan',0,1,'L');
+
+        $pdf->Cell(25,0,'',0,0,'L');
+        $pdf->Cell(5,0,'',0,0,'C');
+        $pdf->SetFont('Arial','B',9);
+        $pdf->Cell(40,10,'Jakarta, tahun pelajaran : '.$tahun_ajaran,0,1,'L');
+
+        $pdf->Cell(10,15,'',0,1);
+        $pdf->SetFont('Arial','',8);
+        $pdf->Cell(63,6,'',0,0,'C');
+        $pdf->Cell(63,6,'',0,0,'C');
+        $pdf->Cell(63,5,'Jakarta, '.date_indo(date("Y-m-d")),0,1,'C');
+        $pdf->Cell(63,2,'',0,0,'C');
+        $pdf->Cell(63,2,'',0,0,'C');
+        $pdf->Cell(63,6,'Panitia PMB',0,1,'C');
+        
+        $pdf->Cell(10,20,'',0,1);
+
+        $pdf->Cell(63,6,'',0,0,'C');
+        $pdf->Cell(63,6,'',0,0,'C');
+        $pdf->Cell(63,6,'( '.ucwords($this->session->nm_admin).' )',0,0,'C');
+
+        $fileName = 'Kwitansi_Formulir_'.$query->id_formulir.'_.pdf';
+        $pdf->Output('D',$fileName); 
+
+        echo json_encode(array("status" => TRUE));
+    }
 
     public function tambah_calon()
     {

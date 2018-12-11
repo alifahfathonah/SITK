@@ -13,6 +13,7 @@
 					<i class="fa fa-angle-right"></i>
 				</li>
 				<li>
+					<i class="icon-wrench"></i>
 					<a href="<?php echo site_url('pengaturan') ?>">Pengaturan</a>
 				</li>
 			</ul>
@@ -34,7 +35,8 @@
 							<div class="portlet-body form">
 								<form id="form">
 									<div class="form-body">
-										<input type="hidden" id="id" value="<?php echo $this->session->id; ?>">
+										<input type="hidden" id="id" value="<?php echo $this->session->id_user; ?>">
+										<input type="hidden" name="username_session" value="<?php echo $this->session->username; ?>">
 										<div class="form-group form-md-line-input">
 											<input type="text" value="<?php echo $this->session->username; ?>" class="form-control" name="username" id="username" placeholder="Enter Your Username">
 											<label for="form_control_1">Username</label>
@@ -105,23 +107,71 @@ function simpan()
     }
 
     // ajax adding data to database
-
     var username = $('#username').val();
     var nm_admin = $('#nm_admin').val();
     var email = $('#email').val();
     var id_admin = $('#id').val();
 
+    var username_session = $('[name="username_session"]').val();
+
     $.ajax({
-        url : "<?php echo site_url('pengaturan/ubah')?>",
+        url : "<?php echo site_url('user/cari') ?>",
         type: "POST",
-        data: {username:username, nm_admin:nm_admin, email:email, password:password, id_admin:id_admin},
+        data: {username:username},
         dataType: "JSON",
         success: function(data)
         {
-            $('#btn_simpan').text('save'); //change button text
-            $('#btn_simpan').attr('disabled',false); //set button enable 
-            alert("Data Berhasi Diubah");
-            window.location.href = "<?php echo site_url('login/logout') ?>";
+
+        	if(username == username_session){
+        		
+        		$.ajax({
+					url : "<?php echo site_url('pengaturan/ubah')?>",
+					type: "POST",
+					data: {username:username, nm_admin:nm_admin, email:email, password:password, id_admin:id_admin},
+					dataType: "JSON",
+					success: function(data)
+					{
+						$('#btn_simpan').text('save'); //change button text
+					    $('#btn_simpan').attr('disabled',false); //set button enable 
+					    alert("Data Berhasi Diubah");
+					    window.location.href = "<?php echo site_url('login/logout') ?>";
+					},
+					error: function (jqXHR, textStatus, errorThrown)
+					{
+						alert('Error Adding / Update Data');
+					    $('#btn_simpan').text('save'); //change button text
+					    $('#btn_simpan').attr('disabled',false); //set button enable 
+					}
+				});
+
+        	} else {
+        		if(data != null){
+				    alert('Username Sudah Ada');
+				    $('#btn_simpan').text('save'); //change button text
+	            	$('#btn_simpan').attr('disabled',false); //set button enable
+				    return false;
+	        	} 
+
+	           	$.ajax({
+					url : "<?php echo site_url('pengaturan/ubah')?>",
+					type: "POST",
+					data: {username:username, nm_admin:nm_admin, email:email, password:password, id_admin:id_admin},
+					dataType: "JSON",
+					success: function(data)
+					{
+						$('#btn_simpan').text('save'); //change button text
+					    $('#btn_simpan').attr('disabled',false); //set button enable 
+					    alert("Data Berhasi Diubah");
+					    window.location.href = "<?php echo site_url('login/logout') ?>";
+					},
+					error: function (jqXHR, textStatus, errorThrown)
+					{
+						alert('Error Adding / Update Data');
+					    $('#btn_simpan').text('save'); //change button text
+					    $('#btn_simpan').attr('disabled',false); //set button enable 
+					}
+				});
+        	}
         },
         error: function (jqXHR, textStatus, errorThrown)
         {

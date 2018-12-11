@@ -25,11 +25,17 @@
 <script src="<?php echo base_url('assets/global/scripts/metronic.js')?>" type="text/javascript"></script>
 <script src="<?php echo base_url('assets/admin/layout2/scripts/layout.js')?>" type="text/javascript"></script>
 <script src="<?php echo base_url('assets/admin/layout2/scripts/demo.js')?>" type="text/javascript"></script>
+
+<script src="<?php echo base_url('assets/global/plugins/bootstrap-growl/jquery.bootstrap-growl.min.js')?>"></script>
+<!-- END PAGE LEVEL SCRIPTS -->
+<script src="<?php echo base_url('assets/admin/pages/scripts/ui-bootstrap-growl.js')?>"></script>
+
 <script>
     jQuery(document).ready(function() {    
         Metronic.init(); // init metronic core components
 		Layout.init(); // init current layout
 		Demo.init(); // init demo features
+        UIBootstrapGrowl.init();
 		});
 </script>
 <!-- END JAVASCRIPTS -->

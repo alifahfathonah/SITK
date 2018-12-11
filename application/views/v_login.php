@@ -53,7 +53,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <!-- BEGIN LOGO -->
 <div class="logo">
 	<a href="index.html">
-	<img src="<?php echo base_url('assets/admin/layout2/img/logo-big.png')?>" alt=""/>
+	<!-- <img src="<?php echo base_url('assets/admin/layout2/img/logo-big.png')?>" alt=""/> -->
 	</a>
 </div>
 <!-- END LOGO -->
@@ -92,7 +92,7 @@ License: You must have a valid license purchased only from themeforest(the above
 	
 </div>
 <div class="copyright">
-	 2014 © Metronic. Admin Dashboard Template.
+	 2018 © TK Islam Tunas Harapan.
 </div>
 
 <?php if ($this->session->flashdata('pesanGagal') == TRUE) { ?>

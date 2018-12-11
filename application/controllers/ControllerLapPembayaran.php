@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class ControllerLapPMB extends CI_Controller {
+class ControllerLapPembayaran extends CI_Controller {
 
 	function __construct()
 	{
@@ -16,11 +16,11 @@ class ControllerLapPMB extends CI_Controller {
 	public function index()
 	{
 		$data = [
-			'title' => 'Laporan Penerimaan Murid Baru'
+			'title' => 'Laporan Pembayaran'
 		];
 		$this->load->view('template/v_header',$data);
 		$this->load->view('template/v_sidebar');
-		$this->load->view('laporan/v_pmb');
+		$this->load->view('laporan/v_pembayaran');
 		$this->load->view('template/v_footer');
 	}
 
@@ -32,10 +32,11 @@ class ControllerLapPMB extends CI_Controller {
 		$tahun_ajaran = $thn_ajar1."/".$thn_ajar2;
 
 		$query = $this->db->query("
-            SELECT * FROM calon_siswa 
-                JOIN pendaftaran ON calon_siswa.id_calon_siswa = pendaftaran.id_calon_siswa 
+            SELECT detail_bayar.tgl_bayar as tgl_bayar, nm_lengkap, pembayaran.status as status, jml_bayar FROM calon_siswa 
+                JOIN pendaftaran ON calon_siswa.id_calon_siswa = pendaftaran.id_calon_siswa
                 JOIN pembayaran ON pembayaran.id_daftar = pendaftaran.id_daftar
-            WHERE thn_ajar =  '$tahun_ajaran' AND status = 'Lunas'")->result();
+                JOIN detail_bayar ON detail_bayar.id_bayar = pembayaran.id_bayar
+            WHERE pendaftaran.thn_ajar = '$tahun_ajaran'")->result();
 
 		if($query == null){
 			$this->session->set_flashdata('pesanGagal','<strong>Gagal !</strong> Data Tidak Ditemukan.');
@@ -64,7 +65,7 @@ class ControllerLapPMB extends CI_Controller {
         $pdf->ln(6);        
         $pdf->SetFont('Arial','B',10);
         $pdf->Cell(10,1,'',0,1);
-        $pdf->Cell(190,10,'Data Murid Baru Tahun Ajaran '.$tahun_ajaran,0,1,'C');
+        $pdf->Cell(190,10,'Data Pembayaran Tahun Ajaran '.$tahun_ajaran,0,1,'C');
         
         $pdf->Cell(10,-1,'',0,1);
 
@@ -76,8 +77,9 @@ class ControllerLapPMB extends CI_Controller {
         $pdf->SetFont('Arial','B',8);
         $pdf->Cell(15,6,'No.',1,0,'C');
         $pdf->Cell(70,6,'Nama',1,0,'C');
-        $pdf->Cell(50,6,'Tanggal Lahir',1,0,'C');
-        $pdf->Cell(55,6,'Jenis Kelamin',1,1,'C');
+        $pdf->Cell(30,6,'Tanggal Bayar',1,0,'C');
+        $pdf->Cell(40,6,'Status',1,0,'C');
+        $pdf->Cell(35,6,'Jumlah Bayar',1,1,'C');
         
         $pdf->SetFont('Arial','',8);
 
@@ -85,23 +87,24 @@ class ControllerLapPMB extends CI_Controller {
         foreach($query as $data){
             $pdf->Cell(15,6,$no++.".",1,0,'C');
             $pdf->Cell(70,6,$data->nm_lengkap,1,0);
-            $pdf->Cell(50,6,$data->tgl_lahir,1,0,'C');
-            $pdf->Cell(55,6,$data->jenis_kelamin,1,1,'C');
+            $pdf->Cell(30,6,$data->tgl_bayar,1,0,'C');
+            $pdf->Cell(40,6,$data->status,1,0,'C');
+            $pdf->Cell(35,6,$data->jml_bayar,1,1,'C');
         }
 
         $pdf->Cell(10,10,'',0,1);
         $pdf->SetFont('Arial','B',8);
-        $pdf->Cell(63,6,'Kepala Sekolah',0,0,'C');
+        $pdf->Cell(63,6,'',0,0,'C');
         $pdf->Cell(63,6,'',0,0,'C');
         $pdf->Cell(64,6,'Hormat Kami',0,1,'C');
 
         $pdf->Cell(10,20,'',0,1);
 
-        $pdf->Cell(63,6,'( ..................................... )',0,0,'C');
+        $pdf->Cell(63,6,'',0,0,'C');
         $pdf->Cell(63,6,'',0,0,'C');
         $pdf->Cell(64,6,'( '.ucwords($this->session->nm_admin).' )',0,0,'C');
 
-        $fileName = 'LAPORAN_PMB_'.$tahun_ajaran.'_.pdf';
+        $fileName = 'LAPORAN_PEMBAYARAN_'.$tahun_ajaran.'_.pdf';
         $pdf->Output('D',$fileName);
 	}
 }

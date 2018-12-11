@@ -34,19 +34,19 @@ class ControllerPengaturan extends CI_Controller {
         if($password == null){
             $data = [
                 'username' => $this->input->post('username'),
-                'nm_admin' => $this->input->post('nm_admin'),
+                'nm_user' => $this->input->post('nm_admin'),
                 'email' => $this->input->post('email'),
             ];    
         } else {
             $data = [
                 'username' => $this->input->post('username'),
-                'nm_admin' => $this->input->post('nm_admin'),
+                'nm_user' => $this->input->post('nm_admin'),
                 'email' => $this->input->post('email'),
                 'password' => md5($password),
             ];
         }
 
-        $this->Model->update('id',$id,$data,'admin');
+        $this->Model->update('id_user',$id,$data,'user');
         echo json_encode(array("status" => TRUE));
     }
 

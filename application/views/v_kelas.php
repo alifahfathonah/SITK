@@ -1,29 +1,6 @@
 <!-- BEGIN CONTENT -->
 <div class="page-content-wrapper">
 	<div class="page-content">
-		<!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
-		<div class="modal fade" id="portlet-config" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-						<h4 class="modal-title">Modal title</h4>
-					</div>
-					<div class="modal-body">
-						 Widget settings form goes here
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn blue">Save changes</button>
-						<button type="button" class="btn default" data-dismiss="modal">Close</button>
-					</div>
-				</div>
-				<!-- /.modal-content -->
-			</div>
-			<!-- /.modal-dialog -->
-		</div>
-		<!-- /.modal -->
-		<!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
-			
 		<!-- BEGIN PAGE HEADER-->
 		<h3 class="page-title">
 		Kelas
@@ -62,8 +39,10 @@
 						<table id="table" class="table table-bordered table-striped table-condensed flip-content">
 							<thead class="flip-content">
 							<tr>
-								<th width="20%"><center>ID Kelas</center></th>
-								<th width="50%"><center>Nama</center></th>
+								<th width="5%"><center>No.</center></th>
+								<th width="15%"><center>ID Kelas</center></th>
+								<th width="30%"><center>Nama</center></th>
+								<th width="20%"><center>Status</center></th>
 								<th width="30%"><center>Action</center></th>
 							</tr>
 							</thead>
@@ -103,6 +82,16 @@
 								<label><b>Nama Kelas</b></label>
 								<input type="text" name="nm_kelas" placeholder="Nama Kelas" class="form-control">
 								<span class="help-block" style="color: red" id="val_kls">* Harus Diisi</span>
+							</div>
+
+							<div class="form-group" id="id_status_kelas">
+								<label><b>Status Kelas</b></label>
+								<div>
+									<select class="form-control" name="status_kelas">
+										<option value="1">Terisi</option>
+										<option value="0">Kosong</option>
+									</select>
+								</div>
 							</div>
 						
 						</div>
@@ -162,6 +151,7 @@ $(document).ready(function(){
 function tambahKelas()
 {
 	$('#val_kls').hide();
+	$('#id_status_kelas').hide();
     save_method = 'add';
     $('#form')[0].reset(); // reset form on modals
     $.ajax({
@@ -212,6 +202,7 @@ function simpan()
         dataType: "JSON",
         success: function(data)
         {
+        	$('#id_status_kelas').hide();
             $('#ModaltambahKelas').modal('hide');
             reload_table();
             $('#btn_simpan').text('save'); //change button text
@@ -252,6 +243,7 @@ function hapus_kelas(id)
 
 function ubah_kelas(id)
 {
+	$('.help-block').hide();
     save_method = 'update';
     $('#form')[0].reset(); // reset form on modals
    
@@ -262,9 +254,10 @@ function ubah_kelas(id)
         dataType: "JSON",
         success: function(data)
         {
-
+        	$('#id_status_kelas').show();
             $('[name="id_kelas"]').val(data.id_kelas);
             $('[name="nm_kelas"]').val(data.nm_kelas);
+            $('[name="status_kelas"]').val(data.status_kelas);
             $('#ModaltambahKelas').modal('show'); // show bootstrap modal when complete loaded
             $('.modal-title').text('Ubah Data Kelas'); // Set title to Bootstrap modal title
 

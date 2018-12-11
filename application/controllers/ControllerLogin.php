@@ -26,7 +26,6 @@ class ControllerLogin extends CI_Controller {
 	{
 		$username = $this->input->post('username');
 		$password = md5($this->input->post('password'));
-
 		$checkUsername = $this->Model->auth($username,$password);
 
 		if($checkUsername==NULL){
@@ -36,12 +35,13 @@ class ControllerLogin extends CI_Controller {
 		}else{
 
 			$newdata = array(
-				'id' => $checkUsername->id,
+				'id_user' => $checkUsername->id_user,
 				'username' => $checkUsername->username,
-				'nm_admin' => $checkUsername->nm_admin,
+				'nm_admin' => $checkUsername->nm_user,
 				'email' => $checkUsername->email,
+				'id_guru' => $checkUsername->id_guru,
 			  );
-			//set seassion
+			//set session
 			$this->session->set_userdata($newdata);
 			redirect('dashboard');
 		}

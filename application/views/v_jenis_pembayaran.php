@@ -40,6 +40,7 @@
 						<table id="table" class="table table-bordered table-striped table-condensed flip-content">
 							<thead class="flip-content">
 								<tr>
+									<th width="5%"><center>No. </center></th>
 									<th width="20%"><center>ID Jenis Pembayaran</center></th>
 									<th width="50%"><center>Nama Jenis Pembayaran</center></th>
 									<th width="50%"><center>Action</center></th>

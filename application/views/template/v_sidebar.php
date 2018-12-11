@@ -38,6 +38,13 @@
 							<i class="fa fa-tags"></i>
 							Jenis Pembayaran</a>
 						</li>
+						<?php if($this->session->id_guru == null){ ?>
+							<li>
+								<a href="<?php echo site_url('user') ?>">
+								<i class="fa fa-user"></i>
+								User</a>
+							</li>
+						<?php } ?>
 					</ul>
 				</li>
 
@@ -64,9 +71,14 @@
 					</a>
 					<ul class="sub-menu">
 						<li>
-							<a href="<?php echo site_url('pembentukan_kelas') ?>">
+							<a href="<?php echo site_url('pembagian_kelas') ?>">
 							<i class="fa fa-asterisk"></i>
-							Pembentukan Kelas</a>
+							Pembagian Kelas</a>
+						</li>
+						<li>
+							<a href="<?php echo site_url('pengunduran_diri') ?>">
+							<i class="fa fa-user"></i>
+							Pengunduran Diri Murid</a>
 						</li>
 					</ul>
 				</li>
@@ -82,6 +94,21 @@
 							<a href="<?php echo site_url('laporan_pmb') ?>">
 							<i class="fa fa-file-pdf-o"></i>
 							Laporan PMB</a>
+						</li>
+						<li>
+							<a href="<?php echo site_url('laporan_pembayaran') ?>">
+							<i class="fa fa-file-pdf-o"></i>
+							Laporan Pembayaran</a>
+						</li>
+						<li>
+							<a href="<?php echo site_url('laporan_siswa') ?>">
+							<i class="fa fa-file-pdf-o"></i>
+							Laporan Siswa</a>
+						</li>
+						<li>
+							<a href="<?php echo site_url('laporan_kelas') ?>">
+							<i class="fa fa-file-pdf-o"></i>
+							Laporan Kelas</a>
 						</li>
 					</ul>
 				</li>

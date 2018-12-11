@@ -40,11 +40,19 @@ class ControllerKelas extends CI_Controller {
         $list = $this->Kelas->get_datatables();
         $data = array();
         $no = $_POST['start'];
+        $nomor = 1;
         foreach ($list as $kelas) {
             $no++;
             $row = array();
+            $row[] = '<center>'.$nomor++ .'.'.'</center>';
             $row[] = '<center>'.$kelas->id_kelas.'</center>';
             $row[] = '<center>'.$kelas->nm_kelas.'</center>';
+
+            if($kelas->status_kelas == '1'){
+                $row[] = '<center>Terisi</center>';
+            } else {
+                $row[] = '<center>Kosong</center>';
+            }
  
             //add html for action
             $row[] = '<center><a class="btn btn-sm btn-primary" href="javascript:void(0)" onclick="ubah_kelas('."'".$kelas->id_kelas."'".')" title="Edit"><i class="glyphicon glyphicon-pencil"></i> Ubah</a>
@@ -67,6 +75,7 @@ class ControllerKelas extends CI_Controller {
     	$data = [
     		'id_kelas' => $this->input->post('id_kelas'),
     		'nm_kelas' => $this->input->post('nm_kelas'),
+            'status_kelas' => '0'
     	];
 
     	$this->Model->simpan('kelas',$data);
@@ -84,6 +93,7 @@ class ControllerKelas extends CI_Controller {
     	$id_kelas = $this->input->post('id_kelas');
     	$data = [
     		'nm_kelas' => $this->input->post('nm_kelas'),
+            'status_kelas' => $this->input->post('status_kelas'),
     	];
 
     	$this->Model->update('id_kelas',$id_kelas,$data,'kelas');

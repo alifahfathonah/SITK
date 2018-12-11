@@ -40,10 +40,12 @@ class ControllerGuru extends CI_Controller {
  
         $list = $this->Guru->get_datatables();
         $data = array();
+        $nomor = 1;
         $no = $_POST['start'];
         foreach ($list as $guru) {
             $no++;
             $row = array();
+            $row[] = '<center>'.$nomor++ .'.'.'</center>';
             $row[] = '<center>'.$guru->id_guru.'</center>';
             $row[] = '<center>'.$guru->nm_guru.'</center>';
  
@@ -76,7 +78,7 @@ class ControllerGuru extends CI_Controller {
             'jenis_kelamin' => $this->input->post('jenis_kelamin'),
             'no_telp' => $this->input->post('no_telp'),
             'alamat' => $this->input->post('alamat'),
-            'id' => $this->session->id,
+            'status_guru' => '0',
     	];
 
     	$this->Model->simpan('guru',$data);
@@ -98,8 +100,8 @@ class ControllerGuru extends CI_Controller {
             'jenis_kelamin' => $this->input->post('jenis_kelamin'),
             'no_telp' => $this->input->post('no_telp'),
             'alamat' => $this->input->post('alamat'),
-            'id' => $this->session->id,
-    	];
+            'status_guru' => $this->input->post('status_guru')
+        ];
 
     	$this->Model->update('id_guru',$id_guru,$data,'guru');
     	echo json_encode(array("status" => TRUE));

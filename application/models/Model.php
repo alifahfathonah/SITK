@@ -17,7 +17,7 @@ class Model extends CI_Model {
 	//untuk login
 	public function auth($username,$password)
 	{
-   		$query = "SELECT * FROM admin WHERE UPPER(username)=".$this->db->escape(strtoupper(stripslashes(strip_tags(htmlspecialchars($username,ENT_QUOTES)))))." AND password=".$this->db->escape(stripslashes(strip_tags(htmlspecialchars($password,ENT_QUOTES))));
+   		$query = "SELECT * FROM user WHERE UPPER(username)=".$this->db->escape(strtoupper(stripslashes(strip_tags(htmlspecialchars($username,ENT_QUOTES)))))." AND password=".$this->db->escape(stripslashes(strip_tags(htmlspecialchars($password,ENT_QUOTES))));
    		$result = $this->db->query($query);
    		return $result->row();
 	}
@@ -130,6 +130,39 @@ class Model extends CI_Model {
          $kd = "0000001";
     	}
        	return "PTR".$kd;
+    }
+
+    public function getNoInduk()
+    {
+       	$q  = $this->db->query("SELECT MAX(RIGHT(no_induk,4)) as kd_max from siswa");
+       	$kd = "";
+       	$tanggal = date('Y');
+       	$no_induk = substr($tanggal, 2,2);
+    	if($q->num_rows() > 0) {
+        	foreach ($q->result() as $k) {
+          		$tmp = ((int)$k->kd_max)+1;
+           		$kd = sprintf("%04s",$tmp);
+        	}
+    	} else {
+         $kd = $no_induk."0001";
+    	}
+       	return $no_induk.$kd;
+    }	
+
+    //kode Undur
+	public function getKodeUndur()
+    {
+       	$q  = $this->db->query("SELECT MAX(RIGHT(id_undur_diri,4)) as kd_max from pengunduran_diri");
+       	$kd = "";
+    	if($q->num_rows() > 0) {
+        	foreach ($q->result() as $k) {
+          		$tmp = ((int)$k->kd_max)+1;
+           		$kd = sprintf("%04s",$tmp);
+        	}
+    	} else {
+         $kd = "0001";
+    	}
+       	return "PD".$kd;
     }
 
 }

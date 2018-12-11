@@ -26,6 +26,6 @@ class ControllerDashboard extends CI_Controller {
 
 	public function not_found()
 	{
-		$this->load->view('template/not_found');
+		$this->load->view('errors/Error_404');
 	}
 }

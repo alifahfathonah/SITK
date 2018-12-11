@@ -39,6 +39,7 @@
 						<table id="table" class="table table-bordered table-striped table-condensed flip-content">
 							<thead class="flip-content">
 								<tr>
+									<th width="5%"><center>No.</center></th>
 									<th width="15%"><center>ID Bayar</center></th>
 									<th width="30%"><center>Status</center></th>
 									<th width="100%"><center>Action</center></th>

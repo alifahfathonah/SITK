@@ -3,7 +3,7 @@
 	<div class="page-content">
 		<!-- BEGIN PAGE HEADER-->
 		<h3 class="page-title">
-		Pembentukan Kelas
+		Pembagian Kelas
 		</h3>
 		<div class="page-bar">
 			<ul class="page-breadcrumb">
@@ -19,12 +19,12 @@
 				</li>
 				<li>
 					<i class="fa fa-asterisk"></i>
-					<a href="<?php echo site_url('pembentukan_kelas') ?>">Pembentukan Kelas</a>
+					<a href="<?php echo site_url('pembagian_kelas') ?>">Pembentukan Kelas</a>
 					<i class="fa fa-angle-right"></i>
 				</li>
 				<li>
 					<i class="fa fa-plus"></i>
-					<a href="<?php echo site_url('pembentukan_kelas/tambah_kelas') ?>">Tambah Kelas Baru</a>
+					<a href="<?php echo site_url('pembagian_kelas/tambah_kelas') ?>">Tambah Kelas Baru</a>
 				</li>
 			</ul>
 		</div>
@@ -47,7 +47,7 @@
 									<div class="row">
 										<div class="col-md-2">
 											<div class="form-group form-md-line-input">
-												<input type="text" id="datepicker1" name="thn_ajar1" class="form-control" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Tahun Ajaran" required>
+												<input type="text" id="datepicker1" value="<?php echo $thn_ajar1 ?>" name="thn_ajar1" class="form-control" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Tahun Ajaran" required>
 											</div>
 										</div>
 										<div class="col-md-1">
@@ -57,7 +57,7 @@
 										</div>
 										<div class="col-md-2">
 											<div class="form-group form-md-line-input">
-												<input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" id="datepicker2" required name="thn_ajar2" class="form-control" placeholder="Tahun Ajaran">
+												<input type="text" value="<?php echo $thn_ajar2 ?>" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" id="datepicker2" required name="thn_ajar2" class="form-control" placeholder="Tahun Ajaran">
 											</div>
 										</div>
 									</div>
@@ -167,13 +167,6 @@ var save_method; //for save method string
 var table;
 var base_url = '<?php echo base_url();?>';
 
-var currentTime = new Date();
-var current_year = currentTime.getFullYear();
-var next_year = currentTime.getFullYear()+1;
-
-$('[name="thn_ajar1"]').val(current_year);
-$('[name="thn_ajar2"]').val(next_year);
-
 function tambahKelas()
 {
 
@@ -189,7 +182,7 @@ function tambahKelas()
 	// ajax adding data to database
     var formData = new FormData($('#form')[0]);
     $.ajax({
-        url : "<?php echo site_url('pembentukan_kelas/get_murid') ?>",
+        url : "<?php echo site_url('pembagian_kelas/get_murid') ?>",
         type: "POST",
         data: formData,
         contentType: false,
@@ -211,7 +204,7 @@ function tambahKelas()
 
             //get guru
             $.ajax({
-		        url : "<?php echo site_url('pembentukan_kelas/get_guru') ?>",
+		        url : "<?php echo site_url('pembagian_kelas/get_guru') ?>",
 		        type: "POST",
 		        data: {guru:guru},
 		        dataType: "JSON",
@@ -223,7 +216,7 @@ function tambahKelas()
 
             //get kelas
             $.ajax({
-		        url : "<?php echo site_url('pembentukan_kelas/get_kelas') ?>",
+		        url : "<?php echo site_url('pembagian_kelas/get_kelas') ?>",
 		        type: "POST",
 		        data: {kelas:kelas},
 		        dataType: "JSON",
@@ -250,7 +243,7 @@ function simpan()
 		// ajax adding data to database
 	    var formData = new FormData($('#form')[0]);
 	    $.ajax({
-	        url : "<?php echo site_url('pembentukan_kelas/simpan')?>",
+	        url : "<?php echo site_url('pembagian_kelas/simpan')?>",
 	        type: "POST",
 	        data: formData,
 	        contentType: false,
@@ -258,6 +251,7 @@ function simpan()
 	        dataType: "JSON",
 	        success: function(data)
 	        {
+	        	window.location = "<?php  echo site_url('pembagian_kelas'); ?>";
 	            $('#tambahKelas').modal('hide');
 	            $('#btn_simpan').text('save'); //change button text
 	            $('#btn_simpan').attr('disabled',false); //set button enable 

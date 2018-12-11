@@ -41,9 +41,11 @@ class ControllerJenisPembayaran extends CI_Controller {
         $list = $this->Jenis->get_datatables();
         $data = array();
         $no = $_POST['start'];
+        $nomor = 1;
         foreach ($list as $jenis) {
             $no++;
             $row = array();
+            $row[] = '<center>'.$nomor++ .'.'.'</center>';
             $row[] = '<center>'.$jenis->id_jenis.'</center>';
             $row[] = '<center>'.$jenis->nm_jenis.'</center>';
  

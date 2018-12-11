@@ -32,6 +32,7 @@
 					<div class="portlet-title">
 						<div class="caption">
 							<a class="btn btn-default" href="<?php echo site_url('calon_siswa/tambah_calon') ?>"><i class="fa fa-plus"></i> Tambah Data Calon Siswa</a>
+							<button class="btn btn-danger" data-target="#cetak_formulir" data-toggle="modal"><i class="fa fa-print"></i> Cetak Kwitansi Pendaftaran</button>
 						</div>
 					</div>
 						
@@ -118,7 +119,7 @@
 					                	<tr>
 					                  		<td>Tanggal Lahir</td>
 					                  		<td>:</td>
-					                  		<td><?php echo $siswa->tgl_lahir ?></td>
+					                  		<td><?php echo shortdate_indo($siswa->tgl_lahir) ?></td>
 					                	</tr>
 					                 	<tr>
 					                  		<td>Alamat</td>
@@ -176,7 +177,7 @@
 					                	<tr>
 					                  		<td>Tanggal Lahir</td>
 					                  		<td>:</td>
-					                  		<td><?php echo $siswa->tgl_lahir_ayah ?></td>
+					                  		<td><?php echo shortdate_indo($siswa->tgl_lahir_ayah) ?></td>
 					                	</tr>
 					                	<tr>
 					                  		<td>Agama</td>
@@ -235,7 +236,7 @@
 					                	<tr>
 					                  		<td>Tanggal Lahir</td>
 					                  		<td>:</td>
-					                  		<td><?php echo $siswa->tgl_lahir_ibu ?></td>
+					                  		<td><?php echo shortdate_indo($siswa->tgl_lahir_ibu) ?></td>
 					                	</tr>
 					                	<tr>
 					                  		<td>Agama</td>
@@ -292,6 +293,43 @@
 <!-- /.modal detail -->
 <?php } ?>
 
+<!-- Modal -->
+<div class="modal fade" id="cetak_formulir" tabindex="-1" role="basic" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<?php $tahun = date('Y'); $ajaran = date('Y')+1; $tahun_ajaran = $tahun.'/'.$ajaran ?>
+				<h4 class="modal-title">Cetak Kwitansi Formulir <?php echo $tahun_ajaran ?></h4>
+			</div>
+			<form id="form" class="form-horizontal">
+				<div class="modal-body">
+					<div class="portlet-body form">
+						<div class="form-body">				
+							<div class="form-group">
+								<label><b>Nama Penerima</b></label>
+								<input type="text" name="nm_penerima" placeholder="Nama Penerima" class="form-control">
+							</div>	
+
+							<div class="form-group">
+								<label><b>Banyaknya Uang</b></label>
+								<input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" name="biaya" placeholder="Banyaknya Uang" class="form-control">
+							</div>
+						</div>
+					</div>
+				</div>
+			
+				<div class="modal-footer">
+					<button type="button" class="btn default" data-dismiss="modal">Close</button>
+					<button type="button" onclick="simpan()" id="btn_simpan" class="btn blue">Print</button>
+				</div>
+			</form>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
 <script> 
 	$(document).ready( function () {
     	$('#table').DataTable();
@@ -310,4 +348,59 @@
 
 	    }
 }
+
+function simpan()
+{
+
+    $('#btn_simpan').text('Print...'); //change button text
+    $('#btn_simpan').attr('disabled',true); //set button disable 
+    var url;
+
+    // ajax adding data to database
+    var formData = new FormData($('#form')[0]);
+    $.ajax({
+        url : "<?php echo site_url('calon_siswa/simpan_formulir')?>",
+        type: "POST",
+        data: formData,
+        contentType: false,
+        processData: false,
+        dataType: "JSON",
+        success: function(data)
+        {
+            $('#cetak_formulir').modal('hide');
+            $('[name="nm_penerima"]').val("");
+            $('[name="biaya"]').val("");
+            $('#btn_simpan').text('Print'); //change button text
+            $('#btn_simpan').attr('disabled',false); //set button enable 
+
+            $.ajax({
+		        url : "<?php echo site_url('calon_siswa/cetak_formulir')?>",
+		        type: "POST",
+		        data: formData,
+		        contentType: false,
+		        processData: false,
+		        dataType: "JSON",
+		        success: function(data)
+		        {
+		            $('#btn_simpan').text('Print'); //change button text
+		            $('#btn_simpan').attr('disabled',false); //set button enable 
+		        },
+		        error: function (jqXHR, textStatus, errorThrown)
+		        {
+		            alert('Error Adding / Update Data');
+		            $('#btn_simpan').text('Print'); //change button text
+		            $('#btn_simpan').attr('disabled',false); //set button enable 
+		        }
+		    });
+
+        },
+        error: function (jqXHR, textStatus, errorThrown)
+        {
+            alert('Error Adding / Update Data');
+            $('#btn_simpan').text('Print'); //change button text
+            $('#btn_simpan').attr('disabled',false); //set button enable 
+        }
+    });
+}
+
 </script>

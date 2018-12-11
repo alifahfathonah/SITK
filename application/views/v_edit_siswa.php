@@ -316,7 +316,7 @@
 
 									<div class="row">
 										<div class="col-md-6">
-											<button type="button" class="btn default btn-block">Kembali</button>
+											<a href="<?php echo site_url('calon_siswa') ?>" class="btn default btn-block">Kembali</a>
 										</div>
 										<div class="col-md-6">
 											<button type="button" id="btn_simpan" onclick="simpan()" class="btn blue btn-block">Save</button>
