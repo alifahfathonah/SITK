@@ -83,14 +83,21 @@ class ControllerLapPembayaran extends CI_Controller {
         
         $pdf->SetFont('Arial','',8);
 
+        $tampung = array();
         $no = 1;
         foreach($query as $data){
             $pdf->Cell(15,6,$no++.".",1,0,'C');
-            $pdf->Cell(70,6,$data->nm_lengkap,1,0);
+            $pdf->Cell(70,6,ucwords($data->nm_lengkap),1,0);
             $pdf->Cell(30,6,$data->tgl_bayar,1,0,'C');
             $pdf->Cell(40,6,$data->status,1,0,'C');
-            $pdf->Cell(35,6,$data->jml_bayar,1,1,'C');
+            $pdf->Cell(35,6,''.number_format($data->jml_bayar,0,',','.'),1,1,'C');
+            $tampung[] = $data->jml_bayar;
         }
+
+        $pdf->SetFont('Arial','B',8);
+
+        $pdf->Cell(155,6,'TOTAL',1,0,'C');
+        $pdf->Cell(35,6,''.number_format(array_sum($tampung),0,',','.'),1,1,'C');
 
         $pdf->Cell(10,10,'',0,1);
         $pdf->SetFont('Arial','B',8);
@@ -104,7 +111,7 @@ class ControllerLapPembayaran extends CI_Controller {
         $pdf->Cell(63,6,'',0,0,'C');
         $pdf->Cell(64,6,'( '.ucwords($this->session->nm_admin).' )',0,0,'C');
 
-        $fileName = 'LAPORAN_PEMBAYARAN_'.$tahun_ajaran.'_.pdf';
+        $fileName = 'LAPORAN_PEMBAYARAN_'.$tahun_ajaran.'.pdf';
         $pdf->Output('D',$fileName);
 	}
 }

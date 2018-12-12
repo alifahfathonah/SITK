@@ -162,14 +162,30 @@ class ControllerPembayaran extends CI_Controller {
     public function detail($id)
     {
         $query = $this->db->query("
-            SELECT calon_siswa.id_calon_siswa,nominal_bayar,nm_lengkap,status,thn_ajar,pembayaran.id_bayar,status,pendaftaran.id_daftar,id_jenis,tgl_bayar,jml_bayar,
+            SELECT calon_siswa.id_calon_siswa as id_calon_siswa,nominal_bayar,nm_lengkap,status,thn_ajar,pembayaran.id_bayar as id_bayar,status,pendaftaran.id_daftar as id_daftar,id_jenis,tgl_bayar,jml_bayar,
                 (SELECT SUM(jml_bayar) as total FROM pembayaran JOIN detail_bayar ON pembayaran.id_bayar = detail_bayar.id_bayar WHERE pembayaran.id_bayar = '$id') as total
             FROM pembayaran 
                 JOIN detail_bayar ON pembayaran.id_bayar = detail_bayar.id_bayar 
                 JOIN pendaftaran ON pendaftaran.id_daftar = pembayaran.id_daftar
                 JOIN calon_siswa ON calon_siswa.id_calon_siswa = pendaftaran.id_calon_siswa
             WHERE pembayaran.id_bayar = '$id'")->result();
-        echo json_encode($query);
+
+        foreach($query as $data){
+            $tampung[] =[
+                'id_calon_siswa' => $data->id_calon_siswa,
+                'nominal_bayar' => $data->nominal_bayar,
+                'nm_lengkap' => $data->nm_lengkap,
+                'status' => $data->status,
+                'thn_ajar' => $data->thn_ajar,
+                'id_bayar' => $data->id_bayar,
+                'id_daftar' => $data->id_daftar,
+                'id_jenis' => $data->id_jenis,
+                'tgl_bayar' => shortdate_indo($data->tgl_bayar),
+                'jml_bayar' => $data->jml_bayar,
+                'total' => $data->total,
+            ]; 
+        }
+        echo json_encode($tampung);
     }
 
     public function cetak()
@@ -271,7 +287,7 @@ class ControllerPembayaran extends CI_Controller {
         $no = 1;
         foreach($kwitansi as $data){
             $pdf->Cell(15,6,$no++.".",1,0,'C');
-            $pdf->Cell(80,6,$data->tgl_bayar,1,0,'C');
+            $pdf->Cell(80,6,shortdate_indo($data->tgl_bayar),1,0,'C');
             $pdf->Cell(95,6,number_format($data->jml_bayar,0,',','.'),1,1,'C');
             $tampung[] = $data->jml_bayar;
         }
@@ -301,7 +317,13 @@ class ControllerPembayaran extends CI_Controller {
         $pdf->Cell(63,6,'',0,0,'C');
         $pdf->Cell(63,6,'( '.ucwords($this->session->nm_admin).' )',0,0,'C');
 
-        $fileName = 'Kwitansi_Pembayaran_'.$id_bayar.'_.pdf';
+        if($query->status == "Lunas"){
+            $fileName = 'Kwitansi_Pembayaran_'.$id_bayar.'_Lunas.pdf';    
+        } else {
+            $fileName = 'Kwitansi_Pembayaran_'.$id_bayar.'_Cicil.pdf';
+        }
+
+        
         $pdf->Output('D',$fileName);
     }
 }

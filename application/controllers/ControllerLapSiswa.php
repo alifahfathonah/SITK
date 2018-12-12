@@ -113,7 +113,7 @@ class ControllerLapSiswa extends CI_Controller {
         $pdf->Cell(63,6,'',0,0,'C');
         $pdf->Cell(63,6,'( '.ucwords($this->session->nm_admin).' )',0,0,'C');
 
-        $fileName = 'LAPORAN_SISWA_'.$tahun_ajaran.'_.pdf';
+        $fileName = 'LAPORAN_SISWA_'.$tahun_ajaran.'.pdf';
         $pdf->Output('D',$fileName);
 	}
 }

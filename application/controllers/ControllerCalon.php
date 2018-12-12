@@ -128,7 +128,7 @@ class ControllerCalon extends CI_Controller {
         $pdf->Cell(63,6,'',0,0,'C');
         $pdf->Cell(63,6,'( '.ucwords($this->session->nm_admin).' )',0,0,'C');
 
-        $fileName = 'Kwitansi_Formulir_'.$query->id_formulir.'_.pdf';
+        $fileName = 'Kwitansi_Formulir_'.$query->id_formulir.'.pdf';
         $pdf->Output('D',$fileName); 
 
         echo json_encode(array("status" => TRUE));
@@ -151,15 +151,12 @@ class ControllerCalon extends CI_Controller {
         $id_calon_siswa = $this->Model->getKodeCalon();
         $thn_ajar1 = $this->input->post('thn_ajar1');
         $thn_ajar2 = $this->input->post('thn_ajar2');
-        $no_induk = $this->input->post('no_induk');
-
         $thn_ajar = $thn_ajar1."/".$thn_ajar2;
 
         $data_pendaftaran = [
             'id_daftar' => $this->Model->getKodePendaftar(),
             'tgl_daftar' => date('Y-m-d'),
             'thn_ajar' => $thn_ajar,
-            'no_induk' => $no_induk,
             'id_calon_siswa' => $id_calon_siswa,
         ];
 
@@ -255,14 +252,11 @@ class ControllerCalon extends CI_Controller {
 
         $thn_ajar1 = $this->input->post('thn_ajar1');
         $thn_ajar2 = $this->input->post('thn_ajar2');
-        $no_induk = $this->input->post('no_induk');
-
         $thn_ajar = $thn_ajar1."/".$thn_ajar2;
 
         $data_pendaftaran = [
             'tgl_daftar' => date('Y-m-d'),
             'thn_ajar' => $thn_ajar,
-            'no_induk' => $no_induk,
             'id_calon_siswa' => $id,
         ];
 
@@ -377,6 +371,10 @@ class ControllerCalon extends CI_Controller {
         $pdf->Cell(5,6,':',0,0,'C');
         $pdf->Cell(40,6,''.$calon_siswa->thn_ajar,0,1,'L');
 
+        $pdf->Cell(25,6,'Tanggal',0,0,'L');
+        $pdf->Cell(5,6,':',0,0,'C');
+        $pdf->Cell(40,6,shortdate_indo(date('Y-m-d')),0,1,'L');
+
         $pdf->Cell(190,5,' ',0,1,'C');
         // Memberikan space kebawah agar tidak terlalu rapat
         $pdf->Cell(10,1,'',0,1);
@@ -436,7 +434,7 @@ class ControllerCalon extends CI_Controller {
         $pdf->Cell(63,6,'',0,0,'C');
         $pdf->Cell(63,6,'( '.ucwords($this->session->nm_admin).' )',0,0,'C');
 
-        $fileName = 'Kwitansi_Pembayaran_'.$calon_siswa->id_daftar.'_.pdf';
+        $fileName = 'Kwitansi_Pendaftaran_'.$calon_siswa->id_daftar.'.pdf';
         $pdf->Output('D',$fileName); 
     }
 }
