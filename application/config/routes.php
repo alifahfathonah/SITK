@@ -110,6 +110,7 @@ $route['calon_siswa/calon_list'] = 'ControllerCalon/calon_list';
 $route['calon_siswa/hapus/(:any)'] = 'ControllerCalon/hapus/$1';
 $route['calon_siswa/edit/(:any)'] = 'ControllerCalon/edit/$1';
 $route['calon_siswa/ubah'] = 'ControllerCalon/ubah';
+$route['calon_siswa/cari_formulir'] = 'ControllerCalon/cari_formulir';
 $route['calon_siswa/cetak/(:any)'] = 'ControllerCalon/cetak/$1';
 
 //pengaturan

@@ -33,7 +33,7 @@ class ControllerLapSiswa extends CI_Controller {
 
 		$query = $this->db->query("
             SELECT * FROM calon_siswa 
-                JOIN pendaftaran oN calon_siswa.id_calon_siswa = pendaftaran.id_calon_siswa
+                JOIN pendaftaran ON calon_siswa.id_calon_siswa = pendaftaran.id_calon_siswa
                 JOIN siswa ON siswa.id_daftar = pendaftaran.id_daftar
             WHERE pendaftaran.thn_ajar = '$tahun_ajaran'")->result();
 

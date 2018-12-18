@@ -156,6 +156,7 @@ class ControllerPembayaran extends CI_Controller {
     public function hapus($id)
 	{
 		$this->Model->hapus('id_bayar',$id,'pembayaran');
+        $this->Model->hapus('id_bayar',$id,'detail_bayar');
 		echo json_encode(array("status" => TRUE));
 	}
 

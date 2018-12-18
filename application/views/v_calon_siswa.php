@@ -71,6 +71,10 @@
 												</div>
 												
 												<div class="form-group form-md-line-input">
+													<input type="text" name="id_formulir" class="form-control" placeholder="Nomor Kwitansi Formulir (Optional)">
+													<label for="form_control_1">Nomor Kwitansi Formulir</label>
+												</div>
+												<div class="form-group form-md-line-input">
 													<input type="text" name="nm_lengkap" class="form-control" placeholder="Input Nama Lengkap">
 													<label for="form_control_1">Nama Lengkap</label>
 												</div>
@@ -358,17 +362,46 @@ function simpan()
 	$('#btn_simpan').text('saving...'); //change button text
     $('#btn_simpan').attr('disabled',true); //set button disable 
 
-    var formData = new FormData($('#form')[0]);
-	$.ajax({
-		url : "<?php echo site_url('calon_siswa/simpan') ?>",
+    var id_formulir = $('[name="id_formulir"]').val();
+    //cari formulir
+    $.ajax({
+		url : "<?php echo site_url('calon_siswa/cari_formulir') ?>",
 		type: "POST",
-		data: formData,
-		contentType: false,
-		processData: false,
+		data: {id_formulir:id_formulir},
 		dataType: "JSON",
 		success: function(data)
 		{
-			window.location = "<?php  echo site_url('calon_siswa'); ?>";
+
+			if(data == null){
+				$('[name="id_formulir"]').val(null);
+			} else {
+				$('[name="id_formulir"]').val(data.id_formulir);
+			}
+
+			var formData = new FormData($('#form')[0]);
+			$.ajax({
+				url : "<?php echo site_url('calon_siswa/simpan') ?>",
+				type: "POST",
+				data: formData,
+				contentType: false,
+				processData: false,
+				dataType: "JSON",
+				success: function(data)
+				{
+
+					window.location = "<?php  echo site_url('calon_siswa'); ?>";
+					$('#btn_simpan').text('save'); //change button text
+					$('#btn_simpan').attr('disabled',false); //set button enable 
+				},
+				error: function (jqXHR, textStatus, errorThrown)
+				{
+					alert('Error Adding / Update Data');
+					$('#btn_simpan').text('save'); //change button text
+					$('#btn_simpan').attr('disabled',false); //set button enable 
+				}
+			});    
+
+
 			$('#btn_simpan').text('save'); //change button text
 			$('#btn_simpan').attr('disabled',false); //set button enable 
 		},
@@ -378,7 +411,7 @@ function simpan()
 			$('#btn_simpan').text('save'); //change button text
 			$('#btn_simpan').attr('disabled',false); //set button enable 
 		}
-	});    
+	});  
 
 }
 </script>

@@ -137,6 +137,7 @@
 							<div class="form-group">
 								<label><b>Jumlah Bayar</b></label>
 								<input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" name="nominal_bayar" placeholder="Jumlah Bayar" class="form-control">
+								<span class="help-block" style="color: red" id="val_lahir">* Harus Diisi</span>
 							</div>
 
 						</div>
@@ -321,6 +322,7 @@ function Cari()
 
 function tambahPembayaran()
 {
+	$('.help-block').hide();
 	$('#btn_simpan').attr('disabled',true); //set button enable
 	save_method = 'add';
     $('#form')[0].reset(); // reset form on modals
@@ -347,7 +349,14 @@ function reload_table()
 }
 
 function simpan()
-{
+{	
+	var uang = $('[name="nominal_bayar"]').val();
+
+	if(uang == ""){
+		$('.help-block').show();
+		return false;
+	}
+
     $('#btn_simpan').text('saving...'); //change button text
     $('#btn_simpan').attr('disabled',true); //set button disable 
     var url;

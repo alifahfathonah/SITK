@@ -31,7 +31,7 @@
 				<div class="portlet box green">
 					<div class="portlet-title">
 						<div class="caption">
-							<button class="btn btn-default" data-toggle="modal" data-target="#ModaltambahSiswa"><i class="fa fa-plus"></i> Tambah Data Pengunduran</button>
+							<button class="btn btn-default" data-toggle="modal" onclick="tambahSiswa()"><i class="fa fa-plus"></i> Tambah Data Pengunduran</button>
 
 						</div>
 					</div>
@@ -220,6 +220,14 @@ $(document).ready(function(){
 
 });
 
+
+function tambahSiswa()
+{
+	$('#form_undur')[0].reset(); // reset form on modals
+	$('#ModaltambahSiswa').modal('show');
+    $('#btn_simpan').attr('disabled',true); //set button enable 	
+}
+
 function Cari()
 {
 	var no_induk = $('[name="no_induk"]').val();
@@ -255,6 +263,11 @@ function Cari()
     });
 }
 
+function reload_table()
+{
+    table.ajax.reload(null,false); //reload datatable ajax 
+}
+
 function simpan()
 {
     $('#btn_simpan').text('saving...'); //change button text
@@ -273,6 +286,7 @@ function simpan()
         success: function(data)
         {	
         	$('#ModaltambahSiswa').modal('hide');
+        	reload_table();
             $('#btn_simpan').text('save'); //change button text
             $('#btn_simpan').attr('disabled',false); //set button enable 
         },

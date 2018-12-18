@@ -307,7 +307,10 @@ function simpan()
             $('#val_lahir').hide();
             $('#val_telp').hide();
             $('#btn_simpan').text('save'); //change button text
-            $('#btn_simpan').attr('disabled',false); //set button enable 
+            $('#btn_simpan').attr('disabled',false); //set button enable
+            setTimeout(function() {
+              swal("Berhasil Disimpan", "", "success");
+            }, 600); 
         },
         error: function (jqXHR, textStatus, errorThrown)
         {

@@ -32,7 +32,7 @@
 					<div class="portlet-title">
 						<div class="caption">
 							<a class="btn btn-default" href="<?php echo site_url('calon_siswa/tambah_calon') ?>"><i class="fa fa-plus"></i> Tambah Data Calon Siswa</a>
-							<button class="btn btn-danger" data-target="#cetak_formulir" data-toggle="modal"><i class="fa fa-print"></i> Cetak Kwitansi Pendaftaran</button>
+							<button class="btn btn-danger" data-target="#cetak_formulir" data-toggle="modal"><i class="fa fa-print"></i> Cetak Kwitansi Formulir Pendaftaran</button>
 						</div>
 					</div>
 						
@@ -57,7 +57,7 @@
 										<center>
 											<a href="<?php echo site_url('calon_siswa/cetak/').$siswa->id_calon_siswa ?>" class="btn btn-sm btn-info" title="Cetak"><i class="glyphicon glyphicon glyphicon-print"></i> Cetak</a>
 											<a href="<?php echo site_url('calon_siswa/edit/').$siswa->id_calon_siswa ?>" class="btn btn-sm btn-warning" title="Ubah"><i class="glyphicon glyphicon-pencil"></i> Ubah</a>
-											<button type="button" onclick="hapus('<?php echo $siswa->id_calon_siswa ?>')" class="btn btn-sm btn-danger" title="Hapus"><i class="glyphicon glyphicon-pencil"></i> Hapus</button>
+											<button type="button" onclick="hapus('<?php echo $siswa->id_calon_siswa ?>')" class="btn btn-sm btn-danger" title="Hapus"><i class="glyphicon glyphicon-trash"></i> Hapus</button>
 										</center>
 									</td>
 								</tr>

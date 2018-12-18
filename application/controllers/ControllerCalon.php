@@ -145,6 +145,13 @@ class ControllerCalon extends CI_Controller {
         $this->load->view('template/v_footer');
     }
 
+    public function cari_formulir()
+    {
+        $id = $this->input->post('id_formulir');
+        $data = $this->db->query("SELECT * FROM formulir WHERE id_formulir = '$id'")->row();
+        echo json_encode($data);
+    }
+
     
     public function simpan()
     {
@@ -153,12 +160,25 @@ class ControllerCalon extends CI_Controller {
         $thn_ajar2 = $this->input->post('thn_ajar2');
         $thn_ajar = $thn_ajar1."/".$thn_ajar2;
 
-        $data_pendaftaran = [
-            'id_daftar' => $this->Model->getKodePendaftar(),
-            'tgl_daftar' => date('Y-m-d'),
-            'thn_ajar' => $thn_ajar,
-            'id_calon_siswa' => $id_calon_siswa,
-        ];
+        $id_formulir = $this->input->post('id_formulir');
+
+        if($id_formulir == null){
+            $data_pendaftaran = [
+                'id_daftar' => $this->Model->getKodePendaftar(),
+                'tgl_daftar' => date('Y-m-d'),
+                'thn_ajar' => $thn_ajar,
+                'id_calon_siswa' => $id_calon_siswa,
+                'id_formulir' => null
+            ];
+        } else {
+            $data_pendaftaran = [
+                'id_daftar' => $this->Model->getKodePendaftar(),
+                'tgl_daftar' => date('Y-m-d'),
+                'thn_ajar' => $thn_ajar,
+                'id_calon_siswa' => $id_calon_siswa,
+                'id_formulir' => $id_formulir
+            ];
+        }
 
         $data_calon_siswa = [
             'id_calon_siswa' => $id_calon_siswa,
