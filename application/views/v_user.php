@@ -24,6 +24,11 @@
 			</ul>
 		</div>
 		<!-- END PAGE HEADER-->
+
+		<div id="show_notif">
+			 
+		</div>
+
 		<!-- BEGIN PAGE CONTENT-->
 		<div class="row">
 			<div class="col-md-12">
@@ -340,12 +345,14 @@ function simpan()
 				        {
 				        	$('#ModaltambahUser').modal('hide');
                 			reload_table();
+                			notif('sukses');
                 			$('#btn_simpan').text('save'); //change button text
 				            $('#btn_simpan').attr('disabled',false); //set button enable 
 				        },
 				        error: function (jqXHR, textStatus, errorThrown)
 				        {
 				            alert('Error Adding / Update Data');
+				            notif('gagal');
 				            $('#btn_simpan').text('save'); //change button text
 				            $('#btn_simpan').attr('disabled',false); //set button enable 
 				        }
@@ -355,6 +362,7 @@ function simpan()
 		        error: function (jqXHR, textStatus, errorThrown)
 		        {
 		            alert('Error Adding / Update Data');
+		            notif('gagal');
 		            $('#btn_simpan').text('save'); //change button text
 		            $('#btn_simpan').attr('disabled',false); //set button enable 
 		        }
@@ -364,6 +372,7 @@ function simpan()
         error: function (jqXHR, textStatus, errorThrown)
         {
             alert('Error Adding / Update Data');
+            notif('gagal');
             $('#btn_simpan').text('save'); //change button text
             $('#btn_simpan').attr('disabled',false); //set button enable 
         }
@@ -474,12 +483,14 @@ function update()
 			        {
 			            $('#ModalUpdateUser').modal('hide');
 			            reload_table();
+			            notif('sukses');
 			            $('#btn_simpan').text('save'); //change button text
 			            $('#btn_simpan').attr('disabled',false); //set button enable 
 			        },
 			        error: function (jqXHR, textStatus, errorThrown)
 			        {
 			            alert('Error Adding / Update Data');
+			            notif('gagal');
 			            $('#btn_simpan').text('save'); //change button text
 			            $('#btn_simpan').attr('disabled',false); //set button enable 
 			        }
@@ -497,8 +508,7 @@ function update()
 			        		alert('Username Sudah Ada');
 			        		return false;
 			        	} else {
-			        		alert('akan diupdate lagi');
-			  				var formData = new FormData($('#form_update')[0]);
+			        		var formData = new FormData($('#form_update')[0]);
 						    $.ajax({
 						        url : url,
 						        type: "POST",
@@ -510,12 +520,14 @@ function update()
 						        {
 						            $('#ModalUpdateUser').modal('hide');
 						            reload_table();
+						            notif('sukses');
 						            $('#btn_simpan').text('save'); //change button text
 						            $('#btn_simpan').attr('disabled',false); //set button enable 
 						        },
 						        error: function (jqXHR, textStatus, errorThrown)
 						        {
 						            alert('Error Adding / Update Data');
+						            notif('gagal');
 						            $('#btn_simpan').text('save'); //change button text
 						            $('#btn_simpan').attr('disabled',false); //set button enable 
 						        }
@@ -529,10 +541,40 @@ function update()
         error: function (jqXHR, textStatus, errorThrown)
         {
             alert('Error Adding / Update Data');
+          	notif('gagal');
             $('#btn_simpan').text('save'); //change button text
             $('#btn_simpan').attr('disabled',false); //set button enable 
         }
     });
+}
+
+function notif(status)
+{
+	var html = '';
+
+    if(status == 'sukses'){
+    	var data = "Sukses ! Data Berhasil Disimpan"
+    
+    	html += 
+   		'<div class="note note-success note-bordered">'+
+        	'<p>'+data+'</p>'+
+       	'</div>';
+
+    } else {
+    	var data = "Gagal ! Data Tidak Berhasil Disimpan"
+    
+    	html += 
+   		'<div class="note note-danger note-bordered">'+
+        	'<p>'+data+'</p>'+
+       	'</div>';
+    }
+                
+        $('#show_notif').html(html);
+
+    window.setTimeout(function() {
+	    $(".note-success").fadeTo(500, 0).slideUp(500, function(){ $(this).remove(); });
+	    $(".note-danger").fadeTo(500, 0).slideUp(500, function(){ $(this).remove(); }); 
+	}, 3000); 
 }
 
 </script>

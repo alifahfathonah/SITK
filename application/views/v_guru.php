@@ -24,6 +24,11 @@
 			</ul>
 		</div>
 		<!-- END PAGE HEADER-->
+
+		<div id="show_notif">
+			
+		</div>
+
 		<!-- BEGIN PAGE CONTENT-->
 		<div class="row">
 			<div class="col-md-12">
@@ -308,6 +313,7 @@ function simpan()
             $('#val_telp').hide();
             $('#btn_simpan').text('save'); //change button text
             $('#btn_simpan').attr('disabled',false); //set button enable
+            notif('sukses');
             setTimeout(function() {
               swal("Berhasil Disimpan", "", "success");
             }, 600); 
@@ -315,6 +321,7 @@ function simpan()
         error: function (jqXHR, textStatus, errorThrown)
         {
             alert('Error Adding / Update Data');
+            notif('gagal');
             $('#val_nm').hide();
             $('#val_lahir').hide();
             $('#val_telp').hide();
@@ -385,7 +392,7 @@ function detail_guru(id)
     $('#form')[0].reset(); // reset form on modals
     //Ajax Load data from ajax
     $.ajax({
-        url : "<?php echo site_url('guru/edit')?>/" + id,
+        url : "<?php echo site_url('guru/detail')?>/" + id,
         type: "GET",
         dataType: "JSON",
         success: function(data)
@@ -411,6 +418,36 @@ function detail_guru(id)
             alert('Error Get Data From Ajax');
         }
     });
+}
+
+function notif(status)
+{
+	var html = '';
+
+    if(status == 'sukses'){
+    	var data = "Sukses ! Data Berhasil Disimpan"
+    
+    	html += 
+   		'<div class="note note-success note-bordered">'+
+        	'<p>'+data+'</p>'+
+       	'</div>';
+
+    } else {
+    	var data = "Gagal ! Data Tidak Berhasil Disimpan"
+    
+    	html += 
+   		'<div class="note note-danger note-bordered">'+
+        	'<p>'+data+'</p>'+
+       	'</div>';
+    }
+                
+        $('#show_notif').html(html);
+
+
+    window.setTimeout(function() {
+	    $(".note-success").fadeTo(500, 0).slideUp(500, function(){ $(this).remove(); });
+	    $(".note-danger").fadeTo(500, 0).slideUp(500, function(){ $(this).remove(); }); 
+	}, 3000); 
 }
 
 </script>

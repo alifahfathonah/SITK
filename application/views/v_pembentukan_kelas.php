@@ -24,6 +24,13 @@
 			</ul>
 		</div>
 		<!-- END PAGE HEADER-->
+
+		<?php if($this->session->flashdata('pesan') == TRUE ) { ?>
+			<div class="note note-success note-bordered">
+        		<p> Sukses ! Data Berhasil Disimpan </p>
+       		</div>
+		<?php } ?>
+
 		<!-- BEGIN PAGE CONTENT-->
 		<div class="row">
 			<div class="col-md-12">
@@ -138,4 +145,9 @@
 $(document).ready( function () {
 	$('#table').DataTable();
 });
+
+window.setTimeout(function() {
+	    $(".note-success").fadeTo(500, 0).slideUp(500, function(){ $(this).remove(); });
+	    $(".note-danger").fadeTo(500, 0).slideUp(500, function(){ $(this).remove(); }); 
+	}, 3000);
 </script>

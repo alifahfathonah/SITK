@@ -77,6 +77,7 @@ $route['guru/simpan'] = 'ControllerGuru/simpan';
 $route['guru/guru_list'] = 'ControllerGuru/guru_list';
 $route['guru/hapus/(:any)'] = 'ControllerGuru/hapus/$1';
 $route['guru/edit/(:any)'] = 'ControllerGuru/edit/$1';
+$route['guru/detail/(:any)'] = 'ControllerGuru/detail/$1';
 $route['guru/ubah'] = 'ControllerGuru/ubah';
 
 //jenis

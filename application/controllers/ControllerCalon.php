@@ -149,7 +149,7 @@ class ControllerCalon extends CI_Controller {
     {
         $id = $this->input->post('id_formulir');
         $data = $this->db->query("SELECT * FROM formulir WHERE id_formulir = '$id'")->row();
-        echo json_encode($data);
+        return $data;
     }
 
     
@@ -160,7 +160,7 @@ class ControllerCalon extends CI_Controller {
         $thn_ajar2 = $this->input->post('thn_ajar2');
         $thn_ajar = $thn_ajar1."/".$thn_ajar2;
 
-        $id_formulir = $this->input->post('id_formulir');
+        $id_formulir = $this->cari_formulir();
 
         if($id_formulir == null){
             $data_pendaftaran = [
@@ -176,7 +176,7 @@ class ControllerCalon extends CI_Controller {
                 'tgl_daftar' => date('Y-m-d'),
                 'thn_ajar' => $thn_ajar,
                 'id_calon_siswa' => $id_calon_siswa,
-                'id_formulir' => $id_formulir
+                'id_formulir' => $id_formulir->id_formulir
             ];
         }
 
@@ -218,10 +218,13 @@ class ControllerCalon extends CI_Controller {
 
         $result1 = $this->Model->simpan('calon_siswa',$data_calon_siswa);
         $result2 = $this->Model->simpan('pendaftaran',$data_pendaftaran);
+
         if ($result1 && $result2){
-            echo json_encode(array("status" => TRUE));
+            $this->session->set_flashdata('pesan','Data Berhasil Disimpan');
+            redirect('calon_siswa');
         }else{
-            echo json_encode(array("status" => FALSE));
+            $this->session->set_flashdata('pesanGagal','Data Tidak Berhasil Disimpan');
+            redirect('calon_siswa');
         }
     }
 
@@ -317,10 +320,13 @@ class ControllerCalon extends CI_Controller {
 
         $result1 = $this->Model->update('id_calon_siswa',$id,$data_calon_siswa,'calon_siswa');
         $result2 = $this->Model->update('id_daftar',$id_daftar,$data_pendaftaran,'pendaftaran');
+        
         if ($result1 && $result2){
-            echo json_encode(array("status" => TRUE));
+            $this->session->set_flashdata('pesan','Data Berhasil Disimpan');
+            redirect('calon_siswa');
         }else{
-            echo json_encode(array("status" => FALSE));
+            $this->session->set_flashdata('pesanGagal','Data Tidak Berhasil Disimpan');
+            redirect('calon_siswa');
         }
     }
 

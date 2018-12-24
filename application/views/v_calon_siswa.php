@@ -43,7 +43,7 @@
 					<div class="portlet-body flip-scroll">
 						<div class="portlet light">
 							<div class="portlet-body form">
-								<form id="form">
+								<form method="POST" action="<?php echo site_url('calon_siswa/simpan') ?>" >
 									<div class="row">
 
 										<div class="col-md-6">
@@ -323,7 +323,7 @@
 											<a href="<?php echo site_url('calon_siswa') ?>" class="btn default btn-block">Kembali</a>
 										</div>
 										<div class="col-md-6">
-											<button type="button" onclick="simpan()" id="btn_simpan" class="btn blue btn-block">Save</button>
+											<button type="submit" id="btn_simpan" class="btn blue btn-block">Save</button>
 										</div>
 									</div>
 								
@@ -356,62 +356,5 @@ var next_year = currentTime.getFullYear()+1;
 
 $('[name="thn_ajar1"]').val(current_year);
 $('[name="thn_ajar2"]').val(next_year);
-
-function simpan()
-{
-	$('#btn_simpan').text('saving...'); //change button text
-    $('#btn_simpan').attr('disabled',true); //set button disable 
-
-    var id_formulir = $('[name="id_formulir"]').val();
-    //cari formulir
-    $.ajax({
-		url : "<?php echo site_url('calon_siswa/cari_formulir') ?>",
-		type: "POST",
-		data: {id_formulir:id_formulir},
-		dataType: "JSON",
-		success: function(data)
-		{
-
-			if(data == null){
-				$('[name="id_formulir"]').val(null);
-			} else {
-				$('[name="id_formulir"]').val(data.id_formulir);
-			}
-
-			var formData = new FormData($('#form')[0]);
-			$.ajax({
-				url : "<?php echo site_url('calon_siswa/simpan') ?>",
-				type: "POST",
-				data: formData,
-				contentType: false,
-				processData: false,
-				dataType: "JSON",
-				success: function(data)
-				{
-
-					window.location = "<?php  echo site_url('calon_siswa'); ?>";
-					$('#btn_simpan').text('save'); //change button text
-					$('#btn_simpan').attr('disabled',false); //set button enable 
-				},
-				error: function (jqXHR, textStatus, errorThrown)
-				{
-					alert('Error Adding / Update Data');
-					$('#btn_simpan').text('save'); //change button text
-					$('#btn_simpan').attr('disabled',false); //set button enable 
-				}
-			});    
-
-
-			$('#btn_simpan').text('save'); //change button text
-			$('#btn_simpan').attr('disabled',false); //set button enable 
-		},
-		error: function (jqXHR, textStatus, errorThrown)
-		{
-			alert('Error Adding / Update Data');
-			$('#btn_simpan').text('save'); //change button text
-			$('#btn_simpan').attr('disabled',false); //set button enable 
-		}
-	});  
-
-}
+ 
 </script>

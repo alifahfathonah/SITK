@@ -92,7 +92,7 @@ class ControllerGuru extends CI_Controller {
             'id_guru' => $data->id_guru,
             'nm_guru' => $data->nm_guru,
             'id_guru' => $data->id_guru,
-            'tgl_lahir' => shortdate_indo($data->tgl_lahir),
+            'tgl_lahir' => $data->tgl_lahir,
             'jenis_kelamin' => $data->jenis_kelamin,
             'no_telp' => $data->no_telp,
             'alamat' => $data->alamat,
@@ -101,6 +101,23 @@ class ControllerGuru extends CI_Controller {
 
 		echo json_encode($data);
 	}
+
+    public function detail($id)
+    {
+        $data = $this->Model->get_by_id('id_guru',$id,'guru');
+        $data = [
+            'id_guru' => $data->id_guru,
+            'nm_guru' => $data->nm_guru,
+            'id_guru' => $data->id_guru,
+            'tgl_lahir' => shortdate_indo($data->tgl_lahir),
+            'jenis_kelamin' => $data->jenis_kelamin,
+            'no_telp' => $data->no_telp,
+            'alamat' => $data->alamat,
+            'status_guru' => $data->status_guru
+        ];
+
+        echo json_encode($data);
+    }
 
 	public function ubah()
     {	

@@ -24,6 +24,19 @@
 			</ul>
 		</div>
 		<!-- END PAGE HEADER-->
+
+		<?php if($this->session->flashdata('pesan') == TRUE ) { ?>
+			<div class="note note-success note-bordered">
+        		<p> Sukses ! Data Berhasil Disimpan </p>
+       		</div>
+		<?php } ?>
+
+		<?php if($this->session->flashdata('pesanGagal') == TRUE ) { ?>
+		  <div class="note note-success note-bordered">
+        		<p> Gagal ! Data Tidak Berhasil Disimpan </p>
+       		</div>
+		<?php } ?>
+
 		<!-- BEGIN PAGE CONTENT-->
 		<div class="row">
 			<div class="col-md-12">
@@ -80,7 +93,7 @@
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title">Detail Siswa</h4>
+				<h4 class="modal-title">Detail Siswa /  <b> <?php echo $siswa->id_calon_siswa ?> </b> </h4>
 			</div>
 			<div class="modal-body">
 				
@@ -92,9 +105,9 @@
 								<table class="table table-responsive table-bordered" border="0">
 					            	<tbody>
 					            		<tr>
-					                 		<td width="120px">ID Calon Siswa</td>
+					                 		<td width="120px">ID Pendaftaran</td>
 					                  		<td width="20px">:</td>
-					                  		<td><b><?php echo $siswa->id_calon_siswa ?></b></td>
+					                  		<td><b><?php echo $siswa->id_daftar ?></b></td>
 					                	</tr>
 					                	<tr>
 					                  		<td>Nama Lengkap</td>
@@ -335,18 +348,13 @@
     	$('#table').DataTable();
 	} );
 
-  window.setTimeout(function() {
-    $(".alert-success").fadeTo(500, 0).slideUp(500, function(){ $(this).remove(); });
-    $(".alert-danger").fadeTo(500, 0).slideUp(500, function(){ $(this).remove(); }); 
-  }, 3000);
+function hapus(id)
+{ 
+	if(confirm('Anda Yakin Ingin Menghapus Data Ini?'))
+	{
+		$(location).attr('href','<?php echo site_url('calon_siswa/hapus/')?>'+id);
 
-	function hapus(id)
-	{ 
-		if(confirm('Anda Yakin Ingin Menghapus Data Ini?'))
-	    {
-	       $(location).attr('href','<?php echo site_url('calon_siswa/hapus/')?>'+id);
-
-	    }
+	}
 }
 
 function simpan()
@@ -382,7 +390,7 @@ function simpan()
 		        dataType: "JSON",
 		        success: function(data)
 		        {
-		            $('#btn_simpan').text('Print'); //change button text
+		        	$('#btn_simpan').text('Print'); //change button text
 		            $('#btn_simpan').attr('disabled',false); //set button enable 
 		        },
 		        error: function (jqXHR, textStatus, errorThrown)
@@ -403,4 +411,8 @@ function simpan()
     });
 }
 
+window.setTimeout(function() {
+	    $(".note-success").fadeTo(500, 0).slideUp(500, function(){ $(this).remove(); });
+	    $(".note-danger").fadeTo(500, 0).slideUp(500, function(){ $(this).remove(); }); 
+	}, 3000);
 </script>

@@ -179,6 +179,12 @@ function tambahKelas()
 
 	var guru = $('[name="guru"]').val();
 	var kelas = $('[name="kelas"]').val();
+
+	if(guru == null && kelas == null){
+		notif('gagal');
+		return false;
+	}
+
 	// ajax adding data to database
     var formData = new FormData($('#form')[0]);
     $.ajax({
@@ -251,7 +257,6 @@ function simpan()
 	        dataType: "JSON",
 	        success: function(data)
 	        {
-	        	window.location = "<?php  echo site_url('pembagian_kelas'); ?>";
 	            $('#tambahKelas').modal('hide');
 	            $('#btn_simpan').text('save'); //change button text
 	            $('#btn_simpan').attr('disabled',false); //set button enable 

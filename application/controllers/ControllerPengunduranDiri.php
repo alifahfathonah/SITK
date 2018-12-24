@@ -28,7 +28,7 @@ class ControllerPengunduranDiri extends CI_Controller {
 	public function no_induk()
     {
         $id = $this->input->post('no_induk');
-        $data = $this->db->query("SELECT nm_siswa,no_induk FROM siswa WHERE no_induk = '$id'")->row();
+        $data = $this->db->query("SELECT nm_siswa,no_induk FROM siswa WHERE no_induk = '$id' AND status_siswa = '1' ")->row();
         echo json_encode($data);
     }
 

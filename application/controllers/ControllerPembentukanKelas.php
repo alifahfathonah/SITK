@@ -141,5 +141,6 @@ class ControllerPembentukanKelas extends CI_Controller {
         }
 
         echo json_encode(array("status" => TRUE));
+        
     }
 }
