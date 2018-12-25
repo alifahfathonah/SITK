@@ -141,8 +141,9 @@
 
 							<div class="form-group">
 								<label><b>Jumlah Bayar</b></label>
-								<input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" name="nominal_bayar" placeholder="Jumlah Bayar" class="form-control">
-								<span class="help-block" style="color: red" id="val_lahir">* Harus Diisi</span>
+								<input type="number" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" name="nominal_bayar" max="2100000" placeholder="Jumlah Bayar" class="form-control">
+								<!-- <span class="help-block" style="color: red" id="uang_lebih">* Tidak Boleh Lebih Dari Rp. 2.100.000</span> -->
+								<span class="help-block" style="color: red" id="val_required">* Harus Diisi</span>
 							</div>
 
 						</div>
@@ -358,41 +359,74 @@ function simpan()
 	var uang = $('[name="nominal_bayar"]').val();
 
 	if(uang == ""){
-		$('.help-block').show();
+		$('#val_required').show();
 		return false;
 	}
 
-    $('#btn_simpan').text('saving...'); //change button text
-    $('#btn_simpan').attr('disabled',true); //set button disable 
-    var url;
+	if(uang > 2100000){
+		alert('Pembayaran Melebihi Nominal Yang Telah Ditentukan');
+		// $('#uang_lebih').show();
+		return false;
+	}
 
-    if(save_method == 'add') {
-        url = "<?php echo site_url('pembayaran/simpan')?>";
-    } else {
-        url = "<?php echo site_url('pembayaran/ubah')?>";
-    }
-
-    // ajax adding data to database
-    var formData = new FormData($('#form')[0]);
+    //validasi
+    var id_bayar = $('[name="id_bayar"]').val();
+    
     $.ajax({
-        url : url,
+        url : "<?php echo site_url('pembayaran/validasi')?>",
         type: "POST",
-        data: formData,
-        contentType: false,
-        processData: false,
+        data: {id_bayar:id_bayar},
         dataType: "JSON",
         success: function(data)
         {
-            $('#ModaltambahPembayaran').modal('hide');
-            reload_table();
-            notif('sukses');
-            $('#btn_simpan').text('save'); //change button text
-            $('#btn_simpan').attr('disabled',false); //set button enable 
+        	var dana = parseInt(data)+parseInt(uang);
+        	console.log(dana);
+        	if(dana > 2100000){
+        		alert('Pembayaran Melebihi Nominal Yang Telah Ditentukan');
+        		$('[name="nominal_bayar"]').val("");
+        		return false;
+        	}
+    		
+        	$('#btn_simpan').text('saving...'); //change button text
+		    $('#btn_simpan').attr('disabled',true); //set button disable 
+		    var url;
+
+		    if(save_method == 'add') {
+		        url = "<?php echo site_url('pembayaran/simpan')?>";
+		    } else {
+		        url = "<?php echo site_url('pembayaran/ubah')?>";
+		    }
+
+		    // ajax adding data to database
+		    var formData = new FormData($('#form')[0]);
+		    $.ajax({
+		        url : url,
+		        type: "POST",
+		        data: formData,
+		        contentType: false,
+		        processData: false,
+		        dataType: "JSON",
+		        success: function(data)
+		        {
+		            $('#ModaltambahPembayaran').modal('hide');
+		            reload_table();
+		            notif('sukses');
+		            $('#btn_simpan').text('save'); //change button text
+		            $('#btn_simpan').attr('disabled',false); //set button enable 
+		        },
+		        error: function (jqXHR, textStatus, errorThrown)
+		        {
+		            alert('Error Adding / Update Data');
+		            notif('gagal');
+		            $('#btn_simpan').text('save'); //change button text
+		            $('#btn_simpan').attr('disabled',false); //set button enable 
+		        }
+		    });
+
         },
         error: function (jqXHR, textStatus, errorThrown)
         {
             alert('Error Adding / Update Data');
-            notif('gagal');
             $('#btn_simpan').text('save'); //change button text
             $('#btn_simpan').attr('disabled',false); //set button enable 
         }
@@ -425,6 +459,7 @@ function hapus_pembayaran(id)
 
 function ubah_pembayaran(id)
 {
+	$('.help-block').hide();
 	save_method = 'update';
     $('#form')[0].reset(); // reset form on modals
     //Ajax Load data from ajax
@@ -488,6 +523,7 @@ function detail_pembayaran(id)
         dataType: "JSON",
         success: function(data)
         {
+        	console.log(data)
         	$('#ModalDetailPembayaran').modal('show'); 
         		var html = '';
                 var i;
@@ -568,5 +604,4 @@ function notif(status)
 	    $(".note-danger").fadeTo(500, 0).slideUp(500, function(){ $(this).remove(); }); 
 	}, 3000); 
 }
-
 </script>

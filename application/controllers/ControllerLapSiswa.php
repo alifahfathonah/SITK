@@ -39,7 +39,7 @@ class ControllerLapSiswa extends CI_Controller {
 
 		if($query == null){
 			$this->session->set_flashdata('pesanGagal','<strong>Gagal !</strong> Data Tidak Ditemukan.');
-			redirect('laporan_pmb');
+			redirect('laporan_siswa');
 		}
 
 		$pdf = new FPDF('P','mm','A4');
@@ -75,31 +75,28 @@ class ControllerLapSiswa extends CI_Controller {
         $pdf->Cell(10,1,'',0,1);
         $pdf->SetFont('Arial','B',8);
         $pdf->Cell(15,6,'No.',1,0,'C');
-        $pdf->Cell(70,6,'Nama',1,0,'C');
-        $pdf->Cell(45,6,'Jenis Kelamin',1,0,'C');
-        $pdf->Cell(30,6,'Umur',1,0,'C');
+        $pdf->Cell(30,6,'Nomor Induk',1,0,'C');
+        $pdf->Cell(75,6,'Nama',1,0,'C');
+        $pdf->Cell(40,6,'Jenis Kelamin',1,0,'C');
         $pdf->Cell(30,6,'Status',1,1,'C');
-
         
         $pdf->SetFont('Arial','',8);
 
         $no = 1;
         foreach($query as $data){
             $pdf->Cell(15,6,$no++.".",1,0,'C');
-            $pdf->Cell(70,6,$data->nm_lengkap,1,0);
-            $tanggal_lahir = date('Y')-substr($data->tgl_lahir, 0,4);
-            $pdf->Cell(45,6,$data->jenis_kelamin,1,0,'C');
-            $pdf->Cell(30,6,$tanggal_lahir.' Tahun',1,0,'C');
+            $pdf->Cell(30,6,$data->no_induk,1,0,'C');
+            $pdf->Cell(75,6,$data->nm_lengkap,1,0);
+            $pdf->Cell(40,6,$data->jenis_kelamin,1,0,'C');
             if($data->status_siswa == '0'){
                 $pdf->Cell(30,6,'Tidak Aktif',1,1,'C');
             } else {
                 $pdf->Cell(30,6,'Aktif',1,1,'C');
             }
-            
         }
 
         $pdf->Cell(10,15,'',0,1);
-        $pdf->SetFont('Arial','',8);
+        $pdf->SetFont('Arial','B',8);
         $pdf->Cell(63,6,'',0,0,'C');
         $pdf->Cell(63,6,'',0,0,'C');
         $pdf->Cell(63,5,'Jakarta, '.date_indo(date("Y-m-d")),0,1,'C');

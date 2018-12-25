@@ -43,7 +43,7 @@
 					<div class="portlet-body flip-scroll">
 						<div class="portlet light">
 							<div class="portlet-body form">
-								<form method="POST" action="<?php echo site_url('calon_siswa/simpan') ?>" >
+								<form id="form">
 									<div class="row">
 
 										<div class="col-md-6">
@@ -86,7 +86,7 @@
 													<input type="text" name="tempat_lahir" class="form-control" placeholder="Input Tempat Lahir">
 													<label for="form_control_1">Tempat Lahir</label>
 												</div>
-												<div class="form-group form-md-line-input">
+												<div class="form-group form-md-line-input" id="umur">
 													<input type="date" name="tgl_lahir" class="form-control" placeholder="Input Tanggal Lahir">
 													<label for="form_control_1">Tanggal Lahir</label>
 												</div>
@@ -180,7 +180,7 @@
 																			<label for="form_control_1">Agama</label>
 																		</div>
 																		<div class="form-group form-md-line-input">
-																			<input name="pendidikan_ayah" type="text" class="form-control" placeholder="Input Tempat Lahir">
+																			<input name="pendidikan_ayah" type="text" class="form-control" placeholder="Input Pendidikan Tertinggi">
 																			<label for="form_control_1">Pendidikan Tertinggi</label>
 																		</div>
 
@@ -264,7 +264,7 @@
 																			<label for="form_control_1">Agama</label>
 																		</div>
 																		<div class="form-group form-md-line-input">
-																			<input type="text" name="pendidikan_ibu" class="form-control" placeholder="Input Tempat Lahir">
+																			<input type="text" name="pendidikan_ibu" class="form-control" placeholder="Input Pendidikan Tertinggi">
 																			<label for="form_control_1">Pendidikan Tertinggi</label>
 																		</div>
 
@@ -323,7 +323,7 @@
 											<a href="<?php echo site_url('calon_siswa') ?>" class="btn default btn-block">Kembali</a>
 										</div>
 										<div class="col-md-6">
-											<button type="submit" id="btn_simpan" class="btn blue btn-block">Save</button>
+											<button type="button" onclick="simpan()" id="btn_simpan" class="btn blue btn-block">Save</button>
 										</div>
 									</div>
 								
@@ -357,4 +357,42 @@ var next_year = currentTime.getFullYear()+1;
 $('[name="thn_ajar1"]').val(current_year);
 $('[name="thn_ajar2"]').val(next_year);
  
+function simpan()
+{
+	if($('[name="tgl_lahir"]').val() == ""){
+		$("#umur").addClass('has-error');
+		$('[name="tgl_lahir"]').focus();
+		return false;
+	}
+
+    $('#btn_simpan').text('saving...'); //change button text
+    $('#btn_simpan').attr('disabled',true); //set button disable 
+ 
+    var url = "<?php echo site_url('calon_siswa/simpan')?>";
+    
+    // ajax adding data to database
+    var formData = new FormData($('#form')[0]);
+    $.ajax({
+        url : url,
+        type: "POST",
+        data: formData,
+        contentType: false,
+        processData: false,
+        dataType: "JSON",
+        success: function(data)
+        {
+            window.location.href="<?php echo base_url('calon_siswa')?>";
+            $('#btn_simpan').text('save'); //change button text
+            $('#btn_simpan').attr('disabled',false); //set button enable 
+        },
+        error: function (jqXHR, textStatus, errorThrown)
+        {
+            alert('Error Adding / Update Data');
+            $('#btn_simpan').text('save'); //change button text
+            $('#btn_simpan').attr('disabled',false); //set button enable 
+        }
+    });
+}
+
+
 </script>

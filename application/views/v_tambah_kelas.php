@@ -131,7 +131,7 @@
 
 							<hr>
 
-							<table>
+							<table id="pengajar">
 								<thead>
 									<th width="15%">Nama Guru</th>
 									<th width="5%"><center>:</center></th>
@@ -173,7 +173,7 @@ function tambahKelas()
 	if($('[name="umur"]').val() == ""){
 		$("#umur").removeClass("has-info");
 		$("#umur").addClass('has-error');
-		$('[name="umur"]').focus()
+		$('[name="umur"]').focus();
 		return false;
 	}
 
@@ -196,42 +196,60 @@ function tambahKelas()
         dataType: "JSON",
         success: function(data)
         {
-    		$('#tambahKelas').modal('show');
-    		var html = '';
-            var i;
-            no = 1;
-            for(i=0; i<data.length; i++){
-                html += 
-                '<tr>'+
-                	'<td align="center">'+no++ +'.</td>'+
-                    '<td>'+data[i].nm_lengkap+'</td>'+
-                '</tr>';
-            }
 
-            //get guru
-            $.ajax({
-		        url : "<?php echo site_url('pembagian_kelas/get_guru') ?>",
-		        type: "POST",
-		        data: {guru:guru},
-		        dataType: "JSON",
-		        success: function(data)
-		        {
-		        	$('#guru_pilih').text(data.nm_guru);
-		        }
-		    });
+        	if(data == false){
+        		$('#tambahKelas').modal('show');
+	    		var html = '';
+	            html = 
+	                '<tr>'+
+	                	'<td align="center" colspan="2"> <b> Data Kosong </b> </td>'+
+	                '</tr>';
+	            
+	            $('#pengajar').hide();
+        		$('#btn_simpan').attr('disabled',true);
 
-            //get kelas
-            $.ajax({
-		        url : "<?php echo site_url('pembagian_kelas/get_kelas') ?>",
-		        type: "POST",
-		        data: {kelas:kelas},
-		        dataType: "JSON",
-		        success: function(data)
-		        {
-		        	$('#kelas_pilih').text(data.nm_kelas);
-		        }
-		    });
-   			
+        	} else {
+        		
+        		$('#pengajar').show();
+        		$('#tambahKelas').modal('show');
+	    		$('#btn_simpan').attr('disabled',false);
+
+	    		var html = '';
+	            var i;
+	            no = 1;
+	            for(i=0; i<data.length; i++){
+	                html += 
+	                '<tr>'+
+	                	'<td align="center">'+no++ +'.</td>'+
+	                    '<td>'+data[i].nm_lengkap+'</td>'+
+	                '</tr>';
+	            }
+        	
+	            //get guru
+	            $.ajax({
+			        url : "<?php echo site_url('pembagian_kelas/get_guru') ?>",
+			        type: "POST",
+			        data: {guru:guru},
+			        dataType: "JSON",
+			        success: function(data)
+			        {
+			        	$('#guru_pilih').text(data.nm_guru);
+			        }
+			    });
+
+	            //get kelas
+	            $.ajax({
+			        url : "<?php echo site_url('pembagian_kelas/get_kelas') ?>",
+			        type: "POST",
+			        data: {kelas:kelas},
+			        dataType: "JSON",
+			        success: function(data)
+			        {
+			        	$('#kelas_pilih').text(data.nm_kelas);
+			        }
+			    });
+        	} 
+
             $('#isi').html(html);
         },
         error: function (jqXHR, textStatus, errorThrown)
@@ -257,6 +275,7 @@ function simpan()
 	        dataType: "JSON",
 	        success: function(data)
 	        {
+	        	window.location.href="<?php echo base_url('pembagian_kelas')?>";
 	            $('#tambahKelas').modal('hide');
 	            $('#btn_simpan').text('save'); //change button text
 	            $('#btn_simpan').attr('disabled',false); //set button enable 

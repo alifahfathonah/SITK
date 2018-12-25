@@ -4,7 +4,7 @@ class Pengunduran extends CI_Model {
 
 	var $table = 'pengunduran_diri';
 	var $column_search = array('id_undur_diri','tgl_undur_diri','no_induk');
-	var $column_order = array('id_undur_diri','tgl_undur_diri','no_induk',null); //set column field database for datatable orderable
+	var $column_order = array('id_undur_diri','tgl_undur_diri','no_induk',null); 
 	var $order = array('id_undur_diri' => 'desc');
 
 	public function __construct()
@@ -16,21 +16,21 @@ class Pengunduran extends CI_Model {
     {         
         $this->db->from($this->table);
         $i = 0;
-        foreach ($this->column_search as $item) // loop column 
+        foreach ($this->column_search as $item)  
         {
-            if($_POST['search']['value']) // if datatable send POST for search
+            if($_POST['search']['value']) 
             {
-                if($i===0) // first loop
+                if($i===0)
                 {
-                    $this->db->group_start(); // open bracket. query Where with OR clause better with bracket. because maybe can combine with other WHERE with AND.
+                    $this->db->group_start();
                     $this->db->like($item, $_POST['search']['value']);
                 }
                 else
                 {
                     $this->db->or_like($item, $_POST['search']['value']);
                 }
-                if(count($this->column_search) - 1 == $i) //last loop
-                    $this->db->group_end(); //close bracket
+                if(count($this->column_search) - 1 == $i)
+                    $this->db->group_end();
             }
             $i++;
         }

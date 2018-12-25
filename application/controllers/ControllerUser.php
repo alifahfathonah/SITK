@@ -52,10 +52,15 @@ class ControllerUser extends CI_Controller {
             $row[] = '<center>'.$user->username.'</center>';
             $row[] = '<center>'.ucwords($user->nm_user).'</center>';
             $row[] = '<center>'.$user->email.'</center>';
- 
-            //add html for action
-            $row[] = '<center><a class="btn btn-sm btn-primary" href="javascript:void(0)" onclick="ubah_user('."'".$user->id_user."'".')" title="Edit"><i class="glyphicon glyphicon-pencil"></i> Ubah</a>
+            
+            if($user->username == $this->session->username && $user->id_user == $this->session->id_user){
+                //add html for action
+                $row[] = '<center>-</center>';
+            } else {
+                //add html for action
+                $row[] = '<center><a class="btn btn-sm btn-primary" href="javascript:void(0)" onclick="ubah_user('."'".$user->id_user."'".')" title="Edit"><i class="glyphicon glyphicon-pencil"></i> Ubah</a>
                   <a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Hapus" onclick="hapus_user('."'".$user->id_user."'".')"><i class="glyphicon glyphicon-trash"></i> Hapus</a></center>';
+            }
          
             $data[] = $row;
         }

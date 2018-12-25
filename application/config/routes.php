@@ -129,6 +129,7 @@ $route['pembayaran/detail/(:any)'] = 'ControllerPembayaran/detail/$1';
 $route['pembayaran/id_daftar'] = 'ControllerPembayaran/id_daftar';
 $route['pembayaran/cetak'] = 'ControllerPembayaran/cetak';
 $route['pembayaran/ubah'] = 'ControllerPembayaran/ubah';
+$route['pembayaran/validasi'] = 'ControllerPembayaran/validasi';
 
 //pembentukan kelas
 $route['pembagian_kelas'] = 'ControllerPembentukanKelas';

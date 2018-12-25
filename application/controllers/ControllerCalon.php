@@ -221,10 +221,10 @@ class ControllerCalon extends CI_Controller {
 
         if ($result1 && $result2){
             $this->session->set_flashdata('pesan','Data Berhasil Disimpan');
-            redirect('calon_siswa');
+            echo json_encode(array("status" => TRUE));
         }else{
             $this->session->set_flashdata('pesanGagal','Data Tidak Berhasil Disimpan');
-            redirect('calon_siswa');
+            echo json_encode(array("status" => FALSE));
         }
     }
 
@@ -323,10 +323,10 @@ class ControllerCalon extends CI_Controller {
         
         if ($result1 && $result2){
             $this->session->set_flashdata('pesan','Data Berhasil Disimpan');
-            redirect('calon_siswa');
+            echo json_encode(array("status" => TRUE));
         }else{
             $this->session->set_flashdata('pesanGagal','Data Tidak Berhasil Disimpan');
-            redirect('calon_siswa');
+            echo json_encode(array("status" => FALSE));
         }
     }
 
@@ -397,10 +397,6 @@ class ControllerCalon extends CI_Controller {
         $pdf->Cell(5,6,':',0,0,'C');
         $pdf->Cell(40,6,''.$calon_siswa->thn_ajar,0,1,'L');
 
-        $pdf->Cell(25,6,'Tanggal',0,0,'L');
-        $pdf->Cell(5,6,':',0,0,'C');
-        $pdf->Cell(40,6,shortdate_indo(date('Y-m-d')),0,1,'L');
-
         $pdf->Cell(190,5,' ',0,1,'C');
         // Memberikan space kebawah agar tidak terlalu rapat
         $pdf->Cell(10,1,'',0,1);
@@ -450,6 +446,9 @@ class ControllerCalon extends CI_Controller {
 
         $pdf->Cell(10,20,'',0,1);
         $pdf->SetFont('Arial','B',8);
+        $pdf->Cell(63,6,'',0,0,'C');
+        $pdf->Cell(63,6,'',0,0,'C');
+        $pdf->Cell(63,5,'Jakarta, '.date_indo(date("Y-m-d")),0,1,'C');
         $pdf->Cell(63,6,'',0,0,'C');
         $pdf->Cell(63,6,'',0,0,'C');
         $pdf->Cell(63,6,'Hormat Kami',0,1,'C');

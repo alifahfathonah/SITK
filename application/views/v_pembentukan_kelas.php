@@ -31,6 +31,12 @@
        		</div>
 		<?php } ?>
 
+		<?php if($this->session->flashdata('pesanGagal') == TRUE ) { ?>
+			<div class="note note-danger note-bordered">
+        		<p> Gagal ! Data Tidak Berhasil Disimpan </p>
+       		</div>
+		<?php } ?>
+
 		<!-- BEGIN PAGE CONTENT-->
 		<div class="row">
 			<div class="col-md-12">
@@ -93,13 +99,15 @@
 						<table class="table table-responsive table-bordered" border="0">
 			            	<thead>
 			            		<th width="50px"><center>No.</center></th>
-			            		<th><center>Nama Mahasiswa</center></th>
+			            		<th width="150px"><center>Nomor Induk</center></th>
+			            		<th><center>Nama Siswa</center></th>
 			            	</thead>
 			            	<tbody>
 			            		<?php $detail_kelas = $this->db->query("SELECT * FROM siswa WHERE status_siswa = '1' AND id_kelas = '$kls->id_kelas'")->result(); $no=1; ?>
 			            		<?php foreach($detail_kelas as $dtl) { ?>
 				            		<tr>
 				            			<td align="center"><?php echo $no++."." ?></td>
+				            			<td align="center"><?php echo $dtl->no_induk ?></td>
 				            			<td><?php echo $dtl->nm_siswa ?></td>
 				            		</tr>
 			                	<?php } ?>

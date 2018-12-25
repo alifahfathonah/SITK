@@ -92,7 +92,7 @@ License: You must have a valid license purchased only from themeforest(the above
 	
 </div>
 <div class="copyright">
-	 2018 © TK Islam Tunas Harapan.
+	 <?php echo date('Y'); ?> © TK Islam Tunas Harapan.
 </div>
 
 <?php if ($this->session->flashdata('pesanGagal') == TRUE) { ?>

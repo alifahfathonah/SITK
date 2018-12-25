@@ -62,7 +62,7 @@ class ControllerPembayaran extends CI_Controller {
                 $row[] = '
                     <center>
                         <a class="btn btn-sm btn-info" href="javascript:void(0)" title="Detail" onclick="detail_pembayaran('."'".$pembayaran->id_bayar."'".')"><i class="glyphicon glyphicon glyphicon-folder-open"></i> Detail</a>
-                        <a class="btn btn-sm btn-primary" href="javascript:void(0)" onclick="ubah_pembayaran('."'".$pembayaran->id_bayar."'".')" title="Edit"><i class="glyphicon glyphicon-pencil"></i> Ubah</a>
+                        <a class="btn btn-sm btn-primary" href="javascript:void(0)" onclick="ubah_pembayaran('."'".$pembayaran->id_bayar."'".')" title="Update"><i class="glyphicon glyphicon-pencil"></i> Update</a>
                         <a class="btn btn-sm btn-warning" href="javascript:void(0)" title="Cetak" onclick="cetak_pembayaran('."'".$pembayaran->id_bayar."'".')"><i class="glyphicon glyphicon glyphicon-print"></i> Cetak</a>
                         <a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Hapus" onclick="hapus_pembayaran('."'".$pembayaran->id_bayar."'".')"><i class="glyphicon glyphicon-trash"></i> Hapus</a>
                     </center>';
@@ -108,24 +108,75 @@ class ControllerPembayaran extends CI_Controller {
 
     public function edit($id)
 	{
-
         $data = $this->db->query("
-            SELECT pendaftaran.id_daftar,jenis_pembayaran.id_jenis,nm_lengkap,nm_ayah,nm_ibu,thn_ajar,nm_jenis,jml_bayar 
-                FROM calon_siswa 
-                    JOIN pendaftaran ON calon_siswa.id_calon_siswa = pendaftaran.id_calon_siswa 
-                    JOIN pembayaran ON pendaftaran.id_daftar = pembayaran.id_daftar 
+            SELECT pendaftaran.id_daftar as id_daftar,jenis_pembayaran.id_jenis as id_jenis,nm_lengkap,nm_ayah,nm_ibu,thn_ajar,nm_jenis,jml_bayar,
+                (SELECT SUM(jml_bayar) FROM pendaftaran JOIN pembayaran ON pendaftaran.id_daftar = pembayaran.id_daftar 
                     JOIN detail_bayar ON pembayaran.id_bayar = detail_bayar.id_bayar 
                     JOIN jenis_pembayaran ON jenis_pembayaran.id_jenis = detail_bayar.id_jenis 
-                WHERE pembayaran.id_bayar = '$id'")->row();
+                WHERE pembayaran.id_bayar = '$id') as total
+            FROM calon_siswa 
+                JOIN pendaftaran ON calon_siswa.id_calon_siswa = pendaftaran.id_calon_siswa 
+                JOIN pembayaran ON pendaftaran.id_daftar = pembayaran.id_daftar 
+                JOIN detail_bayar ON pembayaran.id_bayar = detail_bayar.id_bayar 
+                JOIN jenis_pembayaran ON jenis_pembayaran.id_jenis = detail_bayar.id_jenis 
+            WHERE pembayaran.id_bayar = '$id'
+        ")->row();
 
-        echo json_encode($data);
+        $tampung = [
+            'id_daftar' => $data->id_daftar,
+            'id_jenis' => $data->id_jenis,
+            'nm_lengkap' => $data->nm_lengkap,
+            'nm_ayah' => $data->nm_ayah,
+            'nm_ibu' => $data->nm_ibu,
+            'thn_ajar' => $data->thn_ajar,
+            'nm_jenis' => $data->nm_jenis,
+            'jml_bayar' => number_format($data->total,0,',','.'),
+        ];
+
+        echo json_encode($tampung);
 	}
 
     public function id_daftar()
     {
         $id = $this->input->post('id_daftar');
         $data = $this->db->query("SELECT nm_lengkap,thn_ajar,nm_ayah,nm_ibu FROM calon_siswa JOIN pendaftaran ON calon_siswa.id_calon_siswa = pendaftaran.id_calon_siswa WHERE id_daftar = '$id'")->row();
-        echo json_encode($data);
+
+        $data2 = $this->db->query("SELECT nm_lengkap,thn_ajar,nm_ayah,nm_ibu 
+            FROM calon_siswa 
+            JOIN pendaftaran ON calon_siswa.id_calon_siswa = pendaftaran.id_calon_siswa 
+            JOIN pembayaran ON pembayaran.id_daftar = pendaftaran.id_daftar
+            WHERE pendaftaran.id_daftar = '$id'")->row();
+
+        if($data2 == null){
+            echo json_encode($data);
+        } else {
+            echo json_encode(null);
+        }
+    }
+
+    public function validasi()
+    {
+        $id_bayar = $this->input->post('id_bayar');
+
+        $data = $this->db->query("
+            SELECT 
+                (SELECT SUM(jml_bayar) FROM pendaftaran JOIN pembayaran ON pendaftaran.id_daftar = pembayaran.id_daftar 
+                    JOIN detail_bayar ON pembayaran.id_bayar = detail_bayar.id_bayar 
+                    JOIN jenis_pembayaran ON jenis_pembayaran.id_jenis = detail_bayar.id_jenis 
+                WHERE pembayaran.id_bayar = '$id_bayar') as total
+            FROM calon_siswa 
+                JOIN pendaftaran ON calon_siswa.id_calon_siswa = pendaftaran.id_calon_siswa 
+                JOIN pembayaran ON pendaftaran.id_daftar = pembayaran.id_daftar 
+                JOIN detail_bayar ON pembayaran.id_bayar = detail_bayar.id_bayar 
+                JOIN jenis_pembayaran ON jenis_pembayaran.id_jenis = detail_bayar.id_jenis 
+            WHERE pembayaran.id_bayar = '$id_bayar'
+        ")->row();
+
+        if($data == null){
+            echo json_encode($data);
+        } else {
+            echo json_encode($data->total);
+        }
     }
 
 	public function ubah()
@@ -135,9 +186,25 @@ class ControllerPembayaran extends CI_Controller {
         $jenis_pembayaran = $this->input->post('jenis_pembayaran');
 
         $jenis = $this->Model->get_by_id('id_jenis',$jenis_pembayaran,'jenis_pembayaran');
+        $nominal = $this->input->post('nominal_bayar');
+
+        //validasi
+        $validasi = $this->db->query("
+            SELECT SUM(jml_bayar) as total FROM pendaftaran 
+                JOIN pembayaran ON pendaftaran.id_daftar = pembayaran.id_daftar 
+                JOIN detail_bayar ON pembayaran.id_bayar = detail_bayar.id_bayar 
+                JOIN jenis_pembayaran ON jenis_pembayaran.id_jenis = detail_bayar.id_jenis 
+            WHERE pembayaran.id_bayar = '$id_bayar'
+        ")->row();
+
+        if($validasi->total+$nominal == 2100000){
+            $jenis_pembayaran = "Lunas";
+        } else {
+            $jenis_pembayaran = $jenis->nm_jenis;
+        }
 
     	$data = [
-            'status' => $jenis->nm_jenis,
+            'status' => $jenis_pembayaran,
             'id_daftar' => $this->input->post('id_daftar_edit'),
         ];
 
@@ -145,7 +212,7 @@ class ControllerPembayaran extends CI_Controller {
             'id_bayar' => $this->input->post('id_bayar'),
             'id_jenis' => $this->input->post('jenis_pembayaran'),
             'tgl_bayar' => date('Y-m-d'),
-            'jml_bayar' => $this->input->post('nominal_bayar'),
+            'jml_bayar' => $nominal,
         ];
 
     	$this->Model->update('id_bayar',$id_bayar,$data,'pembayaran');
@@ -236,14 +303,6 @@ class ControllerPembayaran extends CI_Controller {
         $pdf->Cell(190,10,'Kwitansi Pembayaran / '.$query->id_bayar,0,1,'C');
         
         $pdf->Cell(10,-1,'',0,1);
-
-        // $jasa = $this->Model->lapJasa($awal,$akhir);
-
-        // if($jasa == null) {
-        //     $this->session->set_flashdata('pesanGagal','Data Tidak Ditemukan');
-        //     redirect('laporan_jasa');
-        // }
-
         $pdf->SetFont('Arial','',9);
 
         $pdf->Cell(25,6,'ID Pendaftaran',0,0,'L');
@@ -308,6 +367,9 @@ class ControllerPembayaran extends CI_Controller {
 
         $pdf->Cell(10,20,'',0,1);
         $pdf->SetFont('Arial','B',8);
+        $pdf->Cell(63,6,'',0,0,'C');
+        $pdf->Cell(63,6,'',0,0,'C');
+        $pdf->Cell(63,5,'Jakarta, '.date_indo(date("Y-m-d")),0,1,'C');
         $pdf->Cell(63,6,'',0,0,'C');
         $pdf->Cell(63,6,'',0,0,'C');
         $pdf->Cell(63,6,'Hormat Kami',0,1,'C');

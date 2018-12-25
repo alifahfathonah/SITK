@@ -34,7 +34,7 @@ class ControllerLapKelas extends CI_Controller {
 		$tahun_ajaran = $thn_ajar1."/".$thn_ajar2;
 
 		$query = $this->db->query("
-            SELECT nm_siswa,calon_siswa.jenis_kelamin,status_siswa, calon_siswa.tgl_lahir as tgl_lahir FROM calon_siswa
+            SELECT nm_siswa,calon_siswa.jenis_kelamin,status_siswa, no_induk, calon_siswa.tgl_lahir as tgl_lahir FROM calon_siswa
                 JOIN pendaftaran ON calon_siswa.id_calon_siswa = pendaftaran.id_calon_siswa
                 JOIN siswa ON siswa.id_daftar = pendaftaran.id_daftar
                 JOIN kelas ON kelas.id_kelas = siswa.id_kelas
@@ -44,7 +44,7 @@ class ControllerLapKelas extends CI_Controller {
 
 		if($query == null){
 			$this->session->set_flashdata('pesanGagal','<strong>Gagal !</strong> Data Tidak Ditemukan.');
-			redirect('laporan_pmb');
+			redirect('laporan_kelas');
 		}
 
         $nama_kelas = $this->db->query("SELECT nm_kelas FROM kelas WHERE id_kelas = '$kelas'")->row();
@@ -82,9 +82,9 @@ class ControllerLapKelas extends CI_Controller {
         $pdf->Cell(10,1,'',0,1);
         $pdf->SetFont('Arial','B',8);
         $pdf->Cell(15,6,'No.',1,0,'C');
+        $pdf->Cell(30,6,'Nomor Induk',1,0,'C');
         $pdf->Cell(70,6,'Nama',1,0,'C');
         $pdf->Cell(45,6,'Jenis Kelamin',1,0,'C');
-        $pdf->Cell(30,6,'Umur',1,0,'C');
         $pdf->Cell(30,6,'Status',1,1,'C');
         
         $pdf->SetFont('Arial','',8);
@@ -92,11 +92,10 @@ class ControllerLapKelas extends CI_Controller {
         $no = 1;
         foreach($query as $data){
             $pdf->Cell(15,6,$no++.".",1,0,'C');
+            $pdf->Cell(30,6,$data->no_induk,1,0,'C');
             $pdf->Cell(70,6,$data->nm_siswa,1,0);
-            $tanggal_lahir = date('Y')-substr($data->tgl_lahir, 0,4);
             $pdf->Cell(45,6,$data->jenis_kelamin,1,0,'C');
-            $pdf->Cell(30,6,$tanggal_lahir.' Tahun',1,0,'C');
-            if($data->status_siswa = '0'){
+            if($data->status_siswa == '0'){
                 $pdf->Cell(30,6,'Tidak Aktif',1,1,'C');
             } else {
                 $pdf->Cell(30,6,'Aktif',1,1,'C');

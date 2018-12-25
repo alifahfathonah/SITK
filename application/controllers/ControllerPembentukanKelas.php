@@ -81,7 +81,16 @@ class ControllerPembentukanKelas extends CI_Controller {
         
         $query = $this->db->query("SELECT nm_lengkap FROM calon_siswa JOIN pendaftaran ON calon_siswa.id_calon_siswa = pendaftaran.id_calon_siswa WHERE thn_ajar = '$tahun_ajaran' AND YEAR(CURDATE())-YEAR(tgl_lahir) = '$umur'")->result();
 
-        echo json_encode($query);
+        $query2 = $this->db->query("SELECT pendaftaran.id_daftar FROM calon_siswa 
+            JOIN pendaftaran ON calon_siswa.id_calon_siswa = pendaftaran.id_calon_siswa
+            JOIN siswa ON siswa.id_daftar = pendaftaran.id_daftar
+            WHERE thn_ajar = '$tahun_ajaran'  AND YEAR(CURDATE())-YEAR(tgl_lahir) = '$umur'")->result();
+
+        if($query2 == null){
+            echo json_encode($query);
+        } else {
+            echo json_encode(false);
+        }
     }
 
     public function get_guru()
@@ -135,12 +144,17 @@ class ControllerPembentukanKelas extends CI_Controller {
                 'id_daftar' => $id_daftar[$i],
             ];
 
-            $this->Model->update('id_kelas',$kelas,$data1 = ['status_kelas' => '1'],'kelas');
-            $this->Model->update('id_guru',$guru,$data2 = ['status_guru' => '1'],'guru');
-            $this->Model->simpan('siswa',$data);
+            $update_1 = $this->Model->update('id_kelas',$kelas,$data1 = ['status_kelas' => '1'],'kelas');
+            $update_2 = $this->Model->update('id_guru',$guru,$data2 = ['status_guru' => '1'],'guru');
+            $simpan_1 = $this->Model->simpan('siswa',$data);
         }
 
-        echo json_encode(array("status" => TRUE));
-        
+        if($update_1 && $update_2 && $simpan_1){
+            $this->session->set_flashdata('pesan','Data Berhasil Disimpan');
+            echo json_encode(array("status" => TRUE));    
+        } else {
+            $this->session->set_flashdata('pesanGagal','Data Tidak Berhasil Disimpan');
+            echo json_encode(array("status" => FALSE));
+        }        
     }
 }

@@ -40,7 +40,7 @@ class ControllerLapPembayaran extends CI_Controller {
 
 		if($query == null){
 			$this->session->set_flashdata('pesanGagal','<strong>Gagal !</strong> Data Tidak Ditemukan.');
-			redirect('laporan_pmb');
+			redirect('laporan_pembayaran');
 		}
 
 		$pdf = new FPDF('P','mm','A4');
@@ -101,6 +101,9 @@ class ControllerLapPembayaran extends CI_Controller {
 
         $pdf->Cell(10,10,'',0,1);
         $pdf->SetFont('Arial','B',8);
+        $pdf->Cell(63,6,'',0,0,'C');
+        $pdf->Cell(63,6,'',0,0,'C');
+        $pdf->Cell(63,5,'Jakarta, '.date_indo(date("Y-m-d")),0,1,'C');
         $pdf->Cell(63,6,'',0,0,'C');
         $pdf->Cell(63,6,'',0,0,'C');
         $pdf->Cell(64,6,'Hormat Kami',0,1,'C');

@@ -183,7 +183,7 @@
 								<input type="password" name="repassword_update" placeholder="Ulangi Password" class="form-control">
 							</div>
 
-							<div class="form-group">
+							<div class="form-group" id="guru_hide">
 								<label><b>Nama Guru</b></label>
 								<div>
 									<select class="form-control" name="id_guru_update">
@@ -289,6 +289,8 @@ function simpan()
 
     if($('[name="password"]').val() != $('[name="repassword"]').val()){
     	alert('Password Tidak Sama');
+    	$('[name="password"]').val("");
+    	$('[name="repassword"]').val("");
     	return false;
     }
 
@@ -420,9 +422,11 @@ function ubah_user(id)
         	if(data.username == $('[name="username_session"]').val()){
         		$('#pass_hide').hide();
         		$('#pass_hide2').hide();
+        		$('#guru_hide').hide();
         	} else {
         		$('#pass_hide').show();
         		$('#pass_hide2').show();
+        		$('#guru_hide').show();
         	}
 
             $('#ModalUpdateUser').modal('show'); // show bootstrap modal when complete loaded
