@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 25 Des 2018 pada 16.02
+-- Waktu pembuatan: 25 Des 2018 pada 18.29
 -- Versi server: 10.1.35-MariaDB
 -- Versi PHP: 7.2.9
 
@@ -64,22 +64,6 @@ CREATE TABLE `calon_siswa` (
   `no_telp_ibu` varchar(15) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data untuk tabel `calon_siswa`
---
-
-INSERT INTO `calon_siswa` (`id_calon_siswa`, `nm_lengkap`, `nm_panggilan`, `jenis_kelamin`, `tempat_lahir`, `tgl_lahir`, `alamat`, `no_telp`, `anak_ke`, `jml_saudara`, `status_kandung`, `warga_negara`, `agama`, `nm_ayah`, `tempat_lahir_ayah`, `tgl_lahir_ayah`, `agama_ayah`, `pendidikan_ayah`, `pekerjaan_ayah`, `penghasilan_ayah`, `alamat_ayah`, `kantor_ayah`, `no_telp_ayah`, `nm_ibu`, `tempat_lahir_ibu`, `tgl_lahir_ibu`, `agama_ibu`, `pendidikan_ibu`, `pekerjaan_ibu`, `penghasilan_ibu`, `alamat_ibu`, `kantor_ibu`, `no_telp_ibu`) VALUES
-('CLS0000001', 'Ivan Fadhilah', 'Ipan', 'Laki-Laki', 'Jakarta', '2015-12-25', 'jalan petukangan raya no. 1', '083891778999', 1, 1, 'Kandung', 'Indonesia', 'Islam', 'Djaetun katanya', 'Jakartat', '1977-07-07', 'Islam', 'MTS', 'PNS', '> 5.000.000', 'jalan pondok laka', 'pondok kiwis', '08389177999', 'Fatmawati', 'Jakarta', '1980-08-08', 'Islam', ' MTS', 'Ibu Rumah Tangga', '1.000.000 - 2.000.000', '', '', '08378188322'),
-('CLS0000002', 'Zacky Burhani Hotib', 'Zacky', 'Laki-Laki', 'Jakarta', '2015-12-09', 'Cilangka', '083891778014', 2, 2, 'Kandung', 'Indonesia', 'Islam', 'Jaka', 'Jakarta', '1965-08-08', 'Islam', 'SMA', 'Wiraswasta', '> 3.000.000 - 5.000.000', 'Cilangka', 'Pondok Kacang', '083891778014', 'Fatmawati', 'Jakarta', '1997-08-08', 'Islam', 'SMA', 'Swasta', '> 2.000.000 - 3.000.000', 'Islam', '', '083891778014'),
-('CLS0000003', 'Muhammad Zein Hanafi', 'Jen', '', 'Karawang', '2015-08-08', 'Karawang', '', 0, 0, '', '', '', '', '', '0000-00-00', '', '', '', '', '', '', '', '', '', '0000-00-00', '', '', '', '', '', '', ''),
-('CLS0000004', 'Muhammad Faiz Alviansyah', 'Pais', '', 'Kuningan', '2014-08-08', 'Bintaro', '', 0, 0, '', '', '', '', '', '0000-00-00', '', '', '', '', '', '', '', '', '', '0000-00-00', '', '', '', '', '', '', ''),
-('CLS0000005', 'Andy Chahyono', 'Ndy', '', 'Jakarta', '2014-08-08', 'Ciledug', '', 0, 0, '', '', '', '', '', '0000-00-00', '', '', '', '', '', '', '', '', '', '0000-00-00', '', '', '', '', '', '', ''),
-('CLS0000006', 'Novia Indriani', 'mpi', '', 'Jakarta', '2014-08-08', 'Jakarta', '', 0, 0, '', '', '', '', '', '0000-00-00', '', '', '', '', '', '', '', '', '', '0000-00-00', '', '', '', '', '', '', ''),
-('CLS0000007', 'Sasa Nabila', 'Kubil', '', 'Jakarta', '2013-07-07', 'Ciputata', '', 0, 0, '', '', '', '', '', '0000-00-00', '', '', '', '', '', '', '', '', '', '0000-00-00', '', '', '', '', '', '', ''),
-('CLS0000008', 'Rifki Maulana', 'kiki', '', 'Jakarta', '2013-08-08', 'Cilangka', '', 0, 0, '', '', '', '', '', '0000-00-00', '', '', '', '', '', '', '', '', '', '0000-00-00', '', '', '', '', '', '', ''),
-('CLS0000009', 'Abdul Fariz', 'Fariz', '', 'Jakarta', '2013-08-08', 'Jakarta', '', 0, 0, '', '', '', '', '', '0000-00-00', '', '', '', '', '', '', '', '', '', '0000-00-00', '', '', '', '', '', '', ''),
-('CLS0000010', 'tes123123', 'tes123123', '', '', '2015-12-13', '', '', 0, 0, '', '', '', '', '', '0000-00-00', '', '', '', '', '', '', '', '', '', '0000-00-00', '', '', '', '', '', '', '');
-
 -- --------------------------------------------------------
 
 --
@@ -93,26 +77,6 @@ CREATE TABLE `detail_bayar` (
   `jml_bayar` int(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data untuk tabel `detail_bayar`
---
-
-INSERT INTO `detail_bayar` (`id_bayar`, `id_jenis`, `tgl_bayar`, `jml_bayar`) VALUES
-('BYR0000001', 'JNS01', '2018-12-25', 1000000),
-('BYR0000002', 'JNS01', '2018-12-25', 1000000),
-('BYR0000003', 'JNS02', '2018-12-25', 2100000),
-('BYR0000004', 'JNS01', '2018-12-25', 1000000),
-('BYR0000006', 'JNS02', '2018-12-25', 2100000),
-('BYR0000007', 'JNS02', '2018-12-25', 2100000),
-('BYR0000008', 'JNS01', '2018-12-25', 1000000),
-('BYR0000008', 'JNS02', '2018-12-25', 1100000),
-('BYR0000009', 'JNS01', '2018-12-25', 1000000),
-('BYR0000004', 'JNS02', '2018-12-25', 1100000),
-('BYR0000002', 'JNS02', '2018-12-25', 1100000),
-('BYR0000001', 'JNS02', '2018-12-25', 1100000),
-('BYR0000009', 'JNS02', '2018-12-25', 1100000),
-('BYR0000010', 'JNS02', '2018-12-25', 2100000);
-
 -- --------------------------------------------------------
 
 --
@@ -125,15 +89,6 @@ CREATE TABLE `formulir` (
   `biaya` int(10) DEFAULT NULL,
   `tgl_cetak` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `formulir`
---
-
-INSERT INTO `formulir` (`id_formulir`, `nm_penerima`, `biaya`, `tgl_cetak`) VALUES
-(174, 'ivan fadhilah', 250000, '2018-12-25'),
-(175, 'zacky', 250000, '2018-12-25'),
-(176, 'basuki', 250000, '2018-12-25');
 
 -- --------------------------------------------------------
 
@@ -156,9 +111,7 @@ CREATE TABLE `guru` (
 --
 
 INSERT INTO `guru` (`id_guru`, `nm_guru`, `tgl_lahir`, `jenis_kelamin`, `no_telp`, `alamat`, `status_guru`) VALUES
-('GRU0000001', 'Ita Novita S.Kom, M.T.I', '1978-08-08', 'Perempuan', '083891778014', 'Ciledug', '1'),
-('GRU0000002', 'Dr. Wendy Usino Sulaiman, M.Sc', '1980-07-07', 'Laki-Laki', '083891778999', 'Belinyu', '1'),
-('GRU0000003', 'Hendri Irawan, S.Kom, M.T.I', '1970-07-06', 'Laki-Laki', '083891778014', 'Jakarta', '1');
+('GRU0000001', 'Nisa Sabyan', '1998-08-08', 'Perempuan', '083891778014', 'Jakarta', '0');
 
 -- --------------------------------------------------------
 
@@ -191,15 +144,6 @@ CREATE TABLE `kelas` (
   `status_kelas` enum('0','1') DEFAULT NULL COMMENT '0 = kosong, 1 = terisi'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data untuk tabel `kelas`
---
-
-INSERT INTO `kelas` (`id_kelas`, `nm_kelas`, `status_kelas`) VALUES
-('KLS001', 'Kelas A', '1'),
-('KLS002', 'Kelas B', '1'),
-('KLS003', 'Kelas C', '1');
-
 -- --------------------------------------------------------
 
 --
@@ -212,21 +156,6 @@ CREATE TABLE `pembayaran` (
   `nominal_bayar` int(10) DEFAULT NULL,
   `id_daftar` char(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `pembayaran`
---
-
-INSERT INTO `pembayaran` (`id_bayar`, `status`, `nominal_bayar`, `id_daftar`) VALUES
-('BYR0000001', 'Lunas', 2100000, 'PTR0000001'),
-('BYR0000002', 'Lunas', 2100000, 'PTR0000002'),
-('BYR0000003', 'Lunas', 2100000, 'PTR0000003'),
-('BYR0000004', 'Lunas', 2100000, 'PTR0000004'),
-('BYR0000006', 'Lunas', 2100000, 'PTR0000006'),
-('BYR0000007', 'Lunas', 2100000, 'PTR0000008'),
-('BYR0000008', 'Lunas', 2100000, 'PTR0000009'),
-('BYR0000009', 'Lunas', 2100000, 'PTR0000005'),
-('BYR0000010', 'Lunas', 2100000, 'PTR0000007');
 
 -- --------------------------------------------------------
 
@@ -242,22 +171,6 @@ CREATE TABLE `pendaftaran` (
   `id_formulir` int(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data untuk tabel `pendaftaran`
---
-
-INSERT INTO `pendaftaran` (`id_daftar`, `tgl_daftar`, `thn_ajar`, `id_calon_siswa`, `id_formulir`) VALUES
-('PTR0000001', '2018-12-25', '2018/2019', 'CLS0000001', 174),
-('PTR0000002', '2018-12-25', '2018/2019', 'CLS0000002', NULL),
-('PTR0000003', '2018-12-25', '2018/2019', 'CLS0000003', 176),
-('PTR0000004', '2018-12-25', '2018/2019', 'CLS0000004', NULL),
-('PTR0000005', '2018-12-25', '2018/2019', 'CLS0000005', NULL),
-('PTR0000006', '2018-12-25', '2018/2019', 'CLS0000006', NULL),
-('PTR0000007', '2018-12-25', '2018/2019', 'CLS0000007', NULL),
-('PTR0000008', '2018-12-25', '2018/2019', 'CLS0000008', NULL),
-('PTR0000009', '2018-12-25', '2018/2019', 'CLS0000009', NULL),
-('PTR0000010', '2018-12-25', '2018/2019', 'CLS0000010', NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -270,13 +183,6 @@ CREATE TABLE `pengunduran_diri` (
   `alasan` varchar(255) DEFAULT NULL,
   `no_induk` char(6) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `pengunduran_diri`
---
-
-INSERT INTO `pengunduran_diri` (`id_undur_diri`, `tgl_undur_diri`, `alasan`, `no_induk`) VALUES
-('UD0001', '2018-12-25', 'Males', '180003');
 
 -- --------------------------------------------------------
 
@@ -292,21 +198,6 @@ CREATE TABLE `siswa` (
   `id_kelas` char(10) DEFAULT NULL,
   `id_daftar` char(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `siswa`
---
-
-INSERT INTO `siswa` (`no_induk`, `nm_siswa`, `status_siswa`, `id_guru`, `id_kelas`, `id_daftar`) VALUES
-('180001', 'Sasa Nabila', '1', 'GRU0000001', 'KLS001', 'PTR0000007'),
-('180002', 'Rifki Maulana', '1', 'GRU0000001', 'KLS001', 'PTR0000008'),
-('180003', 'Abdul Fariz', '0', 'GRU0000001', 'KLS001', 'PTR0000009'),
-('180004', 'Muhammad Faiz Alviansyah', '1', 'GRU0000002', 'KLS002', 'PTR0000004'),
-('180005', 'Andy Chahyono', '1', 'GRU0000002', 'KLS002', 'PTR0000005'),
-('180006', 'Novia Indriani', '1', 'GRU0000002', 'KLS002', 'PTR0000006'),
-('180007', 'Ivan Fadhilah', '1', 'GRU0000003', 'KLS003', 'PTR0000001'),
-('180008', 'Zacky Burhani Hotib', '1', 'GRU0000003', 'KLS003', 'PTR0000002'),
-('180009', 'Muhammad Zein Hanafi', '1', 'GRU0000003', 'KLS003', 'PTR0000003');
 
 -- --------------------------------------------------------
 
@@ -328,9 +219,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id_user`, `username`, `nm_user`, `email`, `password`, `id_guru`) VALUES
-(6, 'kompor', 'kompor gas ', 'kompor@gmail.com', '4297f44b13955235245b2497399d7a93', NULL),
-(7, 'admincolo', 'admin', 'kopitiam@gmail.coms', '4297f44b13955235245b2497399d7a93', NULL),
-(8, 'admin', 'Zacky Burhani Hotib', 'zackyburhani99@gmail.com', '21232f297a57a5a743894a0e4a801fc3', NULL);
+(8, 'admin', 'Muhammad Ivan Fadillah', 'admin@gmail.com', '21232f297a57a5a743894a0e4a801fc3', NULL),
+(11, 'admin_guru', 'Nisa Sabyan', 'sabyan@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'GRU0000001');
 
 --
 -- Indexes for dumped tables
@@ -425,7 +315,7 @@ ALTER TABLE `formulir`
 -- AUTO_INCREMENT untuk tabel `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_user` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)

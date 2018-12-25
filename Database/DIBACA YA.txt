@@ -1,0 +1,11 @@
+Root Admin
+=================
+username : admin
+password : admin
+================
+
+Admin (Guru)
+=================
+username : admin_guru
+password : 123456
+================
